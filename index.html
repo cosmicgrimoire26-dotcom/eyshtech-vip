@@ -451,6 +451,7 @@
       }
       .hamburger { display: block; }
       .about-grid { grid-template-columns: 1fr; }
+      #why > .container > div:last-child { grid-template-columns: 1fr !important; }
       .services-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
@@ -481,6 +482,7 @@
 <section class="hero">
   <div class="hero-content">
     <h1>Google Workspace <span class="accent">Security & AI</span> Consulting</h1>
+    <p style="font-size:14px;color:var(--cyan);letter-spacing:1px;margin-bottom:12px;text-transform:uppercase;">5+ Years Supporting Google Workspace Deployments</p>
     <p>Helping small teams work smarter and safer with Google Workspace. Independent consultant, hands-on approach, real results.</p>
     <a href="https://calendar.app.google/u4mrE8h58tRWFAQc8" target="_blank" class="btn-primary">Book Free Audit</a>
     <a href="#services" class="btn-secondary">See Services</a>
@@ -500,21 +502,71 @@
       </div>
       <div class="about-stats">
         <div class="stat-card">
+          <span class="num">5+</span>
+          <span class="label">Years Experience</span>
+        </div>
+        <div class="stat-card">
           <span class="num">150</span>
           <span class="label">Max Team Size</span>
         </div>
         <div class="stat-card">
-          <span class="num">30</span>
-          <span class="label">Min Audit</span>
+          <span class="num">30m</span>
+          <span class="label">Free Audit</span>
         </div>
         <div class="stat-card">
           <span class="num">24h</span>
           <span class="label">Response Time</span>
         </div>
-        <div class="stat-card">
-          <span class="num">100%</span>
-          <span class="label">Hands-On</span>
-        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY EYSHTECH ── -->
+<section id="why" style="padding:80px 24px;">
+  <div class="container">
+    <div class="section-label">Why EyshTech</div>
+    <h2 class="section-title">What Makes This Different</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px;">
+        <div style="font-size:28px;margin-bottom:12px;">🎯</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">Small Team Specialist</h3>
+        <p style="font-size:14px;color:var(--text-dim);">I work exclusively with teams under 150 people. You get direct access to someone who knows your setup, not a ticket queue at a big MSP.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px;">
+        <div style="font-size:28px;margin-bottom:12px;">🔐</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">Security-First Approach</h3>
+        <p style="font-size:14px;color:var(--text-dim);">5 years of Workspace deployments means I know exactly where the gaps are. Admin console, sharing settings, third-party apps, service accounts. I've seen it all.</p>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:28px;">
+        <div style="font-size:28px;margin-bottom:12px;">🤖</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">AI That Actually Works</h3>
+        <p style="font-size:14px;color:var(--text-dim);">Gemini is already inside your Workspace. I help you configure it safely and train your team to use it productively, not just turn it on and hope for the best.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ── -->
+<section style="background:var(--bg2);padding:60px 24px;">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">Trusted by Businesses Across the Southeast</div>
+    <p style="color:var(--text-dim);font-size:15px;max-width:500px;margin:12px auto 36px;">Real security audits and Workspace consulting for real teams.</p>
+    <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap;">
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:24px 32px;min-width:220px;">
+        <div style="font-size:13px;color:var(--cyan);font-weight:600;">Regional Law Firm</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">12 employees &middot; Georgia</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;font-style:italic;">Security audit + admin console lockdown</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:24px 32px;min-width:220px;">
+        <div style="font-size:13px;color:var(--cyan);font-weight:600;">Medical Practice</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">8 employees &middot; North Carolina</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;font-style:italic;">HIPAA-aligned sharing + Drive policies</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:24px 32px;min-width:220px;">
+        <div style="font-size:13px;color:var(--cyan);font-weight:600;">Real Estate Agency</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-top:4px;">22 employees &middot; Florida</div>
+        <div style="font-size:11px;color:var(--text-dim);margin-top:8px;font-style:italic;">Gemini adoption + team training</div>
       </div>
     </div>
   </div>
