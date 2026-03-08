@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MojoBrain — Multi-Agent AI Operating System | EyshTech</title>
+<meta name="description" content="7 autonomous AI agents that run your business 24/7. Security, finance, legal, lead generation — one intelligent brain. Built for solo operators, consultants, and small agencies.">
+<meta property="og:title" content="MojoBrain — 7 Autonomous Agents. One Intelligent Brain.">
+<meta property="og:description" content="A self-orchestrating AI ecosystem for operators drowning in manual ops. Deploy 7 agents on your Mac and let them handle the rest.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #080f06;
+    --bg-mid: #0e1a0f;
+    --bg-card: #131f14;
+    --bg-card-hover: #182616;
+    --green-glow: #4ade80;
+    --green-soft: #22c55e;
+    --green-dark: #166534;
+    --green-deeper: #0a3d1a;
+    --amber-glow: #fbbf24;
+    --amber-soft: #f59e0b;
+    --gold: #d4a843;
+    --gold-bright: #ecc94b;
+    --rose: #f87171;
+    --cyan: #67e8f9;
+    --violet: #a78bfa;
+    --text-primary: #e8f0e4;
+    --text-secondary: #9cb897;
+    --text-muted: #5a7a55;
+    --border: rgba(74, 222, 128, 0.1);
+    --border-glow: rgba(74, 222, 128, 0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'Nunito', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  /* === ATMOSPHERE === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(74, 222, 128, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 30%, rgba(251, 191, 36, 0.04) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 8 Q46 20 40 32 Q34 44 40 56 Q46 68 40 76' stroke='%234ade8006' fill='none' stroke-width='1'/%3E%3Ccircle cx='40' cy='32' r='2' fill='%234ade8004'/%3E%3C/svg%3E");
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === PARTICLES === */
+  .particle {
+    position: fixed;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0% { opacity: 0; transform: translateY(100vh) scale(0); }
+    15% { opacity: 0.25; }
+    85% { opacity: 0.25; }
+    100% { opacity: 0; transform: translateY(-40px) scale(1.2); }
+  }
+
+  /* === NAV === */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(8, 15, 6, 0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+  }
+
+  .nav-orb {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--green-glow), var(--green-dark));
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+    animation: breathe 4s ease-in-out infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: var(--bg-deep);
+  }
+
+  @keyframes breathe {
+    0%, 100% { box-shadow: 0 0 15px rgba(74, 222, 128, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(74, 222, 128, 0.5); }
+  }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.03em;
+  }
+
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--green-glow); }
+
+  .nav-cta {
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, var(--green-dark), var(--green-deeper));
+    border: 1px solid var(--border-glow);
+    border-radius: 8px;
+    color: var(--green-glow) !important;
+    font-weight: 700 !important;
+    transition: all 0.3s !important;
+  }
+
+  .nav-cta:hover {
+    background: linear-gradient(135deg, var(--green-soft), var(--green-dark)) !important;
+    color: var(--bg-deep) !important;
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+  }
+
+  /* === HERO === */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .hero-badge {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--amber-glow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding: 0.4rem 1.2rem;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 20px;
+    background: rgba(251, 191, 36, 0.05);
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--green-glow), var(--amber-glow), var(--green-soft));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    padding: 0.9rem 2.5rem;
+    background: linear-gradient(135deg, var(--green-glow), var(--green-soft));
+    color: var(--bg-deep);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 4px 20px rgba(74, 222, 128, 0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(74, 222, 128, 0.4);
+  }
+
+  .btn-secondary {
+    padding: 0.9rem 2.5rem;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-glow);
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(74, 222, 128, 0.05);
+    border-color: var(--green-glow);
+  }
+
+  .btn-amber {
+    padding: 0.7rem 2rem;
+    background: linear-gradient(135deg, var(--amber-glow), var(--amber-soft));
+    color: var(--bg-deep);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+  }
+
+  .btn-amber:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.35);
+  }
+
+  .hero-proof {
+    margin-top: 3rem;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    animation: fadeUp 0.8s ease 0.5s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* === SECTIONS === */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--amber-glow);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .section-sub {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  /* === SOCIAL PROOF BAR === */
+  .proof-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .proof-stat { text-align: center; }
+
+  .proof-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--green-glow);
+  }
+
+  .proof-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* === AGENT CARDS === */
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .agent-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .agent-card:hover {
+    border-color: var(--border-glow);
+    background: var(--bg-card-hover);
+    transform: translateY(-3px);
+  }
+
+  .agent-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .agent-card[data-accent="green"]::before { background: linear-gradient(90deg, var(--green-glow), transparent); }
+  .agent-card[data-accent="amber"]::before { background: linear-gradient(90deg, var(--amber-glow), transparent); }
+  .agent-card[data-accent="cyan"]::before { background: linear-gradient(90deg, var(--cyan), transparent); }
+  .agent-card[data-accent="violet"]::before { background: linear-gradient(90deg, var(--violet), transparent); }
+  .agent-card[data-accent="gold"]::before { background: linear-gradient(90deg, var(--gold), transparent); }
+  .agent-card[data-accent="rose"]::before { background: linear-gradient(90deg, var(--rose), transparent); }
+
+  .agent-card-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+  }
+
+  .agent-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .agent-card-role {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--green-glow);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+
+  .agent-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* === HOW IT WORKS === */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--green-glow);
+    flex-shrink: 0;
+  }
+
+  .step-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .step-content p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  /* === WHAT'S INCLUDED === */
+  .includes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+  }
+
+  .include-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .include-check {
+    color: var(--green-glow);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* === PRICING === */
+  .pricing-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .pricing-card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-3px);
+  }
+
+  .pricing-card.featured {
+    border-color: var(--green-glow);
+    box-shadow: 0 0 30px rgba(74, 222, 128, 0.1);
+    transform: scale(1.03);
+  }
+
+  .pricing-card.featured:hover {
+    transform: scale(1.03) translateY(-3px);
+  }
+
+  .pricing-card.featured::after {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    padding: 4px 16px;
+    background: var(--green-glow);
+    color: var(--bg-deep);
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .pricing-tier {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .pricing-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .pricing-card.featured .pricing-price { color: var(--green-glow); }
+
+  .pricing-note {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-features {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .pricing-features li {
+    padding: 0.35rem 0;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .pricing-features li::before {
+    content: '\2726';
+    color: var(--green-glow);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .pricing-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+
+  /* === RETAINER === */
+  .retainer-box {
+    max-width: 700px;
+    margin: 3rem auto 0;
+    background: var(--bg-card);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 16px;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .retainer-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .retainer-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--amber-glow);
+    margin-bottom: 0.2rem;
+  }
+
+  .retainer-note {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .retainer-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 1.5rem;
+    margin-bottom: 1.5rem;
+    list-style: none;
+  }
+
+  .retainer-features li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .retainer-features li::before {
+    content: '\2726';
+    color: var(--amber-glow);
+    font-size: 0.65rem;
+  }
+
+  /* === FAQ === */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: 1.2rem 1.5rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .faq-question:hover { background: var(--bg-card-hover); }
+
+  .faq-arrow {
+    color: var(--green-glow);
+    transition: transform 0.3s;
+    font-size: 0.8rem;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+    padding: 0 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding: 0 1.5rem 1.2rem;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  /* === FINAL CTA === */
+  .final-cta {
+    text-align: center;
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .final-cta h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .final-cta p {
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    font-size: 1.05rem;
+  }
+
+  /* === FOOTER === */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 2rem 2.5rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  footer a {
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+
+  footer a:hover { color: var(--green-glow); }
+
+  /* === DIVIDER === */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--green-glow), transparent);
+    margin: 4rem auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 960px) {
+    .pricing-container { grid-template-columns: 1fr; max-width: 420px; }
+    .pricing-card.featured { transform: none; }
+    .pricing-card.featured:hover { transform: translateY(-3px); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+    section { padding: 4rem 1.2rem; }
+    .includes-grid { grid-template-columns: 1fr; }
+    .proof-bar { gap: 1.5rem; }
+    .hero { padding: 7rem 1.2rem 3rem; }
+    .retainer-box { padding: 1.5rem; }
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-deep); }
+  ::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 3px; }
+
+/* === ENHANCED ANIMATIONS === */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.1); }
+  50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.25); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.float-anim { animation: float 6s ease-in-out infinite; }
+.float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
+
+.hero-badge {
+  background-size: 200% auto;
+  animation: fadeUp 0.8s ease both, shimmer 4s linear infinite;
+  background-image: linear-gradient(90deg, rgba(251,191,36,0.05), rgba(251,191,36,0.15), rgba(251,191,36,0.05));
+}
+
+.proof-number {
+  animation: countUp 0.6s ease both;
+}
+
+.pricing-card.featured {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.step:nth-child(odd) { animation: slideInLeft 0.6s ease both; }
+.step:nth-child(even) { animation: slideInRight 0.6s ease both; }
+
+/* Hover micro-interactions */
+.agent-card:hover .agent-card-icon {
+  animation: float 2s ease-in-out infinite;
+}
+
+.include-item:hover {
+  background: rgba(74, 222, 128, 0.06);
+  transform: translateX(4px);
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg) translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.btn-primary:hover::after {
+  transform: rotate(45deg) translateX(100%);
+}
+
+/* === TWO PRODUCTS SECTION === */
+.products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.product-card:hover {
+  border-color: var(--border-glow);
+  transform: translateY(-4px);
+}
+
+.product-card.premium {
+  border-color: var(--amber-glow);
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.08);
+}
+
+.product-card.premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--amber-glow), var(--gold), var(--amber-glow));
+}
+
+.product-card:not(.premium)::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-glow), var(--green-soft));
+}
+
+.product-badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.product-badge.template {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--green-glow);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.product-badge.full-service {
+  background: rgba(251, 191, 36, 0.1);
+  color: var(--amber-glow);
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.product-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.product-card .product-desc {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.product-card .product-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.product-card .product-price-note {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.product-features-mini {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+
+.product-features-mini li {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.product-features-mini li::before {
+  content: '\2726';
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+.product-card:not(.premium) .product-features-mini li::before { color: var(--green-glow); }
+.product-card.premium .product-features-mini li::before { color: var(--amber-glow); }
+.product-card.premium .product-price { color: var(--amber-glow); }
+.product-card:not(.premium) .product-price { color: var(--green-glow); }
+
+/* === INDUSTRY DROPDOWN === */
+.industry-section {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.industry-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin-top: 2rem;
+}
+
+.industry-select {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  background: var(--bg-deep);
+  border: 1px solid var(--border-glow);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%234ade80' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s;
+}
+
+.industry-select:focus {
+  outline: none;
+  border-color: var(--green-glow);
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
+}
+
+.industry-select option {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+}
+
+.industry-result {
+  display: none;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border-glow);
+  border-radius: 12px;
+  background: rgba(74, 222, 128, 0.03);
+  text-align: left;
+  animation: fadeUp 0.4s ease both;
+}
+
+.industry-result h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--green-glow);
+}
+
+.industry-result p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .products-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- Particles -->
+<div class="particle" style="left:8%;animation-duration:14s;animation-delay:0s;background:var(--green-glow);"></div>
+<div class="particle" style="left:22%;animation-duration:20s;animation-delay:4s;background:var(--amber-glow);"></div>
+<div class="particle" style="left:45%;animation-duration:16s;animation-delay:7s;background:var(--green-glow);"></div>
+<div class="particle" style="left:68%;animation-duration:22s;animation-delay:2s;background:var(--violet);"></div>
+<div class="particle" style="left:82%;animation-duration:18s;animation-delay:9s;background:var(--gold);"></div>
+<div class="particle" style="left:35%;animation-duration:25s;animation-delay:5s;background:var(--cyan);"></div>
+<div class="particle" style="left:55%;animation-duration:19s;animation-delay:11s;background:var(--green-glow);"></div>
+<div class="particle" style="left:92%;animation-duration:23s;animation-delay:3s;background:var(--amber-glow);"></div>
+<div class="particle" style="left:12%;animation-duration:28s;animation-delay:6s;background:var(--green-glow);width:4px;height:4px;"></div>
+<div class="particle" style="left:75%;animation-duration:17s;animation-delay:8s;background:var(--amber-glow);width:2px;height:2px;"></div>
+<div class="particle" style="left:40%;animation-duration:21s;animation-delay:1s;background:var(--gold);width:5px;height:5px;"></div>
+<div class="particle" style="left:60%;animation-duration:24s;animation-delay:13s;background:var(--green-soft);width:3px;height:3px;"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-orb">&diams;</div>
+    <span class="nav-name">MojoBrain</span>
+  </a>
+  <div class="nav-links">
+    <a href="#products">Products</a>
+    <a href="#agents">Agents</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#custom">Custom Build</a>
+    <a href="#faq">FAQ</a>
+    <a href="#pricing" class="nav-cta">Get MojoBrain</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">Multi-Agent AI Operating System</div>
+  <h1>
+    7 Autonomous Agents.<br>
+    <span class="gradient-text">One Intelligent Brain.</span>
+  </h1>
+  <p class="hero-sub">
+    Deploy a template with 7 agents or get a full custom build with 13+. Security, finance, legal, lead generation &mdash; running 24/7 while you focus on clients.
+  </p>
+  <div class="hero-ctas">
+    <a href="#pricing" class="btn-primary">Get the Playbook &mdash; $297</a>
+    <a href="#agents" class="btn-secondary">See What's Inside</a>
+  </div>
+  <p class="hero-proof">
+    Built and battle-tested by a real operator running 13+ agents in production.
+  </p>
+</div>
+
+<!-- Social Proof Bar -->
+<div class="divider"></div>
+<div class="proof-bar">
+  <div class="proof-stat">
+    <div class="proof-number">7</div>
+    <div class="proof-label">Autonomous Agents</div>
+  </div>
+  <div class="proof-stat">
+    <div class="proof-number">24/7</div>
+    <div class="proof-label">Unattended Operation</div>
+  </div>
+  <div class="proof-stat">
+    <div class="proof-number">$0</div>
+    <div class="proof-label">API Costs After Setup</div>
+  </div>
+  <div class="proof-stat">
+    <div class="proof-number">5min</div>
+    <div class="proof-label">Agent Scan Cycle</div>
+  </div>
+</div>
+<div class="divider"></div>
+
+<!-- Two Products -->
+<section id="products">
+  <div class="section-label">Two Ways In</div>
+  <h2 class="section-title" style="text-align:center;">Choose your depth.</h2>
+  <p class="section-sub" style="text-align:center;margin:0 auto 3rem;">Whether you want a template to deploy yourself or a full custom build — we've got you.</p>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-badge template">TEMPLATE &middot; SELF-DEPLOY</div>
+      <h3>MojoBrain</h3>
+      <p class="product-desc">A production-ready multi-agent AI template. 7 agents, Mission Control dashboard, deployment playbook. You install it, you own it.</p>
+      <div class="product-price">From $297</div>
+      <div class="product-price-note">One-time purchase &middot; 3 tiers available</div>
+      <ul class="product-features-mini">
+        <li>7 agent scripts + Nerve Center</li>
+        <li>Solarpunk Mission Control dashboard</li>
+        <li>Discord/Telegram integration</li>
+        <li>Step-by-step deployment playbook</li>
+        <li>Pattern detection + learnings system</li>
+      </ul>
+      <a href="#pricing" class="btn-primary" style="display:block;text-align:center;">See MojoBrain Tiers</a>
+    </div>
+
+    <div class="product-card premium">
+      <div class="product-badge full-service">FULL SERVICE &middot; WE BUILD IT</div>
+      <h3>CC Jarvis</h3>
+      <p class="product-desc">The full 13-agent orchestrator — customized to your business, installed on your machine, with ongoing support. This is what we run internally.</p>
+      <div class="product-price">From $2,497</div>
+      <div class="product-price-note">Custom build &middot; includes 90-day support</div>
+      <ul class="product-features-mini">
+        <li>13+ agents tailored to your operations</li>
+        <li>Full remote deployment on your hardware</li>
+        <li>Industry-specific agent customization</li>
+        <li>Branded dashboard + custom integrations</li>
+        <li>90-day priority support + strategy calls</li>
+        <li>Ongoing retainer option ($249/mo)</li>
+      </ul>
+      <a href="#custom" class="btn-amber" style="display:block;text-align:center;">Get a Custom Build</a>
+    </div>
+  </div>
+</section>
+
+<!-- Agents -->
+<section id="agents">
+  <div class="section-label">The Ecosystem</div>
+  <h2 class="section-title">Seven agents. Zero babysitting.</h2>
+  <p class="section-sub">Each agent runs autonomously on a schedule, reports to a central nervous system, and coordinates with other agents when cross-functional events occur.</p>
+
+  <div class="agents-grid">
+    <div class="agent-card" data-accent="green">
+      <div class="agent-card-icon">&#x1F9E0;</div>
+      <h3>Orchestrator &mdash; The Brain</h3>
+      <div class="agent-card-role">Central Intelligence</div>
+      <p>Reads all agent outputs, makes decisions, routes events, and sends you only what matters. The brain that connects everything. Powered by Claude Opus.</p>
+    </div>
+
+    <div class="agent-card" data-accent="rose">
+      <div class="agent-card-icon">&#x1F6E1;</div>
+      <h3>CSO &mdash; Security Officer</h3>
+      <div class="agent-card-role">Agent 01</div>
+      <p>Breach monitoring via Have I Been Pwned, SSL certificate tracking, skill trust verification, anomaly detection, and automated incident reports.</p>
+    </div>
+
+    <div class="agent-card" data-accent="cyan">
+      <div class="agent-card-icon">&#x1F3AF;</div>
+      <h3>Lead Engine</h3>
+      <div class="agent-card-role">Agent 04 Template</div>
+      <p>Domain validation, email confidence scoring, outreach sequences, and CRM pipeline management. Fully customizable to any industry you serve.</p>
+    </div>
+
+    <div class="agent-card" data-accent="amber">
+      <div class="agent-card-icon">&#x1F4B0;</div>
+      <h3>CFO &mdash; Finance Officer</h3>
+      <div class="agent-card-role">Agent 05</div>
+      <p>Monthly burn tracking, subscription monitoring, suspicious charge flagging, and tax deadline awareness. Your financial watchdog, always on.</p>
+    </div>
+
+    <div class="agent-card" data-accent="violet">
+      <div class="agent-card-icon">&#x2696;</div>
+      <h3>Law &mdash; Compliance</h3>
+      <div class="agent-card-role">Agent 07</div>
+      <p>GDPR/CCPA scanning, disclaimer database, contract clause library, and automated compliance routing. Keeps you covered without a retainer.</p>
+    </div>
+
+    <div class="agent-card" data-accent="green">
+      <div class="agent-card-icon">&#x2699;</div>
+      <h3>CTO &mdash; System Monitor</h3>
+      <div class="agent-card-role">Agent 09</div>
+      <p>System health monitoring, disk space tracking, cron job validation, and automated recovery protocols. Your infrastructure never sleeps.</p>
+    </div>
+
+    <div class="agent-card" data-accent="gold">
+      <div class="agent-card-icon">&#x1F331;</div>
+      <h3>Nerve Center</h3>
+      <div class="agent-card-role">Agent 10</div>
+      <p>Reads all agent outputs every 5 minutes. Builds unified state, detects cross-agent patterns, routes alerts intelligently. The nervous system of MojoBrain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section id="how">
+  <div class="section-label">Setup</div>
+  <h2 class="section-title">How it works</h2>
+  <p class="section-sub">MojoBrain runs on a Mac Mini (or any always-on machine). Follow the playbook, deploy the agents, and they start working.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-content">
+        <h3>Deploy the agents</h3>
+        <p>Follow the step-by-step playbook to install each agent. Each one is a Python script with a cron schedule &mdash; no Docker, no cloud servers, no complex infrastructure.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-content">
+        <h3>Configure your Nerve Center</h3>
+        <p>The Nerve Center connects all agents through a shared state file. Define your cross-agent routing rules &mdash; which events trigger which responses.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-content">
+        <h3>Connect Discord or Telegram</h3>
+        <p>Wire up webhook notifications with channel routing. Critical alerts, routine logs, and agent reports each go where they belong. You see what matters, nothing more.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-content">
+        <h3>Launch Mission Control</h3>
+        <p>The solarpunk dashboard gives you a real-time view of every agent's status, system health, and alerts &mdash; accessible from any device on your network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What's Included -->
+<section id="included">
+  <div class="section-label">Package</div>
+  <h2 class="section-title">What you get</h2>
+  <p class="section-sub">Everything you need to deploy a production-grade multi-agent AI system from scratch.</p>
+
+  <div class="includes-grid">
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>All 7 agent Python scripts, production-ready</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Nerve Center cross-agent coordination</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Orchestration loop with cron backup</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Mission Control dashboard (solarpunk UI)</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Discord AND Telegram integration templates</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Pattern detection engine</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Step-by-step deployment playbook</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Agent registry + dashboard reporting</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Learnings system (agents improve over time)</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Morning briefing automation</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>File-based event watcher (launchd config)</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Architecture guide for adding custom agents</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Cold email sequence templates (for Lead Engine)</span>
+    </div>
+    <div class="include-item">
+      <span class="include-check">&#x2726;</span>
+      <span>Industry customization guide</span>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section id="pricing">
+  <div class="section-label">Pricing</div>
+  <h2 class="section-title" style="text-align:center;">Choose your tier</h2>
+  <p class="section-sub" style="text-align:center;margin:0 auto 3rem;">One purchase. No subscriptions. No API fees beyond your Claude Max plan.</p>
+
+  <div class="pricing-container">
+    <!-- Tier 1: Playbook -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Playbook</div>
+      <div class="pricing-price">$297</div>
+      <div class="pricing-note">One-time purchase</div>
+      <ul class="pricing-features">
+        <li>All 7 agent scripts</li>
+        <li>Nerve Center system</li>
+        <li>Mission Control dashboard</li>
+        <li>Discord/Telegram integration</li>
+        <li>Deployment playbook</li>
+        <li>Pattern detection engine</li>
+        <li>Community Discord access</li>
+      </ul>
+      <a href="#" class="btn-primary pricing-btn">Get Playbook</a>
+    </div>
+
+    <!-- Tier 2: Guided Setup (Featured) -->
+    <div class="pricing-card featured">
+      <div class="pricing-tier">Guided Setup</div>
+      <div class="pricing-price">$797</div>
+      <div class="pricing-note">One-time purchase</div>
+      <ul class="pricing-features">
+        <li>Everything in Playbook</li>
+        <li>2-hour live setup call</li>
+        <li>30 days Discord DM support</li>
+        <li>Lead Engine customized to YOUR industry</li>
+        <li>Morning briefing automation</li>
+        <li>Learnings system</li>
+        <li>Cold email templates</li>
+        <li>Custom agent architecture guide</li>
+      </ul>
+      <a href="#" class="btn-primary pricing-btn">Get Guided Setup</a>
+    </div>
+
+    <!-- Tier 3: Managed Deploy -->
+    <div class="pricing-card">
+      <div class="pricing-tier">Managed Deploy</div>
+      <div class="pricing-price">$1,497</div>
+      <div class="pricing-note">One-time purchase</div>
+      <ul class="pricing-features">
+        <li>Everything in Guided Setup</li>
+        <li>Full remote installation on your machine</li>
+        <li>All agents configured for your business</li>
+        <li>90 days priority support</li>
+        <li>Quarterly optimization call</li>
+        <li>Custom dashboard branding</li>
+        <li>3 custom agent builds for your workflow</li>
+      </ul>
+      <a href="#" class="btn-primary pricing-btn">Get Managed Deploy</a>
+    </div>
+  </div>
+
+  <!-- Retainer Add-on -->
+  <div class="retainer-box">
+    <h3>Need ongoing support?</h3>
+    <div class="retainer-price">$149<span style="font-size:0.5em;color:var(--text-muted);font-family:'Fira Code',monospace;">/mo</span></div>
+    <div class="retainer-note">Add the Monthly Retainer to any tier</div>
+    <ul class="retainer-features">
+      <li>Monthly agent health review</li>
+      <li>Priority support</li>
+      <li>Agent updates &amp; patches</li>
+      <li>Quarterly strategy call</li>
+    </ul>
+    <a href="#" class="btn-amber">Add Monthly Support</a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-label">Questions</div>
+  <h2 class="section-title">FAQ</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question">
+        What hardware do I need?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        A Mac Mini M1 or later with at least 8GB RAM that stays powered on. Any always-on Mac or Linux machine works. MojoBrain runs as lightweight Python scripts on cron &mdash; minimal resources. All the heavy AI processing happens through Claude's API, not locally.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        What are the ongoing costs?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        Claude Max at $100/month. That's it. No additional API costs, no server fees, no per-agent charges. The agents run locally as Python scripts &mdash; they read files, write JSON, and report status. The intelligence comes from your Claude subscription.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        Is this just an OpenClaw wrapper?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        No. MojoBrain was built on OpenClaw but has evolved into its own architecture with Claude Code orchestration and a custom Nerve Center for agent coordination. No gateway to maintain, no framework-specific dependencies. It's agent scripts, cron jobs, JSON state files, and Claude &mdash; battle-tested in production.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        Can I add custom agents?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        Yes. Any Python script that writes a JSON output file can become an agent. The Nerve Center will detect it, track its health, and route its events. The architecture guide (included in Guided Setup and Managed Deploy) walks you through the exact structure.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        Do I need coding experience?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        Basic terminal comfort is all you need. The playbook has copy-paste commands for every step. If you can open Terminal and paste a command, you can deploy MojoBrain. For customization, Claude Code helps you modify agents conversationally &mdash; no Python expertise required.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        Discord or Telegram?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        Both supported out of the box. Choose during setup. Same webhook architecture, different endpoint. Most operators use Discord for its channel organization, but Telegram works identically for notifications and alerts.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question">
+        What industries does this work for?
+        <span class="faq-arrow">+</span>
+      </div>
+      <div class="faq-answer">
+        Any service business, consultancy, or agency. The Lead Engine and CFO agents are industry-agnostic by design. The CSO and Law agents cover universal security and compliance needs. Guided Setup includes customization to map the Lead Engine to your specific market.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Custom Build / Industry Selector -->
+<section id="custom">
+  <div class="industry-section">
+    <div class="section-label">Custom Build</div>
+    <h2 class="section-title">Built for your industry.</h2>
+    <p class="section-sub" style="margin:0 auto 1rem;">Tell us your industry and we'll show you exactly how CC Jarvis maps to your business. Every custom build includes agents tailored to your specific workflow.</p>
+
+    <div class="industry-form">
+      <select class="industry-select" id="industrySelect" onchange="showIndustryResult()">
+        <option value="">Select your industry...</option>
+        <option value="consulting">Consulting / Freelance</option>
+        <option value="agency">Marketing / Creative Agency</option>
+        <option value="legal">Legal / Law Firm</option>
+        <option value="realestate">Real Estate / Property</option>
+        <option value="ecommerce">E-Commerce / DTC</option>
+        <option value="saas">SaaS / Tech Startup</option>
+        <option value="healthcare">Healthcare / Wellness</option>
+        <option value="finance">Finance / Accounting</option>
+        <option value="construction">Construction / Trades</option>
+        <option value="education">Education / Coaching</option>
+        <option value="other">Other (Tell Us)</option>
+      </select>
+
+      <div class="industry-result" id="industryResult"></div>
+
+      <a href="https://calendar.app.google/vLLpwZmfSRH7TYJR9" target="_blank" class="btn-primary" style="display:block;text-align:center;margin-top:1.5rem;">Book a Custom Build Call</a>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<div class="final-cta">
+  <h2>Your business should run<br><span style="background:linear-gradient(135deg,var(--green-glow),var(--amber-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">even when you don't.</span></h2>
+  <p>Deploy MojoBrain and let 7 autonomous agents handle security, finance, legal, and lead generation while you focus on building.</p>
+  <a href="#pricing" class="btn-primary">Get MojoBrain</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div>
+    <a href="https://eyshtech.vip">EyshTech Consulting</a> &middot; MojoBrain
+  </div>
+  <div>
+    <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-question').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = q.parentElement;
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+      });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // Scroll reveal animations
+  var revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.agent-card, .step, .include-item, .pricing-card, .faq-item, .retainer-box, .proof-stat').forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    revealObserver.observe(el);
+  });
+
+  // Stagger animation for grid items
+  document.querySelectorAll('.agents-grid, .includes-grid, .pricing-container').forEach(function(grid) {
+    var children = grid.children;
+    for (var i = 0; i < children.length; i++) {
+      children[i].style.transitionDelay = (i * 0.08) + 's';
+    }
+  });
+
+  // Industry selector
+  function showIndustryResult() {
+    var select = document.getElementById('industrySelect');
+    var result = document.getElementById('industryResult');
+    var val = select.value;
+
+    var industries = {
+      consulting: {
+        title: 'Consulting & Freelance',
+        desc: 'Your CC Jarvis build would include: Lead Engine configured for your niche (B2B outreach sequences, domain validation, confidence scoring), CFO agent tracking project invoices and contractor payments, CSO monitoring client data security, and a Client Onboarding agent that automates intake forms and welcome sequences.',
+        agents: 'Lead Engine, CFO, CSO, CTO, Law, Client Onboarding, Proposal Generator'
+      },
+      agency: {
+        title: 'Marketing & Creative Agency',
+        desc: 'Your build would include: Content Calendar agent managing deliverables and deadlines, Lead Engine targeting brands needing agency services, CFO tracking retainer revenue and project profitability, and a Client Reporting agent that auto-generates performance summaries.',
+        agents: 'Content Calendar, Lead Engine, CFO, CSO, CTO, Client Reporter, Social Monitor'
+      },
+      legal: {
+        title: 'Legal & Law Firms',
+        desc: 'Your build would include: Case Tracker agent monitoring deadlines and filing dates, Compliance agent scanning for regulatory changes, CFO tracking billable hours and trust accounting, and a Client Intake agent that pre-qualifies leads and schedules consultations.',
+        agents: 'Case Tracker, Compliance, CFO, CSO, Client Intake, Document Monitor, Billing'
+      },
+      realestate: {
+        title: 'Real Estate & Property',
+        desc: 'Your build would include: Listing Monitor tracking MLS changes and price drops, Lead Engine qualifying buyer/seller leads with market data, CFO tracking commissions and closing costs, and a Transaction Coordinator agent managing the closing pipeline.',
+        agents: 'Listing Monitor, Lead Engine, CFO, CSO, Transaction Coordinator, Market Intel'
+      },
+      ecommerce: {
+        title: 'E-Commerce & DTC',
+        desc: 'Your build would include: Inventory Monitor tracking stock levels and reorder points, CFO tracking COGS and profit margins per SKU, Lead Engine running email/SMS acquisition campaigns, and a Review Monitor agent flagging negative reviews for immediate response.',
+        agents: 'Inventory Monitor, CFO, Lead Engine, CSO, Review Monitor, Fulfillment Tracker'
+      },
+      saas: {
+        title: 'SaaS & Tech Startups',
+        desc: 'Your build would include: Churn Predictor agent monitoring usage patterns, CFO tracking MRR/ARR and burn rate, CTO monitoring infrastructure health and deployment status, and a Lead Engine configured for product-led growth outreach.',
+        agents: 'Churn Predictor, CFO, CTO, CSO, Lead Engine, Deployment Monitor, Usage Analytics'
+      },
+      healthcare: {
+        title: 'Healthcare & Wellness',
+        desc: 'Your build would include: HIPAA Compliance agent monitoring data handling, Appointment Manager agent reducing no-shows, CFO tracking insurance claims and reimbursements, and a Patient Communication agent handling follow-ups and reminders.',
+        agents: 'HIPAA Compliance, Appointment Manager, CFO, CSO, Patient Comms, Billing'
+      },
+      finance: {
+        title: 'Finance & Accounting',
+        desc: 'Your build would include: Regulatory Monitor tracking SEC/IRS changes, CFO with enhanced tax deadline and quarterly filing automation, Client Portfolio agent monitoring client financial health, and a Compliance agent ensuring audit readiness.',
+        agents: 'Regulatory Monitor, CFO, Compliance, CSO, Client Portfolio, Audit Prep, Tax Calendar'
+      },
+      construction: {
+        title: 'Construction & Trades',
+        desc: 'Your build would include: Project Tracker monitoring job site progress and milestones, CFO tracking job costing and change orders, Lead Engine qualifying commercial and residential leads, and a Safety Compliance agent tracking certifications and inspections.',
+        agents: 'Project Tracker, CFO, Lead Engine, Safety Compliance, CSO, Permit Monitor'
+      },
+      education: {
+        title: 'Education & Coaching',
+        desc: 'Your build would include: Student/Client Pipeline agent managing enrollment funnel, Content Calendar for course launches and webinars, CFO tracking course revenue and refund rates, and a Community Manager agent monitoring engagement signals.',
+        agents: 'Student Pipeline, Content Calendar, CFO, CSO, Community Manager, Launch Planner'
+      },
+      other: {
+        title: 'Custom Industry Build',
+        desc: 'We build CC Jarvis for any industry. On the discovery call, we\'ll map your specific workflows to autonomous agents — identifying what can be automated, what needs monitoring, and where AI oversight saves you the most time.',
+        agents: 'Fully custom agent roster based on your workflow analysis'
+      }
+    };
+
+    if (val && industries[val]) {
+      var ind = industries[val];
+      result.innerHTML = '<h4>' + ind.title + '</h4>' +
+        '<p>' + ind.desc + '</p>' +
+        '<div style="font-family:\'Fira Code\',monospace;font-size:0.7rem;color:var(--amber-glow);letter-spacing:0.1em;">' +
+        'SUGGESTED AGENTS: ' + ind.agents + '</div>';
+      result.style.display = 'block';
+    } else {
+      result.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
