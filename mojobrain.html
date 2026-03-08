@@ -359,8 +359,18 @@
   /* === AGENT CARDS === */
   .agents-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.2rem;
+  }
+  .agents-grid .agent-card:first-child {
+    grid-column: 1 / -1;
+    max-width: 420px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  @media (max-width: 900px) {
+    .agents-grid { grid-template-columns: 1fr; }
+    .agents-grid .agent-card:first-child { max-width: 100%; }
   }
 
   .agent-card {
@@ -1119,6 +1129,15 @@
     <div class="proof-label">Agent Scan Cycle</div>
   </div>
 </div>
+
+<!-- Production Proof -->
+<div style="text-align:center;padding:2rem 1rem;margin:1.5rem auto;max-width:700px;">
+  <div style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:1.5rem 2rem;">
+    <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:0.15em;color:var(--green);margin-bottom:0.5rem;">RUNNING IN PRODUCTION</div>
+    <p style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);margin:0;">Currently powering EyshTech operations. 280+ automated tasks per day. Zero downtime since deployment. This is not a demo, it is live infrastructure.</p>
+  </div>
+</div>
+
 <div class="divider" style="margin:1.5rem auto;"></div>
 
 <!-- Two Products -->
@@ -1337,6 +1356,26 @@
   </div>
 </section>
 
+<!-- Who Is This For -->
+<section style="padding:4rem 2rem;">
+  <h2 class="section-title" style="text-align:center;">Who is this for?</h2>
+  <p class="section-sub" style="text-align:center;">MojoBrain is built for operators who are tired of being the bottleneck in their own business.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;max-width:900px;margin:2rem auto 0;">
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
+      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Solo consultants drowning in admin work
+    </div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
+      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Agency owners who want ops on autopilot
+    </div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
+      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Service businesses scaling without hiring
+    </div>
+    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
+      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Tech-curious founders who want AI working for them, not the other way around
+    </div>
+  </div>
+</section>
+
 <!-- Pricing -->
 <section id="pricing">
   <div class="section-label" style="text-align:center;">MojoBrain Pricing</div>
@@ -1356,6 +1395,7 @@
         <li>Mission Control dashboard</li>
         <li>Discord integration</li>
         <li>Deployment playbook</li>
+        <li>Video walkthroughs for each agent</li>
         <li>Pattern detection engine</li>
         <li>Community Discord access</li>
       </ul>
@@ -1375,6 +1415,7 @@
         <li>Morning briefing automation</li>
         <li>Learnings system</li>
         <li>Cold email templates</li>
+        <li>Skills library (web search, DNS audit, SEO, email sequences, and more)</li>
         <li>Custom agent architecture guide</li>
       </ul>
       <a href="https://buy.stripe.com/00w3cvgoOgbH6j481t6AM04" target="_blank" class="btn-primary pricing-btn">Get Guided Setup</a>
@@ -1482,7 +1523,8 @@
   </div>
 
   <div style="text-align:center;margin-top:2rem;">
-    <p style="font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text-muted);margin-bottom:1rem;">Want to talk it through first? No commitment.</p>
+    <p style="font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem;">Want to talk it through first? No commitment.</p>
+    <p style="font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--amber-glow);margin-bottom:1rem;">Currently onboarding 3 clients per month. Limited availability.</p>
     <a href="https://calendar.app.google/vLLpwZmfSRH7TYJR9" target="_blank" class="btn-secondary">Book a Free Discovery Call</a>
   </div>
 </section>
