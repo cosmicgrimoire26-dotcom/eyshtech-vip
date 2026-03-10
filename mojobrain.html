@@ -1453,8 +1453,10 @@
     </p>
 
     <form
+      id="lead-magnet-form"
       action="https://c3ac83fd.sibforms.com/serve/MUIFAIAU37xzxNoKzlDKYxv-15u-ZqAlwTy6bYoK93XSSH0LgyC26hJV3YMCVRomxMYgAedo7MNBP8gDBbxX8cjlG-1k27AaPBhk4rFFlK7qIVZFxZ1vJfV0GGa6kRfP52HW1taux3c1iS_GtnvCBEw1AxXOJzwCtZmett0et9jxwNO4nCsqP1vRpF_euVxVMHRuwELjR4XgmFfFw=="
       method="POST"
+      target="brevo-submit"
       style="
         display:flex;
         gap:10px;
@@ -1507,6 +1509,20 @@
         onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.background='linear-gradient(135deg, #166534 0%, #1a5c2e 100%)'"
       >Get the Free Guide</button>
     </form>
+    <iframe name="brevo-submit" style="display:none;"></iframe>
+    <script>
+    document.getElementById('lead-magnet-form').addEventListener('submit',function(){
+      var btn=this.querySelector('button');
+      btn.textContent='Downloading...';
+      btn.style.background='linear-gradient(135deg,#1a5c2e 0%,#22803a 100%)';
+      setTimeout(function(){
+        window.open('mojobrain-architecture-guide.pdf','_blank');
+        btn.textContent='Sent! Check your inbox too';
+        btn.disabled=true;
+        btn.style.opacity='0.7';
+      },800);
+    });
+    </script>
 
     <p style="
       font-family:'Nunito',sans-serif;
