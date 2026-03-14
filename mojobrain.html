@@ -965,8 +965,8 @@
     <div class="proof-label">Autonomous Operation</div>
   </div>
   <div class="proof-item">
-    <div class="proof-val">~$110</div>
-    <div class="proof-label">Monthly Cost</div>
+    <div class="proof-val">~$20</div>
+    <div class="proof-label">Monthly API Cost</div>
   </div>
   <div class="proof-item">
     <div class="proof-val" data-count="15" data-final="15 min">15 min</div>
@@ -982,7 +982,7 @@
       <h2>The MojoBrain Architecture Guide</h2>
       <p class="lm-detail">10 pages. Zero fluff.</p>
       <p class="lm-desc">
-        See exactly how 13 agents run a business on one machine for ~$100/mo. Includes 3 agent blueprints you can build this weekend.
+        See exactly how 13 agents run a business on one machine for as little as $5-20/mo in API costs. Includes 3 agent blueprints you can build this weekend.
       </p>
       <form id="lead-magnet-form"
         action="https://c3ac83fd.sibforms.com/serve/MUIFAIAU37xzxNoKzlDKYxv-15u-ZqAlwTy6bYoK93XSSH0LgyC26hJV3YMCVRomxMYgAedo7MNBP8gDBbxX8cjlG-1k27AaPBhk4rFFlK7qIVZFxZ1vJfV0GGa6kRfP52HW1taux3c1iS_GtnvCBEw1AxXOJzwCtZmett0et9jxwNO4nCsqP1vRpF_euVxVMHRuwELjR4XgmFfFw=="
@@ -990,10 +990,10 @@
         <input type="email" name="EMAIL" placeholder="your@email.com" required>
         <input type="hidden" name="locale" value="en">
         <input type="hidden" name="html_type" value="simple">
-        <button type="submit">Get the Free Guide</button>
+        <button type="submit">Send Me the Guide</button>
       </form>
       <iframe name="brevo-submit" style="display:none;"></iframe>
-      <p class="lm-fine">Delivered to your inbox. No spam, unsubscribe anytime.</p>
+      <p class="lm-fine">We'll send the guide straight to your inbox. No spam, unsubscribe anytime.</p>
     </div>
   </div>
 </section>
@@ -1407,17 +1407,16 @@
   </div>
 </footer>
 
-<!-- Lead Magnet Form Handler -->
+<!-- Lead Magnet Form Handler — email gated, no direct download -->
 <script>
 document.getElementById('lead-magnet-form').addEventListener('submit', function() {
   var btn = this.querySelector('button');
-  btn.textContent = 'Downloading...';
+  btn.textContent = 'Sending...';
   setTimeout(function() {
-    window.open('mojobrain-architecture-guide.pdf', '_blank');
-    btn.textContent = 'Sent! Check your inbox too';
+    btn.textContent = 'Check your email for the guide!';
     btn.disabled = true;
     btn.style.opacity = '0.6';
-  }, 800);
+  }, 1000);
 });
 </script>
 
