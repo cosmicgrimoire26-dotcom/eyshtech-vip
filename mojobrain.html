@@ -61,7 +61,7 @@
   :root {
     --bg: #0b0b0f;
     --bg-raised: #131318;
-    --bg-card: #17171e;
+    --bg-card: #1c1c26;
     --bg-card-hover: #1e1e28;
     --gold: #D4A843;
     --gold-dim: rgba(212, 168, 67, 0.15);
@@ -74,7 +74,7 @@
     --gray-500: #71717a;
     --gray-700: #3f3f46;
     --gray-900: #27272a;
-    --border: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.1);
     --border-gold: rgba(212, 168, 67, 0.2);
   }
 
@@ -92,8 +92,48 @@
 
   /* === UTILITY === */
   .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  /* --- ANIMATIONS --- */
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+
+    /* Hero stagger */
+    .hero-badge { animation: fadeUp 0.6s ease both; }
+    .hero h1 { animation: fadeUp 0.7s ease 0.1s both; }
+    .hero-sub { animation: fadeUp 0.7s ease 0.25s both; }
+    .hero-ctas { animation: fadeUp 0.7s ease 0.4s both; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Hover enhancements */
+    .pain-card, .agent-card, .pricing-card, .jarvis-card { transition: all 0.3s ease; }
+    .pain-card:hover, .agent-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .pricing-card:hover, .jarvis-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+    .pricing-card.featured:hover { box-shadow: 0 12px 40px rgba(74,222,128,0.1); }
+    .jarvis-card.featured:hover { box-shadow: 0 12px 40px rgba(212,168,67,0.1); }
+
+    /* CTA shimmer */
+    .btn-primary, .btn-gold { position: relative; overflow: hidden; }
+    .btn-primary::after, .btn-gold::after {
+      content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      transition: left 0.5s;
+    }
+    .btn-primary:hover::after, .btn-gold:hover::after { left: 100%; }
+
+    /* Page fade-in */
+    body { animation: pageFade 0.3s ease both; }
+    @keyframes pageFade { from { opacity: 0; } to { opacity: 1; } }
+
+    /* Counter animation */
+    .proof-val { transition: opacity 0.3s; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; }
+  }
 
   /* === NAV === */
   .nav {
@@ -823,7 +863,7 @@
 <!-- Proof Bar -->
 <div class="proof-bar">
   <div class="proof-item">
-    <div class="proof-val">13</div>
+    <div class="proof-val" data-count="13" data-final="13">0</div>
     <div class="proof-label">Autonomous Agents</div>
   </div>
   <div class="proof-item">
@@ -835,7 +875,7 @@
     <div class="proof-label">API Costs</div>
   </div>
   <div class="proof-item">
-    <div class="proof-val">5 min</div>
+    <div class="proof-val" data-count="5" data-final="5 min">0</div>
     <div class="proof-label">Scan Cycle</div>
   </div>
 </div>
@@ -1274,9 +1314,10 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
 });
 </script>
 
-<!-- Scroll Reveal -->
+<!-- Scroll Reveal + Counter Animation -->
 <script>
 (function() {
+  // Scroll reveal
   var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
@@ -1285,10 +1326,32 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
       }
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
   document.querySelectorAll('.reveal').forEach(function(el) {
     observer.observe(el);
   });
+
+  // Counter animation for proof bar
+  var counted = false;
+  var proofObserver = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !counted) {
+      counted = true;
+      document.querySelectorAll('.proof-val[data-count]').forEach(function(el) {
+        var target = parseInt(el.dataset.count);
+        var duration = 1200;
+        var start = performance.now();
+        function step(now) {
+          var progress = Math.min((now - start) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = el.dataset.final || target;
+        }
+        requestAnimationFrame(step);
+      });
+    }
+  }, { threshold: 0.5 });
+  var proofBar = document.querySelector('.proof-bar');
+  if (proofBar) proofObserver.observe(proofBar);
 })();
 </script>
 

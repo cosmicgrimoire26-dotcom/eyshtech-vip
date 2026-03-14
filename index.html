@@ -54,7 +54,7 @@
 :root {
   --bg: #0b0b0f;
   --bg-raised: #131318;
-  --bg-card: #17171e;
+  --bg-card: #1c1c26;
   --bg-card-hover: #1e1e28;
   --gold: #D4A843;
   --gold-dim: rgba(212,168,67,0.15);
@@ -64,7 +64,7 @@
   --gray-300: #a1a1aa;
   --gray-500: #71717a;
   --gray-700: #3f3f46;
-  --border: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.1);
   --border-gold: rgba(212,168,67,0.2);
 }
 
@@ -434,15 +434,54 @@ footer {
 }
 .footer-email a:hover { color: var(--gold); }
 
-/* --- SCROLL REVEAL --- */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+/* --- ANIMATIONS --- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* Hero entrance: immediate, staggered */
+  .hero-content { animation: heroFade 0.8s ease both; }
+  .hero-content h1 { animation: heroFade 0.7s ease 0.1s both; }
+  .hero-content p { animation: heroFade 0.7s ease 0.25s both; }
+  .hero-cta-row { animation: heroFade 0.7s ease 0.4s both; }
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Hover lifts */
+  .path-card { transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
+  .path-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+
+  /* CTA shimmer */
+  .btn-primary { position: relative; overflow: hidden; }
+  .btn-primary::after {
+    content: '';
+    position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.5s;
+  }
+  .btn-primary:hover::after { left: 100%; }
+
+  /* Page fade-in */
+  body { animation: pageFade 0.3s ease both; }
+  @keyframes pageFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
 }
 
 /* --- RESPONSIVE --- */
@@ -493,7 +532,7 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-content reveal">
+  <div class="hero-content">
     <h1>AI operations and Google Workspace consulting for businesses that refuse to stay small.</h1>
     <p>EyshTech helps solo operators and lean teams automate their ops, secure their Workspace, and scale without hiring.</p>
     <div class="hero-cta-row">
@@ -508,7 +547,7 @@ footer {
   <div class="container">
     <div class="paths-grid">
 
-      <div class="path-card green-accent reveal">
+      <div class="path-card green-accent reveal reveal-delay-1">
         <div class="path-label green">For Atlanta SMBs</div>
         <h3>Google Workspace Consulting</h3>
         <p class="desc">Security audits, admin configuration, user access reviews, and AI tool adoption for Google Workspace environments.</p>
@@ -516,7 +555,7 @@ footer {
         <a href="/workspace" class="path-cta green">Learn More &rarr;</a>
       </div>
 
-      <div class="path-card gold-accent reveal">
+      <div class="path-card gold-accent reveal reveal-delay-2">
         <div class="path-label gold">For Solo Operators Nationally</div>
         <h3>MojoBrain AI Operations</h3>
         <p class="desc">13 autonomous AI agents handle your lead gen, outreach, compliance, content, and finances &mdash; 24/7. You just approve.</p>
