@@ -11,15 +11,15 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MojoBrain — AI Operations System for Solo Operators | EyshTech</title>
-<meta name="description" content="13 autonomous AI agents run your lead gen, outreach, compliance, and finances 24/7. You just approve. Built by a 6-year Google Workspace Sr. Account Manager.">
+<title>MojoBrain — AI Operations System for Businesses &amp; Teams | EyshTech</title>
+<meta name="description" content="13 autonomous AI agents run your lead gen, outreach, compliance, and finances 24/7. For founders, lean teams, and growing businesses. You just approve.">
 <meta property="og:title" content="MojoBrain — Your Business Runs Itself. You Just Approve.">
 <meta property="og:description" content="13 autonomous AI agents handle lead gen, outreach, compliance, content, and finances — 24/7. From $297.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://eyshtech.vip/mojobrain">
 <meta property="og:image" content="https://eyshtech.vip/dashboard-preview.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MojoBrain — AI Operations System for Solo Operators">
+<meta name="twitter:title" content="MojoBrain — AI Operations System for Businesses &amp; Teams">
 <meta name="twitter:description" content="13 autonomous AI agents run your business 24/7. You just approve. From $297.">
 <meta name="twitter:image" content="https://eyshtech.vip/dashboard-preview.png">
 <link rel="canonical" href="https://eyshtech.vip/mojobrain">
@@ -42,40 +42,42 @@
 }
 </script>
 
-<!-- JSON-LD: LocalBusiness Schema -->
+<!-- JSON-LD: Organization Schema -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "Organization",
   "name": "EyshTech",
-  "description": "AI operations consulting and Google Workspace security audits for small businesses.",
+  "description": "AI operations consulting and Google Workspace security audits for founders, lean teams, and growing businesses.",
   "url": "https://eyshtech.vip",
-  "address": {"@type": "PostalAddress", "addressLocality": "Atlanta", "addressRegion": "GA", "addressCountry": "US"},
   "email": "admin@eyshtech.vip",
-  "priceRange": "$97-$2500"
+  "areaServed": {"@type": "Country", "name": "US"}
 }
 </script>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0b0b0f;
-    --bg-raised: #131318;
-    --bg-card: #22222e;
-    --bg-card-hover: #1e1e28;
-    --gold: #D4A843;
-    --gold-dim: rgba(212, 168, 67, 0.15);
-    --gold-glow: rgba(212, 168, 67, 0.08);
-    --green: #4ade80;
-    --green-dim: rgba(74, 222, 128, 0.12);
-    --white: #f0f0f0;
-    --gray-100: #d4d4d8;
-    --gray-300: #a1a1aa;
-    --gray-500: #71717a;
-    --gray-700: #3f3f46;
-    --gray-900: #27272a;
-    --border: rgba(255, 255, 255, 0.14);
-    --border-gold: rgba(212, 168, 67, 0.2);
+    --bg: #0a1a14;
+    --bg-raised: #0e2119;
+    --bg-card: #12291f;
+    --bg-card-hover: #173424;
+    --gold: #f0c040;
+    --gold-dim: rgba(240, 192, 64, 0.12);
+    --gold-glow: rgba(240, 192, 64, 0.06);
+    --green: #39d353;
+    --green-dim: rgba(57, 211, 83, 0.12);
+    --green-glow: rgba(57, 211, 83, 0.08);
+    --teal: #0891b2;
+    --white: #e8f0e4;
+    --gray-100: #c8d8c2;
+    --gray-300: #9cb897;
+    --gray-500: #6a8a65;
+    --gray-700: #3a5a35;
+    --gray-900: #1e3a1a;
+    --border: rgba(57, 211, 83, 0.12);
+    --border-gold: rgba(240, 192, 64, 0.2);
+    --border-green: rgba(57, 211, 83, 0.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -88,6 +90,35 @@
     line-height: 1.7;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* === ORGANIC BACKGROUND === */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 600px at 15% 20%, rgba(57, 211, 83, 0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 500px at 80% 60%, rgba(8, 145, 178, 0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 400px at 50% 90%, rgba(240, 192, 64, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle 300px at 20% 40%, rgba(57, 211, 83, 0.04) 0%, transparent 100%),
+      radial-gradient(circle 250px at 75% 30%, rgba(240, 192, 64, 0.03) 0%, transparent 100%);
+    animation: organicDrift 30s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes organicDrift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.05); }
+    100% { transform: translate(-20px, 15px) scale(0.98); }
   }
 
   /* === UTILITY === */
@@ -139,7 +170,7 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1rem 2rem;
-    background: rgba(11, 11, 15, 0.8);
+    background: rgba(10, 26, 20, 0.85);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
@@ -169,7 +200,7 @@
     transition: all 0.2s !important;
     letter-spacing: 0.01em;
   }
-  .nav-cta:hover { background: #e0b84e !important; transform: translateY(-1px); }
+  .nav-cta:hover { background: #f5d050 !important; transform: translateY(-1px); }
 
   .nav-hamburger {
     display: none; background: none; border: none; cursor: pointer; padding: 4px;
@@ -187,10 +218,17 @@
   }
   .hero::before {
     content: '';
-    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background:
+      radial-gradient(circle at 40% 40%, rgba(57, 211, 83, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 60% 60%, rgba(240, 192, 64, 0.06) 0%, transparent 50%);
     pointer-events: none;
+    animation: heroGlow 8s ease-in-out infinite alternate;
+  }
+  @keyframes heroGlow {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
   }
   .hero-badge {
     display: inline-block;
@@ -453,7 +491,7 @@
     padding: 1.5rem;
     transition: all 0.3s;
   }
-  .agent-card:hover { border-color: var(--gray-700); transform: translateY(-2px); }
+  .agent-card:hover { border-color: var(--border-green); transform: translateY(-2px); box-shadow: 0 0 20px rgba(57, 211, 83, 0.06); }
   .agent-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; display: block; }
   .agent-card h3 {
     font-family: 'DM Sans', sans-serif;
@@ -540,7 +578,7 @@
   .pricing-card:hover { border-color: var(--gray-700); }
   .pricing-card.featured {
     border-color: var(--green);
-    box-shadow: 0 0 40px rgba(74, 222, 128, 0.06);
+    box-shadow: 0 0 40px rgba(57, 211, 83, 0.08);
   }
   .pricing-card.featured::after {
     content: 'MOST POPULAR';
@@ -689,7 +727,7 @@
   .jarvis-card:hover { border-color: var(--gold); }
   .jarvis-card.featured {
     border-color: var(--gold);
-    box-shadow: 0 0 40px var(--gold-glow);
+    box-shadow: 0 0 40px rgba(240, 192, 64, 0.08);
   }
   .jarvis-card.featured::after {
     content: 'RECOMMENDED';
@@ -804,7 +842,7 @@
       flex-direction: column;
       position: absolute;
       top: 100%; left: 0; right: 0;
-      background: rgba(11, 11, 15, 0.98);
+      background: rgba(10, 26, 20, 0.98);
       backdrop-filter: blur(24px);
       padding: 1.5rem 2rem;
       gap: 1rem;
@@ -852,7 +890,7 @@
   <div class="hero-badge">AI Operations System</div>
   <h1>Your business runs itself.<br>You just approve.</h1>
   <p class="hero-sub">
-    13 autonomous AI agents handle lead gen, outreach, compliance, content, and finances — 24/7. Built by a 6-year Google Workspace Sr. Account Manager running it in daily production.
+    13 autonomous AI agents handle lead gen, outreach, compliance, content, and finances — 24/7. For founders, lean teams, and growing businesses. Built by a 6-year Google Workspace Sr. Account Manager running it in daily production.
   </p>
   <div class="hero-ctas">
     <a href="#lead-magnet" class="btn btn-primary">Download Free Architecture Guide</a>
@@ -863,19 +901,19 @@
 <!-- Proof Bar -->
 <div class="proof-bar">
   <div class="proof-item">
-    <div class="proof-val" data-count="13" data-final="13">0</div>
+    <div class="proof-val" data-count="13" data-final="13">13</div>
     <div class="proof-label">Autonomous Agents</div>
   </div>
   <div class="proof-item">
     <div class="proof-val">24/7</div>
-    <div class="proof-label">Unattended Operation</div>
+    <div class="proof-label">Autonomous Operation</div>
   </div>
   <div class="proof-item">
-    <div class="proof-val">$0</div>
-    <div class="proof-label">API Costs</div>
+    <div class="proof-val">~$110</div>
+    <div class="proof-label">Monthly Cost</div>
   </div>
   <div class="proof-item">
-    <div class="proof-val" data-count="5" data-final="5 min">0</div>
+    <div class="proof-val" data-count="15" data-final="15 min">15 min</div>
     <div class="proof-label">Scan Cycle</div>
   </div>
 </div>
@@ -1037,7 +1075,7 @@
   <div class="container section-center">
     <div class="section-label">MojoBrain Pricing</div>
     <h2 class="section-title">Choose your setup tier.</h2>
-    <p class="section-sub">One-time purchase. Runs on a Mac Mini, Linux box, or VM. You choose your LLM provider. Typical ongoing cost: $5-20/mo for API usage.</p>
+    <p class="section-sub">One-time purchase. Runs on a Mac Mini, Linux box, or VM. Works for solo founders, startups, and SMBs up to 50 people. Typical ongoing cost: $5-20/mo for API usage.</p>
 
     <div class="pricing-grid">
       <!-- Playbook -->
@@ -1290,7 +1328,7 @@
 
 <!-- Footer -->
 <footer>
-  <span>&copy; 2026 EyshTech. Atlanta, GA.</span>
+  <span>&copy; 2026 EyshTech</span>
   <div class="footer-links">
     <a href="https://eyshtech.vip">Home</a>
     <a href="https://eyshtech.vip/workspace">Workspace</a>
@@ -1332,26 +1370,32 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
 
   // Counter animation for proof bar
   var counted = false;
-  var proofObserver = new IntersectionObserver(function(entries) {
-    if (entries[0].isIntersecting && !counted) {
-      counted = true;
-      document.querySelectorAll('.proof-val[data-count]').forEach(function(el) {
-        var target = parseInt(el.dataset.count);
-        var duration = 1200;
-        var start = performance.now();
-        function step(now) {
-          var progress = Math.min((now - start) / duration, 1);
-          var eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.round(target * eased);
-          if (progress < 1) requestAnimationFrame(step);
-          else el.textContent = el.dataset.final || target;
-        }
-        requestAnimationFrame(step);
-      });
-    }
-  }, { threshold: 0.5 });
+  function runCounters() {
+    if (counted) return;
+    counted = true;
+    document.querySelectorAll('.proof-val[data-count]').forEach(function(el) {
+      var target = parseInt(el.dataset.count);
+      var finalText = el.dataset.final || String(target);
+      el.textContent = '0';
+      var duration = 1200;
+      var start = performance.now();
+      function step(now) {
+        var progress = Math.min((now - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * eased);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = finalText;
+      }
+      requestAnimationFrame(step);
+    });
+  }
   var proofBar = document.querySelector('.proof-bar');
-  if (proofBar) proofObserver.observe(proofBar);
+  if (proofBar) {
+    var proofObserver = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting) runCounters();
+    }, { threshold: 0.3 });
+    proofObserver.observe(proofBar);
+  }
 })();
 </script>
 
