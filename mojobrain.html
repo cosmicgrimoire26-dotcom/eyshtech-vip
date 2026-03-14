@@ -359,6 +359,71 @@
   .section-center { text-align: center; }
   .section-center .section-sub { margin-left: auto; margin-right: auto; }
 
+  /* === TWO PRODUCTS === */
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-card.green-product {
+    border-top: 2px solid var(--green);
+  }
+  .product-card.green-product:hover { border-color: var(--border-green); box-shadow: 0 0 30px rgba(74,222,128,0.1); }
+  .product-card.gold-product {
+    border-top: 2px solid var(--gold);
+  }
+  .product-card.gold-product:hover { border-color: var(--border-gold); box-shadow: 0 0 30px rgba(251,191,36,0.1); }
+  .product-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    padding: 3px 10px; border-radius: 2px;
+    display: inline-block; margin-bottom: 1rem;
+  }
+  .product-badge.template { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+  .product-badge.full-service { background: rgba(251,191,36,0.1); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+  .product-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .product-desc { color: var(--gray-300); font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.65; }
+  .product-price {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 0.2rem;
+  }
+  .product-card.green-product .product-price { color: var(--green); }
+  .product-card.gold-product .product-price { color: var(--gold); }
+  .product-price-note {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; color: var(--gray-500); margin-bottom: 1.5rem;
+  }
+  .product-features {
+    list-style: none; margin-bottom: 1.5rem;
+  }
+  .product-features li {
+    font-size: 0.82rem; color: var(--gray-300);
+    padding: 0.2rem 0; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .product-features li::before { content: '\2713'; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+  .product-card.green-product .product-features li::before { color: var(--green); }
+  .product-card.gold-product .product-features li::before { color: var(--gold); }
+  @media (max-width: 768px) {
+    .products-grid { grid-template-columns: 1fr; }
+  }
+
   /* === LEAD MAGNET === */
   .lead-magnet {
     padding: 4rem 0;
@@ -1049,6 +1114,50 @@
         <div class="step-num">03</div>
         <h3>You approve from your phone</h3>
         <p>Morning briefings, real-time alerts, one-tap approvals. Your agents handle the work. You steer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Two Products -->
+<section id="products">
+  <div class="container section-center">
+    <div class="section-label">Two Ways In</div>
+    <h2 class="section-title">Choose your path.</h2>
+    <p class="section-sub">Not sure which one? Start with the free architecture guide or book a $97 audit call. We'll help you pick.</p>
+  </div>
+  <div class="container">
+    <div class="products-grid">
+      <div class="product-card green-product reveal">
+        <div class="product-badge template">DIY TEMPLATE</div>
+        <h3>MojoBrain</h3>
+        <p class="product-desc">A ready-to-deploy AI operations template. 7 agents, a Mission Control dashboard, and a step-by-step playbook. You deploy it on your own hardware. You own it forever.</p>
+        <div class="product-price">From $297</div>
+        <div class="product-price-note">One-time purchase &middot; 3 tiers</div>
+        <ul class="product-features">
+          <li>7 agent scripts, production-ready</li>
+          <li>Mission Control dashboard</li>
+          <li>Discord notifications</li>
+          <li>Deployment playbook with videos</li>
+          <li>~$5-20/mo in API costs to run</li>
+        </ul>
+        <a href="#pricing" class="btn btn-primary btn-sm" style="display:block;text-align:center;">See MojoBrain Tiers</a>
+      </div>
+
+      <div class="product-card gold-product reveal">
+        <div class="product-badge full-service">WE BUILD IT FOR YOU</div>
+        <h3>CC Jarvis</h3>
+        <p class="product-desc">The full 13-agent system, custom-built for your business and installed on your hardware. This is what we run internally. You get the same thing, tailored to you.</p>
+        <div class="product-price">From $1,000</div>
+        <div class="product-price-note">Custom build &middot; 90-day support included</div>
+        <ul class="product-features">
+          <li>13+ agents tailored to your ops</li>
+          <li>Full remote deployment</li>
+          <li>Industry-specific customization</li>
+          <li>Branded dashboard + integrations</li>
+          <li>Requires Claude Max ($100/mo)</li>
+        </ul>
+        <a href="#jarvis" class="btn btn-gold btn-sm" style="display:block;text-align:center;">See CC Jarvis Tiers</a>
       </div>
     </div>
   </div>
