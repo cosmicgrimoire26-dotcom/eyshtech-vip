@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X4LZM2SMZP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X4LZM2SMZP');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | EyshTech</title>
+<meta name="description" content="EyshTech privacy policy. How we collect, use, and protect your data.">
+<link rel="canonical" href="https://eyshtech.vip/privacy">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0f;
+    --bg-raised: #131318;
+    --bg-card: #17171e;
+    --gold: #D4A843;
+    --gold-dim: rgba(212, 168, 67, 0.15);
+    --white: #f0f0f0;
+    --gray-100: #d4d4d8;
+    --gray-300: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-700: #3f3f46;
+    --border: rgba(255, 255, 255, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === NAV === */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    background: rgba(11, 11, 15, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--gray-300); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    padding: 0.55rem 1.4rem;
+    background: var(--gold);
+    color: var(--bg) !important;
+    border-radius: 6px;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+    transition: all 0.2s !important;
+    letter-spacing: 0.01em;
+  }
+  .nav-cta:hover { background: #e0b84e !important; transform: translateY(-1px); }
+  .nav-hamburger {
+    display: none; background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--gray-300);
+    margin: 5px 0; transition: all 0.3s;
+  }
+
+  /* === CONTENT === */
+  .legal-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .legal-container h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .legal-meta {
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legal-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .legal-container p {
+    color: var(--gray-100);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+
+  .legal-container ul {
+    color: var(--gray-100);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .legal-container li {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-container a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .legal-container a:hover { color: #e0b84e; }
+
+  .legal-container code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-card);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+
+  /* === FOOTER === */
+  footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gray-500);
+  }
+  footer a { color: var(--gray-300); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(11, 11, 15, 0.98);
+      backdrop-filter: blur(24px);
+      padding: 1.5rem 2rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-hamburger { display: block; }
+    .legal-container {
+      padding: 6rem 1.2rem 3rem;
+    }
+    .legal-container h1 { font-size: 1.8rem; }
+    .legal-container h2 { font-size: 1.2rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gray-700); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="https://eyshtech.vip" class="nav-logo">Eysh<span>Tech</span></a>
+  <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="https://eyshtech.vip">Home</a>
+    <a href="https://eyshtech.vip/mojobrain">MojoBrain</a>
+    <a href="https://eyshtech.vip/terms">Terms</a>
+    <a href="https://calendar.app.google/vLLpwZmfSRH7TYJR9" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<div class="legal-container">
+  <h1>Privacy Policy</h1>
+  <p class="legal-meta">Effective date: March 14, 2026</p>
+
+  <p>EyshTech ("we," "us," or "our") is a sole proprietorship operated by Eysha Penrod, based in Atlanta, Georgia. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or use our services.</p>
+
+  <h2>Information We Collect</h2>
+  <p>We collect the following types of information:</p>
+  <ul>
+    <li><strong>Email address</strong> — collected through opt-in forms powered by Brevo (formerly Sendinblue) when you subscribe to our mailing list or download a resource.</li>
+    <li><strong>Payment information</strong> — processed securely by Stripe when you purchase a product or service. EyshTech does not store your credit card number, CVV, or bank details. All payment data is handled directly by Stripe in accordance with PCI-DSS standards.</li>
+    <li><strong>Analytics data</strong> — collected automatically by Google Analytics (GA4), including pages visited, session duration, referral source, device type, and approximate location. This data is aggregated and does not personally identify you.</li>
+  </ul>
+
+  <h2>How We Use Your Information</h2>
+  <ul>
+    <li>To deliver products and services you purchase.</li>
+    <li>To send email communications you have opted into (newsletters, product updates, resources).</li>
+    <li>To process payments through Stripe.</li>
+    <li>To understand how visitors use our website and improve the experience.</li>
+    <li>To send transactional emails related to your purchases or account.</li>
+  </ul>
+
+  <h2>Cookies</h2>
+  <p>Our website uses the following cookies:</p>
+  <ul>
+    <li><strong>Google Analytics (GA4) cookies</strong> — used to measure site traffic and usage patterns. These cookies collect anonymous data about your browsing behavior.</li>
+    <li><strong>Essential cookies</strong> — required for basic site functionality such as form submissions.</li>
+  </ul>
+  <p>We do not use advertising cookies or sell cookie data to third parties.</p>
+
+  <h2>Third-Party Services</h2>
+  <p>We use the following third-party services that may process your data:</p>
+  <ul>
+    <li><strong>Stripe</strong> — payment processing. <a href="https://stripe.com/privacy" target="_blank">Stripe Privacy Policy</a></li>
+    <li><strong>Brevo</strong> — email marketing and form submissions. <a href="https://www.brevo.com/legal/privacypolicy/" target="_blank">Brevo Privacy Policy</a></li>
+    <li><strong>Google Analytics</strong> — website analytics. <a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy</a></li>
+    <li><strong>Discord</strong> — internal notifications (does not process customer data).</li>
+  </ul>
+
+  <h2>Data Retention</h2>
+  <p>Email addresses collected through our forms are retained until you unsubscribe. You can unsubscribe at any time using the link at the bottom of any email we send.</p>
+  <p>Payment records are retained by Stripe according to their data retention policies and applicable financial regulations.</p>
+  <p>Analytics data is retained by Google Analytics according to their standard retention settings.</p>
+
+  <h2>Data Sharing</h2>
+  <p>We do not sell, rent, or trade your personal information to any third parties. Your data is only shared with the third-party service providers listed above, solely for the purpose of delivering our services.</p>
+
+  <h2>Your Rights (GDPR &amp; CCPA)</h2>
+  <p>Depending on your location, you may have the following rights regarding your personal data:</p>
+  <ul>
+    <li><strong>Right to access</strong> — request a copy of the personal data we hold about you.</li>
+    <li><strong>Right to deletion</strong> — request that we delete your personal data from our systems.</li>
+    <li><strong>Right to opt out</strong> — unsubscribe from marketing communications at any time.</li>
+    <li><strong>Right to correction</strong> — request that we update inaccurate personal data.</li>
+    <li><strong>Right to data portability</strong> — receive your data in a commonly used format.</li>
+  </ul>
+  <p>To exercise any of these rights, contact us at <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>. We will respond within 30 days.</p>
+
+  <h2>Security</h2>
+  <p>We take reasonable measures to protect your personal information, including using HTTPS encryption on our website, restricting access to personal data, and relying on PCI-compliant payment processors.</p>
+
+  <h2>Children's Privacy</h2>
+  <p>Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.</p>
+
+  <h2>Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date. Continued use of our website after changes constitutes acceptance of the revised policy.</p>
+
+  <h2>Contact</h2>
+  <p>For privacy-related questions or requests, contact:</p>
+  <p>
+    EyshTech<br>
+    Eysha Penrod<br>
+    Atlanta, GA<br>
+    <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+  </p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span>&copy; 2026 EyshTech. Atlanta, GA.</span>
+  <div class="footer-links">
+    <a href="https://eyshtech.vip">Home</a>
+    <a href="https://eyshtech.vip/mojobrain">MojoBrain</a>
+    <a href="https://eyshtech.vip/privacy">Privacy</a>
+    <a href="https://eyshtech.vip/terms">Terms</a>
+    <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+  </div>
+</footer>
+
+</body>
+</html>

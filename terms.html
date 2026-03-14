@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X4LZM2SMZP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-X4LZM2SMZP');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service | EyshTech</title>
+<meta name="description" content="EyshTech terms of service. Terms governing our AI operations consulting, digital products, and services.">
+<link rel="canonical" href="https://eyshtech.vip/terms">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0f;
+    --bg-raised: #131318;
+    --bg-card: #17171e;
+    --gold: #D4A843;
+    --gold-dim: rgba(212, 168, 67, 0.15);
+    --white: #f0f0f0;
+    --gray-100: #d4d4d8;
+    --gray-300: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-700: #3f3f46;
+    --border: rgba(255, 255, 255, 0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === NAV === */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    background: rgba(11, 11, 15, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    color: var(--gray-300); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta {
+    padding: 0.55rem 1.4rem;
+    background: var(--gold);
+    color: var(--bg) !important;
+    border-radius: 6px;
+    font-weight: 700 !important;
+    font-size: 0.82rem !important;
+    transition: all 0.2s !important;
+    letter-spacing: 0.01em;
+  }
+  .nav-cta:hover { background: #e0b84e !important; transform: translateY(-1px); }
+  .nav-hamburger {
+    display: none; background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--gray-300);
+    margin: 5px 0; transition: all 0.3s;
+  }
+
+  /* === CONTENT === */
+  .legal-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+  }
+
+  .legal-container h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .legal-meta {
+    color: var(--gray-500);
+    font-size: 0.85rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .legal-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .legal-container p {
+    color: var(--gray-100);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+
+  .legal-container ul {
+    color: var(--gray-100);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .legal-container li {
+    margin-bottom: 0.4rem;
+  }
+
+  .legal-container a {
+    color: var(--gold);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .legal-container a:hover { color: #e0b84e; }
+
+  .legal-container code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-card);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    color: var(--gold);
+  }
+
+  /* === FOOTER === */
+  footer {
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gray-500);
+  }
+  footer a { color: var(--gray-300); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  .footer-links { display: flex; gap: 1.5rem; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(11, 11, 15, 0.98);
+      backdrop-filter: blur(24px);
+      padding: 1.5rem 2rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-hamburger { display: block; }
+    .legal-container {
+      padding: 6rem 1.2rem 3rem;
+    }
+    .legal-container h1 { font-size: 1.8rem; }
+    .legal-container h2 { font-size: 1.2rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gray-700); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="https://eyshtech.vip" class="nav-logo">Eysh<span>Tech</span></a>
+  <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="https://eyshtech.vip">Home</a>
+    <a href="https://eyshtech.vip/mojobrain">MojoBrain</a>
+    <a href="https://eyshtech.vip/privacy">Privacy</a>
+    <a href="https://calendar.app.google/vLLpwZmfSRH7TYJR9" target="_blank" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<div class="legal-container">
+  <h1>Terms of Service</h1>
+  <p class="legal-meta">Effective date: March 14, 2026</p>
+
+  <p>These Terms of Service ("Terms") govern your use of the website, products, and services provided by EyshTech, a sole proprietorship operated by Eysha Penrod, based in Atlanta, Georgia. By accessing our website or purchasing our products and services, you agree to these Terms.</p>
+
+  <h2>Services</h2>
+  <p>EyshTech provides the following services:</p>
+  <ul>
+    <li><strong>AI Operations Consulting (MojoBrain)</strong> — design, setup, and deployment of multi-agent AI operations systems for small businesses and solo operators.</li>
+    <li><strong>Google Workspace Consulting</strong> — security audits, configuration, and optimization of Google Workspace environments.</li>
+  </ul>
+
+  <h2>Digital Products</h2>
+  <p>EyshTech offers the following digital products, delivered electronically:</p>
+  <ul>
+    <li><strong>MojoBrain Playbook</strong> — a comprehensive guide and template for building a multi-agent AI operations system.</li>
+    <li><strong>MojoBrain Guided Setup</strong> — the Playbook plus live guidance sessions for implementation.</li>
+    <li><strong>MojoBrain Managed Deploy</strong> — full hands-on deployment of a custom MojoBrain system.</li>
+  </ul>
+  <p>All digital products are delivered electronically upon purchase confirmation.</p>
+
+  <h2>Payment</h2>
+  <p>All payments are processed securely through Stripe. By making a purchase, you agree to Stripe's <a href="https://stripe.com/legal" target="_blank">Terms of Service</a>.</p>
+  <p><strong>Digital products:</strong> All sales of digital products are final. If you have not accessed or downloaded any deliverables, you may request a refund within 14 days of purchase by contacting <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>.</p>
+  <p><strong>Consulting services:</strong> Custom consulting work (including CC Jarvis builds and Managed Deploy engagements) is scoped and priced according to a Statement of Work (SOW) agreed upon prior to commencement. Delivery timelines are defined in the SOW.</p>
+
+  <h2>Workspace Audit ($97)</h2>
+  <p>The $97 Google Workspace Security Audit includes a 30-minute consultation session. The session must be scheduled within 30 days of purchase. If not scheduled within 30 days, the audit is considered forfeited and no refund will be issued.</p>
+
+  <h2>CC Jarvis / Managed Deploy</h2>
+  <p>CC Jarvis and Managed Deploy engagements involve custom work tailored to your business. The scope of work, deliverables, timeline, and payment schedule are defined in a Statement of Work (SOW) provided before work begins. Both parties must agree to the SOW before any custom work commences.</p>
+
+  <h2>Intellectual Property</h2>
+  <p>Upon delivery and full payment, MojoBrain code and configurations delivered to you are licensed for your personal or business use. You may not resell, redistribute, sublicense, or publicly share the delivered code, templates, or system architecture as a competing product or service.</p>
+  <p>EyshTech retains ownership of its proprietary frameworks, methodologies, and agent architectures. The MojoBrain name and brand are the property of EyshTech.</p>
+
+  <h2>Limitation of Liability</h2>
+  <p>To the maximum extent permitted by law, EyshTech shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenue, whether incurred directly or indirectly, arising from your use of our products or services.</p>
+  <p>Our total liability for any claim arising from or related to these Terms shall not exceed the amount you paid to EyshTech in the 12 months preceding the claim.</p>
+
+  <h2>No Guarantee of Results</h2>
+  <p>EyshTech provides tools, systems, and consulting guidance. We do not guarantee specific business results, revenue outcomes, or performance metrics. Results depend on your implementation, market conditions, and individual circumstances.</p>
+
+  <h2>Acceptable Use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Use our products or services for any unlawful purpose.</li>
+    <li>Attempt to reverse-engineer, decompile, or extract source code from proprietary components not included in your deliverables.</li>
+    <li>Misrepresent your affiliation with EyshTech or claim endorsement without written permission.</li>
+    <li>Resell or redistribute EyshTech products as your own.</li>
+  </ul>
+
+  <h2>Termination</h2>
+  <p>We reserve the right to terminate or suspend access to our services at our discretion if you violate these Terms. For ongoing retainer agreements, either party may terminate with 30 days written notice.</p>
+
+  <h2>Governing Law</h2>
+  <p>These Terms are governed by and construed in accordance with the laws of the State of Georgia, United States, without regard to its conflict of law provisions. Any disputes shall be resolved in the courts of Fulton County, Georgia.</p>
+
+  <h2>Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. Changes will be posted on this page with an updated effective date. Continued use of our website or services after changes constitutes acceptance of the revised Terms.</p>
+
+  <h2>Contact</h2>
+  <p>For questions about these Terms, contact:</p>
+  <p>
+    EyshTech<br>
+    Eysha Penrod<br>
+    Atlanta, GA<br>
+    <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+  </p>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span>&copy; 2026 EyshTech. Atlanta, GA.</span>
+  <div class="footer-links">
+    <a href="https://eyshtech.vip">Home</a>
+    <a href="https://eyshtech.vip/mojobrain">MojoBrain</a>
+    <a href="https://eyshtech.vip/privacy">Privacy</a>
+    <a href="https://eyshtech.vip/terms">Terms</a>
+    <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+  </div>
+</footer>
+
+</body>
+</html>

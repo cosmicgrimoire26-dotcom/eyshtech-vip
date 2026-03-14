@@ -11,1942 +11,1285 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MojoBrain - Multi-Agent AI Operating System | EyshTech</title>
-<meta name="description" content="7 autonomous AI agents that run your business 24/7. Security, finance, legal, lead generation. One intelligent brain. Built for solo operators, consultants, and small agencies.">
-<meta property="og:title" content="MojoBrain - 7 Autonomous Agents. One Intelligent Brain.">
-<meta property="og:description" content="A self-orchestrating AI ecosystem for operators drowning in manual ops. Deploy 7 agents on your hardware or VM and let them handle the rest.">
+<title>MojoBrain — AI Operations System for Solo Operators | EyshTech</title>
+<meta name="description" content="13 autonomous AI agents run your lead gen, outreach, compliance, and finances 24/7. You just approve. Built by a 6-year Google Workspace Sr. Account Manager.">
+<meta property="og:title" content="MojoBrain — Your Business Runs Itself. You Just Approve.">
+<meta property="og:description" content="13 autonomous AI agents handle lead gen, outreach, compliance, content, and finances — 24/7. From $297.">
 <meta property="og:type" content="website">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Fira+Code:wght@400;500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<meta property="og:url" content="https://eyshtech.vip/mojobrain">
+<meta property="og:image" content="https://eyshtech.vip/dashboard-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MojoBrain — AI Operations System for Solo Operators">
+<meta name="twitter:description" content="13 autonomous AI agents run your business 24/7. You just approve. From $297.">
+<meta name="twitter:image" content="https://eyshtech.vip/dashboard-preview.png">
+<link rel="canonical" href="https://eyshtech.vip/mojobrain">
+
+<!-- JSON-LD: Product Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "MojoBrain",
+  "description": "Multi-agent AI operations system. 7-13 autonomous agents handle lead gen, outreach, compliance, content, and finances 24/7.",
+  "brand": {"@type": "Brand", "name": "EyshTech"},
+  "url": "https://eyshtech.vip/mojobrain",
+  "image": "https://eyshtech.vip/dashboard-preview.png",
+  "offers": [
+    {"@type": "Offer", "name": "Playbook", "price": "297", "priceCurrency": "USD", "url": "https://buy.stripe.com/28EdR93C2e3zazkftV6AM00", "availability": "https://schema.org/InStock"},
+    {"@type": "Offer", "name": "Guided Setup", "price": "797", "priceCurrency": "USD", "url": "https://buy.stripe.com/00w3cvgoOgbH6j481t6AM04", "availability": "https://schema.org/InStock"},
+    {"@type": "Offer", "name": "Managed Deploy", "price": "1497", "priceCurrency": "USD", "url": "https://buy.stripe.com/bJe4gz5KaaRncHschJ6AM03", "availability": "https://schema.org/InStock"}
+  ]
+}
+</script>
+
+<!-- JSON-LD: LocalBusiness Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "EyshTech",
+  "description": "AI operations consulting and Google Workspace security audits for small businesses.",
+  "url": "https://eyshtech.vip",
+  "address": {"@type": "PostalAddress", "addressLocality": "Atlanta", "addressRegion": "GA", "addressCountry": "US"},
+  "email": "admin@eyshtech.vip",
+  "priceRange": "$97-$2500"
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg-deep: #080f06;
-    --bg-mid: #0e1a0f;
-    --bg-card: #131f14;
-    --bg-card-hover: #182616;
-    --green-glow: #4ade80;
-    --green-soft: #22c55e;
-    --green-dark: #166534;
-    --green-deeper: #0a3d1a;
-    --amber-glow: #fbbf24;
-    --amber-soft: #f59e0b;
-    --gold: #d4a843;
-    --gold-bright: #ecc94b;
-    --rose: #f87171;
-    --cyan: #67e8f9;
-    --violet: #a78bfa;
-    --text-primary: #e8f0e4;
-    --text-secondary: #9cb897;
-    --text-muted: #5a7a55;
-    --border: rgba(74, 222, 128, 0.1);
-    --border-glow: rgba(74, 222, 128, 0.25);
+    --bg: #0b0b0f;
+    --bg-raised: #131318;
+    --bg-card: #17171e;
+    --bg-card-hover: #1e1e28;
+    --gold: #D4A843;
+    --gold-dim: rgba(212, 168, 67, 0.15);
+    --gold-glow: rgba(212, 168, 67, 0.08);
+    --green: #4ade80;
+    --green-dim: rgba(74, 222, 128, 0.12);
+    --white: #f0f0f0;
+    --gray-100: #d4d4d8;
+    --gray-300: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-700: #3f3f46;
+    --gray-900: #27272a;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-gold: rgba(212, 168, 67, 0.2);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg-deep);
-    color: var(--text-primary);
-    font-family: 'Nunito', sans-serif;
-    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'DM Sans', -apple-system, sans-serif;
     line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* === ATMOSPHERE === */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse at 15% 10%, rgba(74, 222, 128, 0.07) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 30%, rgba(251, 191, 36, 0.04) 0%, transparent 45%),
-      radial-gradient(ellipse at 50% 80%, rgba(167, 139, 250, 0.03) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 8 Q46 20 40 32 Q34 44 40 56 Q46 68 40 76' stroke='%234ade8006' fill='none' stroke-width='1'/%3E%3Ccircle cx='40' cy='32' r='2' fill='%234ade8004'/%3E%3C/svg%3E");
-    opacity: 0.6;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* === PARTICLES === */
-  .particle {
-    position: fixed;
-    width: 3px; height: 3px;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 0;
-    animation: drift linear infinite;
-  }
-  @keyframes drift {
-    0% { opacity: 0; transform: translateY(100vh) scale(0); }
-    15% { opacity: 0.25; }
-    85% { opacity: 0.25; }
-    100% { opacity: 0; transform: translateY(-40px) scale(1.2); }
-  }
+  /* === UTILITY === */
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 2rem; }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* === NAV === */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 2.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(8, 15, 6, 0.85);
-    backdrop-filter: blur(20px);
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2rem;
+    background: rgba(11, 11, 15, 0.8);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
   }
-
-  .nav-brand {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    text-decoration: none;
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--white); text-decoration: none;
+    letter-spacing: -0.02em;
   }
-
-  .nav-orb {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, var(--green-glow), var(--green-dark));
-    box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
-    animation: breathe 4s ease-in-out infinite;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    color: var(--bg-deep);
-  }
-
-  @keyframes breathe {
-    0%, 100% { box-shadow: 0 0 15px rgba(74, 222, 128, 0.3); }
-    50% { box-shadow: 0 0 25px rgba(74, 222, 128, 0.5); }
-  }
-
-  .nav-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    letter-spacing: 0.03em;
-  }
-
+  .nav-logo span { color: var(--gold); }
   .nav-links { display: flex; gap: 2rem; align-items: center; }
-
   .nav-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 600;
+    color: var(--gray-300); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
     transition: color 0.2s;
   }
-
-  .nav-links a:hover { color: var(--green-glow); }
-
+  .nav-links a:hover { color: var(--white); }
   .nav-cta {
-    padding: 0.5rem 1.5rem;
-    background: linear-gradient(135deg, var(--green-dark), var(--green-deeper));
-    border: 1px solid var(--border-glow);
-    border-radius: 8px;
-    color: var(--green-glow) !important;
+    padding: 0.55rem 1.4rem;
+    background: var(--gold);
+    color: var(--bg) !important;
+    border-radius: 6px;
     font-weight: 700 !important;
-    transition: all 0.3s !important;
+    font-size: 0.82rem !important;
+    transition: all 0.2s !important;
+    letter-spacing: 0.01em;
   }
+  .nav-cta:hover { background: #e0b84e !important; transform: translateY(-1px); }
 
-  .nav-cta:hover {
-    background: linear-gradient(135deg, var(--green-soft), var(--green-dark)) !important;
-    color: var(--bg-deep) !important;
-    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+  .nav-hamburger {
+    display: none; background: none; border: none; cursor: pointer; padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--gray-300);
+    margin: 5px 0; transition: all 0.3s;
   }
 
   /* === HERO === */
   .hero {
-    position: relative;
-    z-index: 1;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 10rem 2rem 4rem;
     text-align: center;
-    padding: 8rem 2rem 4rem;
+    position: relative;
   }
-
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
   .hero-badge {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    color: var(--amber-glow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold);
     padding: 0.4rem 1.2rem;
-    border: 1px solid rgba(251, 191, 36, 0.2);
-    border-radius: 20px;
-    background: rgba(251, 191, 36, 0.05);
-    animation: fadeUp 0.8s ease both;
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    margin-bottom: 2rem;
   }
-
   .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 700;
-    line-height: 1.15;
-    max-width: 800px;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.8s ease 0.1s both;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.12;
+    max-width: 720px;
+    margin: 0 auto 1.5rem;
+    letter-spacing: -0.02em;
   }
-
-  .hero h1 .gradient-text {
-    background: linear-gradient(135deg, var(--green-glow), var(--amber-glow), var(--green-soft));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
   .hero-sub {
-    font-size: 1.15rem;
-    color: var(--text-secondary);
-    max-width: 580px;
-    margin-bottom: 2.5rem;
-    animation: fadeUp 0.8s ease 0.2s both;
+    font-size: 1.05rem;
+    color: var(--gray-300);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.75;
   }
-
   .hero-ctas {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    animation: fadeUp 0.8s ease 0.3s both;
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 0;
   }
-
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s;
+    cursor: pointer; border: none;
+  }
   .btn-primary {
-    padding: 0.9rem 2.5rem;
-    background: linear-gradient(135deg, var(--green-glow), var(--green-soft));
-    color: var(--bg-deep);
-    border: none;
-    border-radius: 10px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 800;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-    box-shadow: 0 4px 20px rgba(74, 222, 128, 0.25);
+    background: var(--green);
+    color: var(--bg);
   }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(74, 222, 128, 0.4);
-  }
-
+  .btn-primary:hover { background: #5eea96; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(74,222,128,0.2); }
   .btn-secondary {
-    padding: 0.9rem 2.5rem;
     background: transparent;
-    color: var(--text-primary);
-    border: 1px solid var(--border-glow);
-    border-radius: 10px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
+    color: var(--white);
+    border: 1px solid var(--gray-700);
   }
-
-  .btn-secondary:hover {
-    background: rgba(74, 222, 128, 0.05);
-    border-color: var(--green-glow);
+  .btn-secondary:hover { border-color: var(--gray-500); background: rgba(255,255,255,0.03); }
+  .btn-gold {
+    background: var(--gold);
+    color: var(--bg);
   }
+  .btn-gold:hover { background: #e0b84e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,67,0.2); }
+  .btn-sm { padding: 0.65rem 1.5rem; font-size: 0.85rem; }
 
-  .btn-amber {
-    padding: 0.7rem 2rem;
-    background: linear-gradient(135deg, var(--amber-glow), var(--amber-soft));
-    color: var(--bg-deep);
-    border: none;
-    border-radius: 10px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 800;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s;
-    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+  /* === PROOF BAR === */
+  .proof-bar {
+    display: flex; justify-content: center; gap: 3.5rem; flex-wrap: wrap;
+    padding: 3rem 2rem 0;
+    position: relative; z-index: 1;
   }
-
-  .btn-amber:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.35);
+  .proof-item { text-align: center; }
+  .proof-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--gold);
   }
-
-  .hero-proof {
-    margin-top: 3rem;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    animation: fadeUp 0.8s ease 0.5s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .proof-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 0.2rem;
   }
 
   /* === SECTIONS === */
-  section {
-    position: relative;
-    z-index: 1;
-    padding: 6rem 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
+  section { padding: 6rem 0; }
   .section-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    color: var(--amber-glow);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
-  }
-
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.2em; text-transform: uppercase;
     margin-bottom: 1rem;
-    line-height: 1.2;
   }
-
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
   .section-sub {
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    max-width: 600px;
+    color: var(--gray-300);
+    font-size: 1rem;
+    max-width: 560px;
     margin-bottom: 3rem;
   }
+  .section-center { text-align: center; }
+  .section-center .section-sub { margin-left: auto; margin-right: auto; }
 
-  /* === SOCIAL PROOF BAR === */
-  .proof-bar {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    padding: 2rem 0;
+  /* === LEAD MAGNET === */
+  .lead-magnet {
+    padding: 4rem 0;
+  }
+  .lead-magnet-card {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 3rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    text-align: center;
     position: relative;
-    z-index: 1;
+    overflow: hidden;
+  }
+  .lead-magnet-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, transparent 49.5%, var(--gold-dim) 49.5%, var(--gold-dim) 50.5%, transparent 50.5%),
+      linear-gradient(0deg, transparent 49.5%, var(--gold-dim) 49.5%, var(--gold-dim) 50.5%, transparent 50.5%);
+    background-size: 60px 60px;
+    opacity: 0.25;
+    pointer-events: none;
+  }
+  .lead-magnet-card > * { position: relative; }
+  .lead-magnet-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .lead-magnet-card .lm-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .lead-magnet-card .lm-desc {
+    color: var(--gray-300);
+    font-size: 0.92rem;
+    max-width: 480px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.7;
+  }
+  .lm-form {
+    display: flex; gap: 10px;
+    max-width: 440px; margin: 0 auto 1rem;
+    flex-wrap: wrap; justify-content: center;
+  }
+  .lm-form input[type="email"] {
+    flex: 1; min-width: 200px;
+    padding: 0.8rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--gray-700);
+    border-radius: 6px;
+    color: var(--white);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .lm-form input[type="email"]:focus { border-color: var(--gold); }
+  .lm-form input[type="email"]::placeholder { color: var(--gray-500); }
+  .lm-form button {
+    padding: 0.8rem 1.6rem;
+    background: var(--gold);
+    border: none; border-radius: 6px;
+    color: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .lm-form button:hover { background: #e0b84e; transform: translateY(-1px); }
+  .lm-fine {
+    font-size: 0.7rem;
+    color: var(--gray-500);
   }
 
-  .proof-stat { text-align: center; }
-
-  .proof-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--green-glow);
+  /* === PAIN POINTS === */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .pain-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .pain-card:hover { border-color: var(--gray-700); background: var(--bg-card-hover); }
+  .pain-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .pain-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .pain-card p {
+    color: var(--gray-300);
+    font-size: 0.88rem;
+    line-height: 1.6;
   }
 
-  .proof-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+  /* === HOW IT WORKS === */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  .step-card { position: relative; }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; font-weight: 800;
+    color: var(--gold);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step-card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .step-card p {
+    color: var(--gray-300);
+    font-size: 0.88rem;
+    line-height: 1.6;
   }
 
-  /* === AGENT CARDS === */
+  /* === AGENTS === */
   .agents-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.2rem;
   }
-  .agents-grid .agent-card:first-child {
+  .agents-grid .agent-top {
     grid-column: 1 / -1;
-    max-width: 420px;
+    max-width: 380px;
     margin: 0 auto;
     width: 100%;
   }
-  @media (max-width: 900px) {
-    .agents-grid { grid-template-columns: 1fr; }
-    .agents-grid .agent-card:first-child { max-width: 100%; }
-  }
-
   .agent-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 10px;
     padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
     transition: all 0.3s;
   }
-
-  .agent-card:hover {
-    border-color: var(--border-glow);
-    background: var(--bg-card-hover);
-    transform: translateY(-3px);
-  }
-
-  .agent-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-  }
-
-  .agent-card[data-accent="green"]::before { background: linear-gradient(90deg, var(--green-glow), transparent); }
-  .agent-card[data-accent="amber"]::before { background: linear-gradient(90deg, var(--amber-glow), transparent); }
-  .agent-card[data-accent="cyan"]::before { background: linear-gradient(90deg, var(--cyan), transparent); }
-  .agent-card[data-accent="violet"]::before { background: linear-gradient(90deg, var(--violet), transparent); }
-  .agent-card[data-accent="gold"]::before { background: linear-gradient(90deg, var(--gold), transparent); }
-  .agent-card[data-accent="rose"]::before { background: linear-gradient(90deg, var(--rose), transparent); }
-
-  .agent-card-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.8rem;
-    display: inline-block;
-  }
-
+  .agent-card:hover { border-color: var(--gray-700); transform: translateY(-2px); }
+  .agent-card-icon { font-size: 1.4rem; margin-bottom: 0.75rem; display: block; }
   .agent-card h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    margin-bottom: 0.15rem;
   }
-
   .agent-card-role {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    color: var(--green-glow);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--gold);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 0.6rem;
   }
-
   .agent-card p {
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
+    color: var(--gray-300);
+    font-size: 0.82rem;
+    line-height: 1.55;
   }
 
-  /* === HOW IT WORKS === */
-  .steps {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .step {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .step-number {
-    width: 48px; height: 48px;
-    border-radius: 50%;
+  /* === ENTRY OFFER === */
+  .entry-offer {
+    max-width: 680px;
+    margin: 0 auto;
     background: var(--bg-card);
-    border: 1px solid var(--border-glow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--green-glow);
-    flex-shrink: 0;
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    position: relative;
   }
-
-  .step-content h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
+  .entry-offer::before {
+    content: 'ENTRY OFFER';
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.15em;
+    padding: 3px 14px;
+    background: var(--gold);
+    color: var(--bg);
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .entry-offer h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .entry-offer .entry-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem; font-weight: 700;
+    color: var(--gold);
     margin-bottom: 0.3rem;
   }
-
-  .step-content p {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+  .entry-offer p {
+    color: var(--gray-300);
+    font-size: 0.92rem;
+    max-width: 480px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.65;
   }
-
-  /* === WHAT'S INCLUDED === */
-  .includes-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-  }
-
-  .include-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.7rem;
-    padding: 0.8rem 1rem;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.02);
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-  }
-
-  .include-check {
-    color: var(--green-glow);
-    font-size: 0.9rem;
-    flex-shrink: 0;
-    margin-top: 2px;
+  .entry-offer .entry-credit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--green);
+    margin-top: 1rem;
   }
 
   /* === PRICING === */
-  .pricing-container {
+  .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    max-width: 1000px;
+    max-width: 960px;
     margin: 0 auto;
   }
-
   .pricing-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2rem;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
     text-align: center;
     position: relative;
     transition: all 0.3s;
   }
-
-  .pricing-card:hover {
-    border-color: var(--border-glow);
-    transform: translateY(-3px);
-  }
-
+  .pricing-card:hover { border-color: var(--gray-700); }
   .pricing-card.featured {
-    border-color: var(--green-glow);
-    box-shadow: 0 0 30px rgba(74, 222, 128, 0.1);
-    transform: scale(1.03);
+    border-color: var(--green);
+    box-shadow: 0 0 40px rgba(74, 222, 128, 0.06);
   }
-
-  .pricing-card.featured:hover {
-    transform: scale(1.03) translateY(-3px);
-  }
-
   .pricing-card.featured::after {
     content: 'MOST POPULAR';
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Fira Code', monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.15em;
-    padding: 4px 16px;
-    background: var(--green-glow);
-    color: var(--bg-deep);
-    border-radius: 20px;
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.12em;
+    padding: 3px 14px;
+    background: var(--green);
+    color: var(--bg);
+    border-radius: 4px;
     font-weight: 600;
-    white-space: nowrap;
   }
-
   .pricing-tier {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 600;
+    color: var(--gray-300);
     margin-bottom: 0.5rem;
   }
-
   .pricing-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 0.3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 700;
+    margin-bottom: 0.2rem;
   }
-
-  .pricing-card.featured .pricing-price { color: var(--green-glow); }
-
+  .pricing-card.featured .pricing-price { color: var(--green); }
   .pricing-note {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gray-500);
     margin-bottom: 1.5rem;
   }
-
   .pricing-features {
     list-style: none;
     text-align: left;
     margin-bottom: 2rem;
   }
-
   .pricing-features li {
-    padding: 0.35rem 0;
+    padding: 0.3rem 0;
     font-size: 0.82rem;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
+    color: var(--gray-300);
+    display: flex; align-items: flex-start; gap: 0.5rem;
   }
-
   .pricing-features li::before {
-    content: '\2726';
-    color: var(--green-glow);
+    content: '\2713';
+    color: var(--green);
     font-size: 0.7rem;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 3px;
+    font-weight: 700;
   }
-
-  .pricing-btn {
-    display: block;
-    text-align: center;
-    width: 100%;
-  }
+  .pricing-btn { display: block; text-align: center; width: 100%; }
 
   /* === RETAINER === */
   .retainer-box {
-    max-width: 700px;
+    max-width: 640px;
     margin: 3rem auto 0;
     background: var(--bg-card);
-    border: 1px solid rgba(251, 191, 36, 0.2);
-    border-radius: 16px;
+    border: 1px solid var(--border-gold);
+    border-radius: 10px;
     padding: 2rem 2.5rem;
     text-align: center;
-    position: relative;
-    z-index: 1;
   }
-
   .retainer-box h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700;
     margin-bottom: 0.3rem;
   }
-
   .retainer-price {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--amber-glow);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--gold);
     margin-bottom: 0.2rem;
   }
-
+  .retainer-price span { font-size: 0.8rem; color: var(--gray-500); font-family: 'JetBrains Mono', monospace; }
   .retainer-note {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.65rem;
-    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gray-500);
     margin-bottom: 1.2rem;
   }
-
   .retainer-features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.6rem 1.5rem;
-    margin-bottom: 1.5rem;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem;
     list-style: none;
+    margin-bottom: 1.5rem;
   }
-
   .retainer-features li {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--gray-300);
+    display: flex; align-items: center; gap: 0.4rem;
   }
-
   .retainer-features li::before {
-    content: '\2726';
-    color: var(--amber-glow);
-    font-size: 0.65rem;
-  }
-
-  /* === FAQ === */
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .faq-item {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .faq-question {
-    padding: 1.2rem 1.5rem;
+    content: '\2713';
+    color: var(--gold);
+    font-size: 0.6rem;
     font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: background 0.2s;
-    user-select: none;
   }
 
-  .faq-question:hover { background: var(--bg-card-hover); }
-
-  .faq-arrow {
-    color: var(--green-glow);
-    transition: transform 0.3s;
+  /* === COMPARISON TABLE === */
+  .compare-wrap { max-width: 800px; margin: 3rem auto 0; overflow-x: auto; }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 0.8rem;
   }
+  .compare-table th {
+    text-align: center;
+    padding: 0.75rem 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border-gold);
+  }
+  .compare-table th:first-child { text-align: left; color: var(--gray-500); }
+  .compare-table th .th-price { font-size: 0.65rem; color: var(--gray-500); display: block; }
+  .compare-table td {
+    padding: 0.55rem 0.5rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--gray-300);
+  }
+  .compare-table td:first-child { padding-left: 1rem; }
+  .compare-table td:not(:first-child) { text-align: center; }
+  .compare-check { color: var(--green); font-weight: 700; }
+  .compare-dash { color: var(--gray-700); }
 
-  .faq-answer {
+  /* === CC JARVIS === */
+  .jarvis-section {
+    background: var(--bg-raised);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .jarvis-pricing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .jarvis-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-gold);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .jarvis-card:hover { border-color: var(--gold); }
+  .jarvis-card.featured {
+    border-color: var(--gold);
+    box-shadow: 0 0 40px var(--gold-glow);
+  }
+  .jarvis-card.featured::after {
+    content: 'RECOMMENDED';
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.12em;
+    padding: 3px 14px;
+    background: var(--gold);
+    color: var(--bg);
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .jarvis-card .pricing-price { color: var(--gold); }
+
+  /* === FAQ === */
+  .faq-list { max-width: 720px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-q {
+    padding: 1.2rem 0;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    user-select: none;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--gold); }
+  .faq-arrow {
+    color: var(--gold);
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    font-weight: 300;
+  }
+  .faq-a {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s;
-    padding: 0 1.5rem;
-    color: var(--text-secondary);
+    transition: max-height 0.4s ease, padding-bottom 0.3s;
+    color: var(--gray-300);
     font-size: 0.9rem;
     line-height: 1.7;
   }
-
-  .faq-item.open .faq-answer {
+  .faq-item.open .faq-a {
     max-height: 300px;
-    padding: 0 1.5rem 1.2rem;
+    padding-bottom: 1.2rem;
   }
-
   .faq-item.open .faq-arrow { transform: rotate(45deg); }
 
   /* === FINAL CTA === */
   .final-cta {
     text-align: center;
     padding: 6rem 2rem;
-    position: relative;
-    z-index: 1;
   }
-
   .final-cta h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .final-cta .urgency {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
     margin-bottom: 1rem;
   }
-
   .final-cta p {
-    color: var(--text-secondary);
-    max-width: 560px;
+    color: var(--gray-300);
+    max-width: 520px;
     margin: 0 auto 2rem;
-    font-size: 1.05rem;
+    font-size: 1rem;
+  }
+  .final-cta .builder-note {
+    margin-top: 2.5rem;
+    font-size: 0.78rem;
+    color: var(--gray-500);
   }
 
   /* === FOOTER === */
   footer {
-    position: relative;
-    z-index: 1;
-    padding: 2rem 2.5rem;
+    padding: 2rem;
     border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--gray-500);
   }
-
-  footer a {
-    color: var(--text-secondary);
-    text-decoration: none;
-  }
-
-  footer a:hover { color: var(--green-glow); }
+  footer a { color: var(--gray-300); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+  .footer-links { display: flex; gap: 1.5rem; }
 
   /* === DIVIDER === */
   .divider {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, var(--green-glow), transparent);
-    margin: 4rem auto;
-    position: relative;
-    z-index: 1;
+    width: 48px; height: 1px;
+    background: var(--gold);
+    opacity: 0.3;
+    margin: 0 auto;
   }
 
   /* === RESPONSIVE === */
   @media (max-width: 960px) {
-    .pricing-container { grid-template-columns: 1fr; max-width: 420px; }
-    .pricing-card.featured { transform: none; }
-    .pricing-card.featured:hover { transform: translateY(-3px); }
-    .products-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    .pricing-grid, .jarvis-pricing { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .pricing-card.featured, .jarvis-card.featured { transform: none; }
+    .agents-grid { grid-template-columns: 1fr 1fr; }
+    .agents-grid .agent-top { max-width: 100%; grid-column: 1 / -1; }
   }
 
   @media (max-width: 768px) {
-    nav { padding: 1rem 1.2rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-    section { padding: 3rem 1rem; }
-    .includes-grid { grid-template-columns: 1fr; }
-    .proof-bar { gap: 1rem; flex-wrap: wrap; justify-content: center; }
-    .proof-stat { min-width: 80px; }
-    .hero { padding: 6rem 1rem 2.5rem; }
-    .hero h1 { font-size: 1.6rem; }
-    .hero-sub { font-size: 0.85rem; }
-    .retainer-box { padding: 1.2rem; }
-    .section-title { font-size: 1.3rem; }
-    .section-sub { font-size: 0.8rem; }
-    .steps { gap: 1rem; }
-    .step { padding: 1rem; }
-    .agent-card { padding: 1rem; min-height: auto; }
-    .agent-card-icon { font-size: 1.8rem; }
-    .pricing-card { padding: 1.5rem; }
-    .product-card { padding: 2rem 1.5rem; }
-    .product-card h3 { font-size: 1.3rem; }
-    .product-card .product-desc { font-size: 0.85rem; margin-bottom: 1.2rem; }
-    .product-card .product-price { font-size: 1.3rem; }
-    .product-features-mini li { font-size: 0.8rem; padding: 0.3rem 0; }
-    .faq-question { font-size: 0.8rem; padding: 0.8rem; }
-    .faq-answer { font-size: 0.8rem; padding: 0.8rem; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: rgba(11, 11, 15, 0.98);
+      backdrop-filter: blur(24px);
+      padding: 1.5rem 2rem;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-hamburger { display: block; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero h1 { font-size: 2rem; }
+    .hero-sub { font-size: 0.92rem; }
+    section { padding: 4rem 0; }
+    .container { padding: 0 1.2rem; }
+    .pain-grid, .steps-grid { grid-template-columns: 1fr; }
+    .agents-grid { grid-template-columns: 1fr; }
+    .proof-bar { gap: 1.5rem; }
+    .lead-magnet-card { padding: 2rem 1.5rem; }
+    .entry-offer { padding: 2rem 1.5rem; }
+    .retainer-box { padding: 1.5rem; }
+    .section-title { font-size: 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
   }
 
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg-deep); }
-  ::-webkit-scrollbar-thumb { background: var(--green-dark); border-radius: 3px; }
-
-/* === ENHANCED ANIMATIONS === */
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes countUp {
-  from { opacity: 0; transform: scale(0.5); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(74, 222, 128, 0.1); }
-  50% { box-shadow: 0 0 40px rgba(74, 222, 128, 0.25); }
-}
-
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.float-anim { animation: float 6s ease-in-out infinite; }
-.float-anim-delay { animation: float 6s ease-in-out 2s infinite; }
-
-.hero-badge {
-  background-size: 200% auto;
-  animation: fadeUp 0.8s ease both, shimmer 4s linear infinite;
-  background-image: linear-gradient(90deg, rgba(251,191,36,0.05), rgba(251,191,36,0.15), rgba(251,191,36,0.05));
-}
-
-.proof-number {
-  animation: countUp 0.6s ease both;
-}
-
-.pricing-card.featured {
-  animation: glowPulse 4s ease-in-out infinite;
-}
-
-.step:nth-child(odd) { animation: slideInLeft 0.6s ease both; }
-.step:nth-child(even) { animation: slideInRight 0.6s ease both; }
-
-/* Hover micro-interactions */
-.agent-card:hover .agent-card-icon {
-  animation: float 2s ease-in-out infinite;
-}
-
-.include-item:hover {
-  background: rgba(74, 222, 128, 0.06);
-  transform: translateX(4px);
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  top: -50%; left: -50%;
-  width: 200%; height: 200%;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-  transform: rotate(45deg) translateX(-100%);
-  transition: transform 0.6s;
-}
-
-.btn-primary:hover::after {
-  transform: rotate(45deg) translateX(100%);
-}
-
-/* === TWO PRODUCTS SECTION === */
-.products-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.product-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s;
-}
-
-.product-card:hover {
-  border-color: var(--border-glow);
-  transform: translateY(-4px);
-}
-
-.product-card.premium {
-  border-color: var(--amber-glow);
-  box-shadow: 0 0 30px rgba(251, 191, 36, 0.08);
-}
-
-.product-card.premium::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--amber-glow), var(--gold), var(--amber-glow));
-}
-
-.product-card:not(.premium)::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--green-glow), var(--green-soft));
-}
-
-.product-badge {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.6rem;
-  letter-spacing: 0.15em;
-  padding: 4px 12px;
-  border-radius: 20px;
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-.product-badge.template {
-  background: rgba(74, 222, 128, 0.1);
-  color: var(--green-glow);
-  border: 1px solid rgba(74, 222, 128, 0.2);
-}
-
-.product-badge.full-service {
-  background: rgba(251, 191, 36, 0.1);
-  color: var(--amber-glow);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-}
-
-.product-card h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.product-card .product-desc {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-.product-card .product-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-}
-
-.product-card .product-price-note {
-  font-family: 'Fira Code', monospace;
-  font-size: 0.6rem;
-  color: var(--text-muted);
-  margin-bottom: 1.5rem;
-}
-
-.product-features-mini {
-  list-style: none;
-  margin-bottom: 1.5rem;
-}
-
-.product-features-mini li {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  padding: 0.25rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.product-features-mini li::before {
-  content: '\2726';
-  font-size: 0.65rem;
-  flex-shrink: 0;
-}
-
-.product-card:not(.premium) .product-features-mini li::before { color: var(--green-glow); }
-.product-card.premium .product-features-mini li::before { color: var(--amber-glow); }
-.product-card.premium .product-price { color: var(--amber-glow); }
-.product-card:not(.premium) .product-price { color: var(--green-glow); }
-
-/* === INDUSTRY DROPDOWN === */
-.industry-section {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.industry-form {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 2.5rem;
-  margin-top: 2rem;
-}
-
-.industry-select {
-  width: 100%;
-  padding: 0.9rem 1.2rem;
-  background: var(--bg-deep);
-  border: 1px solid var(--border-glow);
-  border-radius: 10px;
-  color: var(--text-primary);
-  font-family: 'Nunito', sans-serif;
-  font-size: 1rem;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%234ade80' stroke-width='2' fill='none'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1rem center;
-  margin-bottom: 1rem;
-  transition: border-color 0.3s;
-}
-
-.industry-select:focus {
-  outline: none;
-  border-color: var(--green-glow);
-  box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
-}
-
-.industry-select option {
-  background: var(--bg-deep);
-  color: var(--text-primary);
-}
-
-.industry-result {
-  display: none;
-  margin-top: 1.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--border-glow);
-  border-radius: 12px;
-  background: rgba(74, 222, 128, 0.03);
-  text-align: left;
-  animation: fadeUp 0.4s ease both;
-}
-
-.industry-result h4 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: var(--green-glow);
-}
-
-.industry-result p {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-@media (max-width: 768px) {
-  .products-grid { grid-template-columns: 1fr; }
-  .who-grid { grid-template-columns: 1fr !important; }
-  .who-grid > div { grid-column: auto !important; }
-}
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gray-700); border-radius: 3px; }
 </style>
 </head>
 <body>
 
-<!-- Particles -->
-<div class="particle" style="left:8%;animation-duration:14s;animation-delay:0s;background:var(--green-glow);"></div>
-<div class="particle" style="left:22%;animation-duration:20s;animation-delay:4s;background:var(--amber-glow);"></div>
-<div class="particle" style="left:45%;animation-duration:16s;animation-delay:7s;background:var(--green-glow);"></div>
-<div class="particle" style="left:68%;animation-duration:22s;animation-delay:2s;background:var(--violet);"></div>
-<div class="particle" style="left:82%;animation-duration:18s;animation-delay:9s;background:var(--gold);"></div>
-<div class="particle" style="left:35%;animation-duration:25s;animation-delay:5s;background:var(--cyan);"></div>
-<div class="particle" style="left:55%;animation-duration:19s;animation-delay:11s;background:var(--green-glow);"></div>
-<div class="particle" style="left:92%;animation-duration:23s;animation-delay:3s;background:var(--amber-glow);"></div>
-<div class="particle" style="left:12%;animation-duration:28s;animation-delay:6s;background:var(--green-glow);width:4px;height:4px;"></div>
-<div class="particle" style="left:75%;animation-duration:17s;animation-delay:8s;background:var(--amber-glow);width:2px;height:2px;"></div>
-<div class="particle" style="left:40%;animation-duration:21s;animation-delay:1s;background:var(--gold);width:5px;height:5px;"></div>
-<div class="particle" style="left:60%;animation-duration:24s;animation-delay:13s;background:var(--green-soft);width:3px;height:3px;"></div>
-
 <!-- Nav -->
-<nav>
-  <a href="https://eyshtech.vip" class="nav-brand">
-    <div class="nav-orb">&diams;</div>
-    <span class="nav-name">MojoBrain</span>
-  </a>
+<nav class="nav">
+  <a href="https://eyshtech.vip" class="nav-logo">Eysh<span>Tech</span></a>
+  <button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
-    <a href="#products">Products</a>
-    <a href="#agents">Agents</a>
+    <a href="#how">How It Works</a>
     <a href="#pricing">Pricing</a>
-    <a href="#custom">Custom Build</a>
     <a href="#faq">FAQ</a>
-    <a href="#pricing" class="nav-cta">Get MojoBrain</a>
+    <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="nav-cta">Book a Call</a>
   </div>
 </nav>
 
 <!-- Hero -->
-<div class="hero">
-  <div class="hero-badge">Multi-Agent AI Operating System</div>
-  <h1>
-    7 Autonomous Agents.<br>
-    <span class="gradient-text">One Intelligent Brain.</span>
-  </h1>
+<header class="hero">
+  <div class="hero-badge">AI Operations System</div>
+  <h1>Your business runs itself.<br>You just approve.</h1>
   <p class="hero-sub">
-    Deploy a template with 7 agents or get a full custom build with 13+. Security, finance, legal, lead generation. Running 24/7 while you focus on clients.
+    13 autonomous AI agents handle lead gen, outreach, compliance, content, and finances — 24/7. Built by a 6-year Google Workspace Sr. Account Manager running it in daily production.
   </p>
   <div class="hero-ctas">
-    <a href="#pricing" class="btn-primary">Get MojoBrain</a>
-    <a href="#agents" class="btn-secondary">See What's Inside</a>
+    <a href="#lead-magnet" class="btn btn-primary">Download Free Architecture Guide</a>
+    <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn btn-secondary">Book Discovery Call</a>
   </div>
-  <p class="hero-proof" style="margin-bottom:0;">
-    Built and battle-tested by a real operator running 13+ agents in production.
-  </p>
-</div>
+</header>
 
-<!-- Social Proof Bar -->
-<div class="divider" style="margin:1.5rem auto;"></div>
-<div class="proof-bar" style="padding:1rem 0;">
-  <div class="proof-stat">
-    <div class="proof-number">7</div>
+<!-- Proof Bar -->
+<div class="proof-bar">
+  <div class="proof-item">
+    <div class="proof-val">13</div>
     <div class="proof-label">Autonomous Agents</div>
   </div>
-  <div class="proof-stat">
-    <div class="proof-number">24/7</div>
+  <div class="proof-item">
+    <div class="proof-val">24/7</div>
     <div class="proof-label">Unattended Operation</div>
   </div>
-  <div class="proof-stat">
-    <div class="proof-number">$0</div>
-    <div class="proof-label">Runs on Your Hardware</div>
+  <div class="proof-item">
+    <div class="proof-val">$0</div>
+    <div class="proof-label">API Costs</div>
   </div>
-  <div class="proof-stat">
-    <div class="proof-number">5min</div>
-    <div class="proof-label">Agent Scan Cycle</div>
-  </div>
-</div>
-
-<!-- Production Proof -->
-<div style="text-align:center;padding:2rem 1rem;margin:1.5rem auto;max-width:700px;">
-  <div style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:12px;padding:1.5rem 2rem;">
-    <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;letter-spacing:0.15em;color:var(--green);margin-bottom:0.5rem;">RUNNING IN PRODUCTION</div>
-    <p style="font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);margin:0;">Currently powering EyshTech operations. 13 autonomous agents running 24/7 in daily production. This is not a demo, it is live infrastructure.</p>
+  <div class="proof-item">
+    <div class="proof-val">5 min</div>
+    <div class="proof-label">Scan Cycle</div>
   </div>
 </div>
 
-<div class="divider" style="margin:1.5rem auto;"></div>
-
-<!-- Two Products -->
-<section id="products">
-  <div class="section-label" style="text-align:center;">Two Ways In</div>
-  <h2 class="section-title" style="text-align:center;">Choose your depth.</h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto 3rem;">Whether you want a template to deploy yourself or a full custom build, we've got you.</p>
-
-  <div class="products-grid">
-    <div class="product-card">
-      <div class="product-badge template">TEMPLATE &middot; SELF-DEPLOY</div>
-      <h3>MojoBrain</h3>
-      <p class="product-desc">A production-ready multi-agent AI template. 7 agents, Mission Control dashboard, deployment playbook. Choose your LLM provider, deploy on your hardware or VM. You own it.</p>
-      <div class="product-price">From $297</div>
-      <div class="product-price-note">One-time purchase &middot; 3 tiers available</div>
-      <ul class="product-features-mini">
-        <li>7 agent scripts + Nerve Center</li>
-        <li>Solarpunk Mission Control dashboard</li>
-        <li>Discord integration</li>
-        <li>Step-by-step deployment playbook</li>
-        <li>Pattern detection + learnings system</li>
-      </ul>
-      <a href="#pricing" class="btn-primary" style="display:block;text-align:center;">See MojoBrain Tiers</a>
-    </div>
-
-    <div class="product-card premium">
-      <div class="product-badge full-service">FULL SERVICE &middot; WE BUILD IT</div>
-      <h3>CC Jarvis</h3>
-      <p class="product-desc">The full 13-agent orchestrator, customized to your business, installed on your hardware or VM, with ongoing support. This is what we run internally. Requires Claude Max ($100/mo).</p>
-      <div class="product-price">From $1,000</div>
-      <div class="product-price-note">Custom build &middot; includes 90-day support</div>
-      <ul class="product-features-mini">
-        <li>13+ agents tailored to your operations</li>
-        <li>Full remote deployment on your hardware or VM</li>
-        <li>Industry-specific agent customization</li>
-        <li>Branded dashboard + custom integrations</li>
-        <li>90-day priority support + strategy calls</li>
-        <li>Requires Claude Max subscription ($100/mo)</li>
-        <li>Ongoing retainer option ($149/mo)</li>
-      </ul>
-      <a href="#custom" class="btn-amber" style="display:block;text-align:center;">Get a Custom Build</a>
+<!-- Lead Magnet -->
+<section id="lead-magnet" class="lead-magnet">
+  <div class="container">
+    <div class="lead-magnet-card reveal">
+      <div class="section-label">Free Download</div>
+      <h2>The MojoBrain Architecture Guide</h2>
+      <p class="lm-detail">10 pages. Zero fluff.</p>
+      <p class="lm-desc">
+        See exactly how 13 agents run a business on one machine for ~$100/mo. Includes 3 agent blueprints you can build this weekend.
+      </p>
+      <form id="lead-magnet-form"
+        action="https://c3ac83fd.sibforms.com/serve/MUIFAIAU37xzxNoKzlDKYxv-15u-ZqAlwTy6bYoK93XSSH0LgyC26hJV3YMCVRomxMYgAedo7MNBP8gDBbxX8cjlG-1k27AaPBhk4rFFlK7qIVZFxZ1vJfV0GGa6kRfP52HW1taux3c1iS_GtnvCBEw1AxXOJzwCtZmett0et9jxwNO4nCsqP1vRpF_euVxVMHRuwELjR4XgmFfFw=="
+        method="POST" target="brevo-submit" class="lm-form">
+        <input type="email" name="EMAIL" placeholder="your@email.com" required>
+        <input type="hidden" name="locale" value="en">
+        <input type="hidden" name="html_type" value="simple">
+        <button type="submit">Get the Free Guide</button>
+      </form>
+      <iframe name="brevo-submit" style="display:none;"></iframe>
+      <p class="lm-fine">Delivered to your inbox. No spam, unsubscribe anytime.</p>
     </div>
   </div>
 </section>
 
-<!-- Dashboard Preview -->
-<section id="dashboard-preview" style="text-align:center;">
-  <div class="section-label" style="text-align:center;">Mission Control</div>
-  <h2 class="section-title" style="text-align:center;">This is what your ops look like at 3am.</h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto 2rem;">Real-time agent status, security alerts, financial tracking, and system health. One screen. Zero chaos.</p>
-  <div style="max-width:900px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--border-glow);box-shadow:0 0 40px rgba(74,222,128,0.08);">
-    <img src="dashboard-preview.png" alt="MojoBrain Mission Control Dashboard" style="width:100%;display:block;border-radius:16px;">
-  </div>
-  <p style="font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--text-muted);margin-top:1rem;">Solarpunk-themed Mission Control dashboard. Included with every MojoBrain tier.</p>
-</section>
+<div class="divider"></div>
 
-<!-- Agents -->
-<section id="agents">
-  <div class="section-label">The Ecosystem</div>
-  <h2 class="section-title">Seven agents. Zero babysitting.</h2>
-  <p class="section-sub">Each agent runs autonomously on a schedule, reports to a central nervous system, and coordinates with other agents when cross-functional events occur.</p>
-
-  <div class="agents-grid">
-    <div class="agent-card" data-accent="green">
-      <div class="agent-card-icon">&#x1F9E0;</div>
-      <h3>Orchestrator  &ndash; The Brain</h3>
-      <div class="agent-card-role">Central Intelligence</div>
-      <p>Reads all agent outputs, makes decisions, routes events, and sends you only what matters. The brain that connects everything. Powered by your chosen LLM.</p>
+<!-- Pain Points -->
+<section id="pain">
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">You built the business.<br>Now it's running you.</h2>
     </div>
-
-    <div class="agent-card" data-accent="rose">
-      <div class="agent-card-icon">&#x1F6E1;</div>
-      <h3>CSO  &ndash; Security Officer</h3>
-      <div class="agent-card-role">Security</div>
-      <p>Breach monitoring via Have I Been Pwned, SSL certificate tracking, skill trust verification, anomaly detection, and automated incident reports.</p>
-    </div>
-
-    <div class="agent-card" data-accent="cyan">
-      <div class="agent-card-icon">&#x1F3AF;</div>
-      <h3>Lead Engine</h3>
-      <div class="agent-card-role">Lead Generation</div>
-      <p>Domain validation, email confidence scoring, outreach sequences, and CRM pipeline management. Fully customizable to any industry you serve.</p>
-    </div>
-
-    <div class="agent-card" data-accent="gold">
-      <div class="agent-card-icon">&#x1F331;</div>
-      <h3>Nerve Center</h3>
-      <div class="agent-card-role">Orchestration</div>
-      <p>Reads all agent outputs every 5 minutes. Builds unified state, detects cross-agent patterns, routes alerts intelligently. The nervous system of MojoBrain.</p>
-    </div>
-
-    <div class="agent-card" data-accent="amber">
-      <div class="agent-card-icon">&#x1F4B0;</div>
-      <h3>CFO  &ndash; Finance Officer</h3>
-      <div class="agent-card-role">Finance</div>
-      <p>Monthly burn tracking, subscription monitoring, suspicious charge flagging, and tax deadline awareness. Your financial watchdog, always on.</p>
-    </div>
-
-    <div class="agent-card" data-accent="green">
-      <div class="agent-card-icon">&#x2699;</div>
-      <h3>CTO  &ndash; System Monitor</h3>
-      <div class="agent-card-role">Infrastructure</div>
-      <p>System health monitoring, disk space tracking, cron job validation, and automated recovery protocols. Your infrastructure never sleeps.</p>
-    </div>
-
-    <div class="agent-card" data-accent="violet">
-      <div class="agent-card-icon">&#x2696;</div>
-      <h3>Law  &ndash; Compliance</h3>
-      <div class="agent-card-role">Compliance</div>
-      <p>GDPR/CCPA scanning, disclaimer database, contract clause library, and automated compliance routing. Keeps you covered without a retainer.</p>
+    <div class="pain-grid">
+      <div class="pain-card reveal">
+        <span class="pain-icon">&#x1F4CB;</span>
+        <h3>You're drowning in ops</h3>
+        <p>Manual follow-ups, forgotten leads, spreadsheet chaos. The things that should run themselves are eating your day.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-icon">&#x1F50D;</span>
+        <h3>You can't see what's happening</h3>
+        <p>No dashboard, no metrics, no visibility. You find out something broke when a client tells you.</p>
+      </div>
+      <div class="pain-card reveal">
+        <span class="pain-icon">&#x1F6D1;</span>
+        <h3>You're the bottleneck</h3>
+        <p>Everything stops when you're unavailable. Vacation means catching up for a week. Growth means burnout.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- How It Works -->
 <section id="how">
-  <div class="section-label">Setup</div>
-  <h2 class="section-title">How it works</h2>
-  <p class="section-sub">MojoBrain runs on a Mac Mini, Linux box, or virtual machine. Follow the playbook, deploy the agents, and they start working.</p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-number">1</div>
-      <div class="step-content">
-        <h3>Deploy the agents</h3>
-        <p>Follow the step-by-step playbook to install each agent. Each one is a Python script with a cron schedule. No Docker, no complex infrastructure. Works on physical hardware or a virtual machine.</p>
-      </div>
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three steps to hands-off operations.</h2>
     </div>
-    <div class="step">
-      <div class="step-number">2</div>
-      <div class="step-content">
-        <h3>Configure your Nerve Center</h3>
-        <p>The Nerve Center connects all agents through a shared state file. Define your cross-agent routing rules and which events trigger which responses.</p>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <h3>We analyze your business</h3>
+        <p>Map your operations, identify bottlenecks, and design the agent architecture that fits your workflow.</p>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-number">3</div>
-      <div class="step-content">
-        <h3>Connect Discord</h3>
-        <p>Wire up webhook notifications with channel routing. Critical alerts, routine logs, and agent reports each go where they belong. You see what matters, nothing more.</p>
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <h3>We build your MojoBrain</h3>
+        <p>7-13 autonomous agents, customized to your business, deployed on your hardware. Running within days.</p>
       </div>
-    </div>
-    <div class="step">
-      <div class="step-number">4</div>
-      <div class="step-content">
-        <h3>Launch Mission Control</h3>
-        <p>The solarpunk dashboard gives you a real-time view of every agent's status, system health, and alerts. Accessible from any device on your network.</p>
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <h3>You approve from your phone</h3>
+        <p>Morning briefings, real-time alerts, one-tap approvals. Your agents handle the work. You steer.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- What's Included -->
-<section id="included">
-  <div class="section-label">Package</div>
-  <h2 class="section-title">What you get</h2>
-  <p class="section-sub">Everything you need to deploy a production-grade multi-agent AI system from scratch.</p>
+<div class="divider"></div>
 
-  <div class="includes-grid">
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>All 7 agent Python scripts, production-ready</span>
+<!-- Agents -->
+<section id="agents">
+  <div class="container">
+    <div class="section-label">The Ecosystem</div>
+    <h2 class="section-title">Seven agents. Zero babysitting.</h2>
+    <p class="section-sub">Each agent runs autonomously on a schedule, reports to a central nervous system, and coordinates with the others when cross-functional events occur.</p>
+
+    <div class="agents-grid">
+      <div class="agent-card agent-top reveal">
+        <span class="agent-card-icon">&#x1F9E0;</span>
+        <h3>Orchestrator</h3>
+        <div class="agent-card-role">Central Intelligence</div>
+        <p>Reads all agent outputs, makes decisions, routes events, and sends you only what matters. The brain that connects everything.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x1F6E1;</span>
+        <h3>CSO</h3>
+        <div class="agent-card-role">Security</div>
+        <p>Breach monitoring, SSL tracking, anomaly detection, and automated incident reports.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x1F3AF;</span>
+        <h3>Lead Engine</h3>
+        <div class="agent-card-role">Lead Generation</div>
+        <p>Domain validation, email scoring, outreach sequences, and CRM pipeline management.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x1F331;</span>
+        <h3>Nerve Center</h3>
+        <div class="agent-card-role">Coordination</div>
+        <p>Reads all agent outputs every 5 minutes. Builds unified state and detects cross-agent patterns.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x1F4B0;</span>
+        <h3>CFO</h3>
+        <div class="agent-card-role">Finance</div>
+        <p>Monthly burn tracking, subscription monitoring, suspicious charge flagging, tax awareness.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x2699;&#xFE0F;</span>
+        <h3>CTO</h3>
+        <div class="agent-card-role">Infrastructure</div>
+        <p>System health monitoring, disk space, cron validation, and automated recovery protocols.</p>
+      </div>
+      <div class="agent-card reveal">
+        <span class="agent-card-icon">&#x2696;&#xFE0F;</span>
+        <h3>Law</h3>
+        <div class="agent-card-role">Compliance</div>
+        <p>GDPR/CCPA scanning, disclaimer database, contract clauses, and compliance routing.</p>
+      </div>
     </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Nerve Center cross-agent coordination</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Orchestration loop with cron backup</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Mission Control dashboard (solarpunk UI)</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Discord integration templates</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Pattern detection engine</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Step-by-step deployment playbook</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Agent registry + dashboard reporting</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Learnings system (agents improve over time)</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Morning briefing automation</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>File-based event watcher (launchd config)</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Architecture guide for adding custom agents</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Cold email sequence templates (for Lead Engine)</span>
-    </div>
-    <div class="include-item">
-      <span class="include-check">&#x2726;</span>
-      <span>Industry customization guide</span>
+    <p style="text-align:center;margin-top:2rem;font-size:0.82rem;color:var(--gray-500);">CC Jarvis deployments include 13+ agents tailored to your business.</p>
+  </div>
+</section>
+
+<!-- $97 Entry Offer -->
+<section>
+  <div class="container">
+    <div class="entry-offer reveal">
+      <h3>Google Workspace Security Audit</h3>
+      <div class="entry-price">$97</div>
+      <p>
+        30-minute expert review of your Google Workspace environment. Get actionable security recommendations from a 6-year Workspace specialist. If you purchase MojoBrain after, the $97 applies toward your order.
+      </p>
+      <a href="https://buy.stripe.com/6oU14n2xY2kR5f06Xp6AM09" target="_blank" class="btn btn-gold">Book Your Audit &mdash; $97</a>
+      <div class="entry-credit">$97 credited toward any MojoBrain purchase</div>
     </div>
   </div>
 </section>
 
-<!-- Who Is This For -->
-<section style="padding:4rem 2rem;">
-  <h2 class="section-title" style="text-align:center;">Who is this for?</h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto;">MojoBrain is built for operators who are tired of being the bottleneck in their own business.</p>
-  <div class="who-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;max-width:900px;margin:2rem auto 0;">
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
-      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Solo consultants drowning in admin work
-    </div>
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
-      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Agency owners who want ops on autopilot
-    </div>
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
-      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Service businesses scaling without hiring
-    </div>
-    <div style="grid-column:2;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.85rem;color:var(--text-dim);">
-      <span style="color:var(--green);font-size:1.2rem;">&#x2713;</span> Tech-curious founders who want AI working for them, not the other way around
-    </div>
-  </div>
-</section>
-
-<!-- Lead Magnet: Free Architecture Guide -->
-<section id="lead-magnet" style="padding:4rem 2rem;">
-  <div style="
-    max-width:680px;
-    margin:0 auto;
-    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(74,222,128,0.03) 100%);
-    border:1px solid var(--border-glow);
-    border-radius:16px;
-    padding:3rem 2.5rem;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  ">
-    <!-- Corner glow -->
-    <div style="position:absolute;top:-40%;right:-30%;width:60%;height:120%;background:radial-gradient(circle,rgba(74,222,128,0.06) 0%,transparent 60%);pointer-events:none;"></div>
-
-    <div style="font-family:'Fira Code',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--green-glow);margin-bottom:0.75rem;text-transform:uppercase;position:relative;">Free Download</div>
-
-    <h2 style="
-      font-family:'Cormorant Garamond',serif;
-      font-size:1.8rem;
-      font-weight:700;
-      color:var(--text-primary);
-      margin:0 0 0.5rem;
-      line-height:1.3;
-      position:relative;
-    ">The MojoBrain<br>Architecture Guide</h2>
-
-    <p style="
-      font-family:'Fira Code',monospace;
-      font-size:0.78rem;
-      color:var(--green-soft);
-      margin:0 0 1.25rem;
-      position:relative;
-    ">10 pages of blueprints, not fluff.</p>
-
-    <p style="
-      font-family:'Nunito',sans-serif;
-      color:var(--text-secondary);
-      font-size:0.9rem;
-      line-height:1.6;
-      margin:0 auto 1.75rem;
-      max-width:480px;
-      position:relative;
-    ">
-      How 13 autonomous agents handle security, finances, lead gen, and compliance on a single machine for ~$100/mo. Includes 3 agent blueprints you can build this weekend.
-    </p>
-
-    <form
-      id="lead-magnet-form"
-      action="https://c3ac83fd.sibforms.com/serve/MUIFAIAU37xzxNoKzlDKYxv-15u-ZqAlwTy6bYoK93XSSH0LgyC26hJV3YMCVRomxMYgAedo7MNBP8gDBbxX8cjlG-1k27AaPBhk4rFFlK7qIVZFxZ1vJfV0GGa6kRfP52HW1taux3c1iS_GtnvCBEw1AxXOJzwCtZmett0et9jxwNO4nCsqP1vRpF_euVxVMHRuwELjR4XgmFfFw=="
-      method="POST"
-      target="brevo-submit"
-      style="
-        display:flex;
-        gap:10px;
-        max-width:440px;
-        margin:0 auto 1rem;
-        position:relative;
-        flex-wrap:wrap;
-        justify-content:center;
-      "
-    >
-      <input
-        type="email"
-        name="EMAIL"
-        placeholder="your@email.com"
-        required
-        style="
-          flex:1;
-          min-width:200px;
-          padding:13px 16px;
-          background:rgba(255,255,255,0.04);
-          border:1px solid rgba(74,222,128,0.25);
-          border-radius:8px;
-          color:var(--text-primary);
-          font-family:'Fira Code',monospace;
-          font-size:0.85rem;
-          outline:none;
-          transition:border-color 0.2s, box-shadow 0.2s;
-        "
-        onfocus="this.style.borderColor='var(--green-glow)';this.style.boxShadow='0 0 12px rgba(74,222,128,0.15)'"
-        onblur="this.style.borderColor='rgba(74,222,128,0.25)';this.style.boxShadow='none'"
-      >
-      <input type="hidden" name="locale" value="en">
-      <input type="hidden" name="html_type" value="simple">
-      <button
-        type="submit"
-        style="
-          padding:13px 24px;
-          background:linear-gradient(135deg, var(--green-dark) 0%, #1a5c2e 100%);
-          border:1px solid rgba(74,222,128,0.3);
-          border-radius:8px;
-          color:#e8f0e4;
-          font-family:'Nunito',sans-serif;
-          font-weight:700;
-          font-size:0.9rem;
-          cursor:pointer;
-          transition:transform 0.15s, box-shadow 0.15s, background 0.2s;
-          white-space:nowrap;
-        "
-        onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 4px 20px rgba(74,222,128,0.25)';this.style.background='linear-gradient(135deg, #1a5c2e 0%, #22803a 100%)'"
-        onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none';this.style.background='linear-gradient(135deg, #166534 0%, #1a5c2e 100%)'"
-      >Get the Free Guide</button>
-    </form>
-    <iframe name="brevo-submit" style="display:none;"></iframe>
-    <script>
-    document.getElementById('lead-magnet-form').addEventListener('submit',function(){
-      var btn=this.querySelector('button');
-      btn.textContent='Downloading...';
-      btn.style.background='linear-gradient(135deg,#1a5c2e 0%,#22803a 100%)';
-      setTimeout(function(){
-        window.open('mojobrain-architecture-guide.pdf','_blank');
-        btn.textContent='Sent! Check your inbox too';
-        btn.disabled=true;
-        btn.style.opacity='0.7';
-      },800);
-    });
-    </script>
-
-    <p style="
-      font-family:'Nunito',sans-serif;
-      color:var(--text-muted);
-      font-size:0.7rem;
-      margin:0;
-      position:relative;
-    ">Delivered to your inbox. No spam, unsubscribe anytime.</p>
-  </div>
-</section>
-
-<!-- Pricing -->
+<!-- MojoBrain Pricing -->
 <section id="pricing">
-  <div class="section-label" style="text-align:center;">MojoBrain Pricing</div>
-  <h2 class="section-title" style="text-align:center;">Choose your MojoBrain setup tier</h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto 1rem;">One-time purchase. You choose your LLM provider based on our recommendations during your business evaluation. Some API keys are usage-based (typically $5-20/mo depending on volume).</p>
-  <p style="text-align:center;font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text-muted);margin:0 auto 3rem;max-width:600px;">Runs on a Mac Mini, Linux box, or virtual machine. Any always-on environment works.</p>
+  <div class="container section-center">
+    <div class="section-label">MojoBrain Pricing</div>
+    <h2 class="section-title">Choose your setup tier.</h2>
+    <p class="section-sub">One-time purchase. Runs on a Mac Mini, Linux box, or VM. You choose your LLM provider. Typical ongoing cost: $5-20/mo for API usage.</p>
 
-  <div class="pricing-container">
-    <!-- Tier 1: Playbook -->
-    <div class="pricing-card">
-      <div class="pricing-tier">Playbook</div>
-      <div class="pricing-price">$297</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>All 7 agent scripts</li>
-        <li>Nerve Center system</li>
-        <li>Mission Control dashboard</li>
-        <li>Discord integration</li>
-        <li>Deployment playbook</li>
-        <li>Video walkthroughs for each agent</li>
-        <li>Pattern detection engine</li>
-        <li>Community Discord access</li>
-      </ul>
-      <a href="https://buy.stripe.com/28EdR93C2e3zazkftV6AM00" target="_blank" class="btn-primary pricing-btn">Get Playbook</a>
+    <div class="pricing-grid">
+      <!-- Playbook -->
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Playbook</div>
+        <div class="pricing-price">$297</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>All 7 agent scripts</li>
+          <li>Nerve Center system</li>
+          <li>Mission Control dashboard</li>
+          <li>Discord integration</li>
+          <li>Deployment playbook</li>
+          <li>Video walkthroughs</li>
+          <li>Pattern detection engine</li>
+          <li>Community Discord access</li>
+        </ul>
+        <a href="https://buy.stripe.com/28EdR93C2e3zazkftV6AM00" target="_blank" class="btn btn-primary btn-sm pricing-btn">Get Playbook</a>
+      </div>
+
+      <!-- Guided Setup -->
+      <div class="pricing-card featured reveal">
+        <div class="pricing-tier">Guided Setup</div>
+        <div class="pricing-price">$797</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>Everything in Playbook</li>
+          <li>2-hour live setup call</li>
+          <li>30 days Discord DM support</li>
+          <li>Lead Engine customized to YOUR industry</li>
+          <li>Morning briefing automation</li>
+          <li>Learnings system</li>
+          <li>Cold email templates</li>
+          <li>Full skills library</li>
+          <li>Custom agent architecture guide</li>
+        </ul>
+        <a href="https://buy.stripe.com/00w3cvgoOgbH6j481t6AM04" target="_blank" class="btn btn-primary btn-sm pricing-btn">Get Guided Setup</a>
+      </div>
+
+      <!-- Managed Deploy -->
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Managed Deploy</div>
+        <div class="pricing-price">$1,497</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>Everything in Guided Setup</li>
+          <li>Full remote installation</li>
+          <li>All agents configured for your business</li>
+          <li>90 days priority support</li>
+          <li>Quarterly optimization call</li>
+          <li>Custom dashboard branding</li>
+          <li>3 custom agent builds</li>
+        </ul>
+        <a href="https://buy.stripe.com/bJe4gz5KaaRncHschJ6AM03" target="_blank" class="btn btn-primary btn-sm pricing-btn">Get Managed Deploy</a>
+      </div>
     </div>
 
-    <!-- Tier 2: Guided Setup (Featured) -->
-    <div class="pricing-card featured">
-      <div class="pricing-tier">Guided Setup</div>
-      <div class="pricing-price">$797</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>Everything in Playbook</li>
-        <li>2-hour live setup call</li>
-        <li>30 days Discord DM support</li>
-        <li>Lead Engine customized to YOUR industry</li>
-        <li>Morning briefing automation</li>
-        <li>Learnings system</li>
-        <li>Cold email templates</li>
-        <li>Skills library (web search, DNS audit, SEO, email sequences, and more)</li>
-        <li>Custom agent architecture guide</li>
-      </ul>
-      <a href="https://buy.stripe.com/00w3cvgoOgbH6j481t6AM04" target="_blank" class="btn-primary pricing-btn">Get Guided Setup</a>
+    <!-- Comparison Table -->
+    <div class="compare-wrap reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Playbook<span class="th-price">$297</span></th>
+            <th>Guided<span class="th-price">$797</span></th>
+            <th>Managed<span class="th-price">$1,497</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>7 agent scripts</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Nerve Center + dashboard</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Discord integration</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Deployment playbook + videos</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Community Discord</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Live setup call</td><td class="compare-dash">&mdash;</td><td>2 hours</td><td>Full install</td></tr>
+          <tr><td>Lead Engine customized</td><td class="compare-dash">&mdash;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Cold email templates</td><td class="compare-dash">&mdash;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Skills library</td><td class="compare-dash">&mdash;</td><td class="compare-check">&#x2713;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>DM support</td><td class="compare-dash">&mdash;</td><td>30 days</td><td>90 days</td></tr>
+          <tr><td>All agents configured for you</td><td class="compare-dash">&mdash;</td><td class="compare-dash">&mdash;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Custom dashboard branding</td><td class="compare-dash">&mdash;</td><td class="compare-dash">&mdash;</td><td class="compare-check">&#x2713;</td></tr>
+          <tr><td>Custom agent builds</td><td class="compare-dash">&mdash;</td><td class="compare-dash">&mdash;</td><td>3 included</td></tr>
+        </tbody>
+      </table>
     </div>
 
-    <!-- Tier 3: Managed Deploy -->
-    <div class="pricing-card">
-      <div class="pricing-tier">Managed Deploy</div>
-      <div class="pricing-price">$1,497</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>Everything in Guided Setup</li>
-        <li>Full remote installation on your machine</li>
-        <li>All agents configured for your business</li>
-        <li>90 days priority support</li>
-        <li>Quarterly optimization call</li>
-        <li>Custom dashboard branding</li>
-        <li>3 custom agent builds for your workflow</li>
+    <!-- Retainer -->
+    <div class="retainer-box reveal">
+      <h3>Need ongoing support?</h3>
+      <div class="retainer-price">$149<span>/mo</span></div>
+      <div class="retainer-note">Add to any MojoBrain tier</div>
+      <ul class="retainer-features">
+        <li>Monthly agent health review</li>
+        <li>Priority support</li>
+        <li>Agent updates &amp; patches</li>
+        <li>Quarterly strategy call</li>
       </ul>
-      <a href="https://buy.stripe.com/bJe4gz5KaaRncHschJ6AM03" target="_blank" class="btn-primary pricing-btn">Get Managed Deploy</a>
+      <a href="https://buy.stripe.com/7sY28rb4u4sZePA0z16AM02" target="_blank" class="btn btn-gold btn-sm">Add Monthly Support</a>
     </div>
-  </div>
-
-  <!-- Comparison Table -->
-  <div style="max-width:800px;margin:3rem auto 0;overflow-x:auto;">
-    <table style="width:100%;border-collapse:collapse;font-family:'Fira Code',monospace;font-size:0.8rem;">
-      <thead>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.2);">
-          <th style="text-align:left;padding:0.75rem 1rem;color:var(--text-muted);font-weight:600;">Feature</th>
-          <th style="text-align:center;padding:0.75rem 0.5rem;color:var(--green-glow);font-weight:700;">Playbook<br><span style="font-size:0.7em;color:var(--text-muted);">$297</span></th>
-          <th style="text-align:center;padding:0.75rem 0.5rem;color:var(--green-glow);font-weight:700;">Guided<br><span style="font-size:0.7em;color:var(--text-muted);">$797</span></th>
-          <th style="text-align:center;padding:0.75rem 0.5rem;color:var(--green-glow);font-weight:700;">Managed<br><span style="font-size:0.7em;color:var(--text-muted);">$1,497</span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">7 agent scripts</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Nerve Center + dashboard</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Discord integration</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Deployment playbook + videos</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Community Discord</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Live setup call</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">2 hours</td><td style="text-align:center;color:var(--green-glow);">Full install</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Lead Engine customized</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Cold email templates</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Skills library</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">DM support</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">30 days</td><td style="text-align:center;color:var(--green-glow);">90 days</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">All agents configured for you</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr style="border-bottom:1px solid rgba(74,222,128,0.06);"><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Custom dashboard branding</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">&#x2713;</td></tr>
-        <tr><td style="padding:0.6rem 1rem;color:var(--text-secondary);">Custom agent builds</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--text-muted);">&mdash;</td><td style="text-align:center;color:var(--green-glow);">3 included</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Retainer Add-on -->
-  <div class="retainer-box">
-    <h3>Need ongoing support?</h3>
-    <div class="retainer-price">$149<span style="font-size:0.5em;color:var(--text-muted);font-family:'Fira Code',monospace;">/mo</span></div>
-    <div class="retainer-note">Add the Monthly Retainer to any tier</div>
-    <ul class="retainer-features">
-      <li>Monthly agent health review</li>
-      <li>Priority support</li>
-      <li>Agent updates &amp; patches</li>
-      <li>Quarterly strategy call</li>
-    </ul>
-    <a href="https://buy.stripe.com/7sY28rb4u4sZePA0z16AM02" target="_blank" class="btn-amber">Add Monthly Support</a>
   </div>
 </section>
 
-<!-- CC Jarvis Pricing -->
-<section id="custom-cta" style="padding:6rem 2rem;">
-  <div class="section-label" style="text-align:center;">CC Jarvis Pricing</div>
-  <h2 class="section-title" style="text-align:center;">The full 13-agent build. We do it all.</h2>
-  <p class="section-sub" style="text-align:center;margin:0 auto 1rem;">CC Jarvis is our full-service custom build. 13+ agents tailored to your business, deployed on your hardware or VM. Requires a Claude Max subscription ($100/mo, purchased separately).</p>
-  <p style="text-align:center;font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--amber-glow);margin:0 auto 3rem;">Not sure which tier? Book a free discovery call and we'll recommend the right fit for your business.</p>
+<!-- CC Jarvis -->
+<section id="jarvis" class="jarvis-section">
+  <div class="container section-center">
+    <div class="section-label">CC Jarvis</div>
+    <h2 class="section-title">Need the full 13-agent custom build?</h2>
+    <p class="section-sub">CC Jarvis is our full-service deployment. 13+ agents tailored to your business, installed on your hardware, with ongoing support. Requires Claude Max ($100/mo, purchased separately).</p>
 
-  <div class="pricing-container">
-    <div class="pricing-card">
-      <div class="pricing-tier">Starter Build</div>
-      <div class="pricing-price" style="color:var(--amber-glow);">$1,000</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>13+ agents configured for your business</li>
-        <li>Business workflow analysis</li>
-        <li>Remote installation on your hardware or VM</li>
-        <li>Branded Mission Control dashboard</li>
-        <li>Discord integration</li>
-        <li>90-day priority support</li>
-      </ul>
-      <a href="https://buy.stripe.com/dRm9ATegGe3z36S6Xp6AM05" target="_blank" class="btn-amber" style="display:block;text-align:center;">Get Starter Build</a>
+    <div class="jarvis-pricing">
+      <div class="jarvis-card reveal">
+        <div class="pricing-tier">Starter Build</div>
+        <div class="pricing-price">$1,000</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>13+ agents configured for your business</li>
+          <li>Business workflow analysis</li>
+          <li>Remote installation</li>
+          <li>Branded Mission Control</li>
+          <li>Discord integration</li>
+          <li>90-day priority support</li>
+        </ul>
+        <a href="https://buy.stripe.com/dRm9ATegGe3z36S6Xp6AM05" target="_blank" class="btn btn-gold btn-sm pricing-btn">Get Starter Build</a>
+      </div>
+
+      <div class="jarvis-card featured reveal">
+        <div class="pricing-tier">Pro Build</div>
+        <div class="pricing-price">$1,500</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>Everything in Starter</li>
+          <li>Industry-specific custom agents</li>
+          <li>Advanced Nerve Center routing</li>
+          <li>Brevo email sequence integration</li>
+          <li>Lead scoring tuned to your market</li>
+          <li>6 months strategy calls</li>
+        </ul>
+        <a href="https://buy.stripe.com/8x29ATc8y3oV5f081t6AM06" target="_blank" class="btn btn-gold btn-sm pricing-btn">Get Pro Build</a>
+      </div>
+
+      <div class="jarvis-card reveal">
+        <div class="pricing-tier">Enterprise Build</div>
+        <div class="pricing-price">$2,500</div>
+        <div class="pricing-note">One-time purchase</div>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Unlimited custom agent builds</li>
+          <li>Multi-channel integrations</li>
+          <li>White-labeled Mission Control</li>
+          <li>12 months priority support</li>
+          <li>Monthly optimization calls</li>
+        </ul>
+        <a href="https://buy.stripe.com/fZufZhdcC3oV8rcepR6AM07" target="_blank" class="btn btn-gold btn-sm pricing-btn">Get Enterprise Build</a>
+      </div>
     </div>
 
-    <div class="pricing-card featured" style="border-color:var(--amber-glow);box-shadow:0 0 30px rgba(251,191,36,0.1);">
-      <div class="pricing-tier">Pro Build</div>
-      <div class="pricing-price" style="color:var(--amber-glow);">$1,500</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>Everything in Starter</li>
-        <li>Industry-specific custom agents</li>
-        <li>Advanced Nerve Center routing</li>
-        <li>Brevo email sequence integration</li>
-        <li>Lead scoring tuned to your market</li>
-        <li>Quarterly strategy calls (6 months)</li>
+    <!-- CC Jarvis Retainer -->
+    <div class="retainer-box reveal" style="border-color:var(--border-gold);">
+      <h3>CC Jarvis Retainer</h3>
+      <div class="retainer-price">$249<span>/mo</span></div>
+      <div class="retainer-note">Ongoing support for CC Jarvis deployments</div>
+      <ul class="retainer-features">
+        <li>Monthly agent health audits</li>
+        <li>New agent builds on request</li>
+        <li>System optimization</li>
+        <li>Monthly strategy calls</li>
       </ul>
-      <a href="https://buy.stripe.com/8x29ATc8y3oV5f081t6AM06" target="_blank" class="btn-amber" style="display:block;text-align:center;">Get Pro Build</a>
+      <a href="https://buy.stripe.com/14A8wP0pQaRn0YK81t6AM08" target="_blank" class="btn btn-gold btn-sm">Add CC Jarvis Retainer</a>
     </div>
 
-    <div class="pricing-card">
-      <div class="pricing-tier">Enterprise Build</div>
-      <div class="pricing-price" style="color:var(--amber-glow);">$2,500</div>
-      <div class="pricing-note">One-time purchase</div>
-      <ul class="pricing-features">
-        <li>Everything in Pro</li>
-        <li>Unlimited custom agent builds</li>
-        <li>Multi-channel integrations (email, Sheets, Calendar)</li>
-        <li>White-labeled Mission Control</li>
-        <li>12 months priority support</li>
-        <li>Monthly optimization calls</li>
-      </ul>
-      <a href="https://buy.stripe.com/fZufZhdcC3oV8rcepR6AM07" target="_blank" class="btn-amber" style="display:block;text-align:center;">Get Enterprise Build</a>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <p style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--gray-500);margin-bottom:0.5rem;">Want to talk it through first? No commitment.</p>
+      <p style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.05em;margin-bottom:1.2rem;">Currently onboarding 3 clients per month. Limited availability.</p>
+      <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn btn-secondary btn-sm">Book a Free Discovery Call</a>
     </div>
-  </div>
-
-  <!-- CC Jarvis Retainer -->
-  <div class="retainer-box" style="border-color:rgba(251,191,36,0.3);">
-    <h3>CC Jarvis Retainer</h3>
-    <div class="retainer-price">$249<span style="font-size:0.5em;color:var(--text-muted);font-family:'Fira Code',monospace;">/mo</span></div>
-    <div class="retainer-note">Ongoing support for CC Jarvis deployments</div>
-    <ul class="retainer-features">
-      <li>Monthly agent health audits</li>
-      <li>New agent builds on request</li>
-      <li>System optimization</li>
-      <li>Monthly strategy calls</li>
-    </ul>
-    <a href="https://buy.stripe.com/14A8wP0pQaRn0YK81t6AM08" target="_blank" class="btn-amber">Add CC Jarvis Retainer</a>
-  </div>
-
-  <div style="text-align:center;margin-top:2rem;">
-    <p style="font-family:'Fira Code',monospace;font-size:0.7rem;color:var(--text-muted);margin-bottom:0.5rem;">Want to talk it through first? No commitment.</p>
-    <p style="font-family:'Fira Code',monospace;font-size:0.65rem;color:var(--amber-glow);margin-bottom:1rem;">Currently onboarding 3 clients per month. Limited availability.</p>
-    <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn-secondary">Book a Free Discovery Call</a>
   </div>
 </section>
 
 <!-- FAQ -->
 <section id="faq">
-  <div class="section-label">Questions</div>
-  <h2 class="section-title">FAQ</h2>
-  <div class="faq-list">
-    <div class="faq-item">
-      <div class="faq-question">
-        What hardware do I need?
-        <span class="faq-arrow">+</span>
-      </div>
-      <div class="faq-answer">
-        Any always-on machine: Mac Mini, Linux box, or a virtual machine (cloud VM works too). MojoBrain runs as lightweight Python scripts on cron, so resource needs are minimal. The heavy AI processing happens through your chosen LLM provider's API, not locally.
-      </div>
+  <div class="container">
+    <div class="section-center">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions.</h2>
     </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        What are the ongoing costs?
-        <span class="faq-arrow">+</span>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What hardware do I need?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Any always-on machine: Mac Mini, Linux box, or a cloud VM. MojoBrain runs as lightweight Python scripts on cron. The heavy AI processing happens through your LLM provider's API, not locally.</div>
       </div>
-      <div class="faq-answer">
-        For MojoBrain: some API keys are usage-based, typically $5-20/mo depending on your volume. We recommend the best LLM provider for your use case during the business evaluation. For CC Jarvis: Claude Max at $100/mo. No per-agent charges either way. The agents run locally as Python scripts that read files, write JSON, and report status.
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What are the ongoing costs?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">For MojoBrain: some API keys are usage-based, typically $5-20/mo depending on volume. For CC Jarvis: Claude Max at $100/mo. No per-agent charges. The agents run locally as Python scripts.</div>
       </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Is this just an OpenClaw wrapper?
-        <span class="faq-arrow">+</span>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Can I add custom agents?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Yes. Any Python script that writes a JSON output file can become an agent. The Nerve Center detects it, tracks its health, and routes its events. The architecture guide walks you through the structure.</div>
       </div>
-      <div class="faq-answer">
-        MojoBrain was built on OpenClaw (open-source) and has evolved into its own architecture with a custom Nerve Center for agent coordination. No gateway to maintain, no framework-specific dependencies. It's agent scripts, cron jobs, JSON state files, and your LLM of choice. Battle-tested in production.
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Do I need coding experience?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Basic terminal comfort is all you need. The playbook has copy-paste commands for every step. For customization, Claude Code helps you modify agents conversationally. No Python expertise required.</div>
       </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Can I add custom agents?
-        <span class="faq-arrow">+</span>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          How do I get notifications?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Discord. Each agent reports to its own channel. Critical alerts, routine logs, and agent reports are routed automatically. You see what matters, nothing more.</div>
       </div>
-      <div class="faq-answer">
-        Yes. Any Python script that writes a JSON output file can become an agent. The Nerve Center will detect it, track its health, and route its events. The architecture guide (included in Guided Setup and Managed Deploy) walks you through the exact structure.
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What industries does this work for?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">Any service business, consultancy, or agency. The Lead Engine and CFO agents are industry-agnostic. The CSO and Law agents cover universal needs. Guided Setup includes customization to your specific market.</div>
       </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        Do I need coding experience?
-        <span class="faq-arrow">+</span>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          What if I already have tools in place?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-a">MojoBrain integrates with your existing stack. It connects to Google Workspace, Stripe, Brevo, Discord, and more via API. It doesn't replace your tools — it automates the work between them.</div>
       </div>
-      <div class="faq-answer">
-        Basic terminal comfort is all you need. The playbook has copy-paste commands for every step. If you can open Terminal and paste a command, you can deploy MojoBrain. For customization, Claude Code helps you modify agents conversationally. No Python expertise required.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        How do I get notifications?
-        <span class="faq-arrow">+</span>
-      </div>
-      <div class="faq-answer">
-        Discord. Each agent reports to its own channel. Critical alerts, routine logs, and agent reports are routed automatically. You see what matters, nothing more. The webhook architecture is simple to set up and the playbook walks you through it.
-      </div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question">
-        What industries does this work for?
-        <span class="faq-arrow">+</span>
-      </div>
-      <div class="faq-answer">
-        Any service business, consultancy, or agency. The Lead Engine and CFO agents are industry-agnostic by design. The CSO and Law agents cover universal security and compliance needs. Guided Setup includes customization to map the Lead Engine to your specific market.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Custom Build / Industry Selector -->
-<section id="custom">
-  <div class="industry-section">
-    <div class="section-label" style="text-align:center;">Custom Build</div>
-    <h2 class="section-title">Built for your industry.</h2>
-    <p class="section-sub" style="margin:0 auto 1rem;">Tell us your industry and we'll show you exactly how CC Jarvis maps to your business. Every custom build includes agents tailored to your specific workflow.</p>
-
-    <div class="industry-form">
-      <select class="industry-select" id="industrySelect" onchange="showIndustryResult()">
-        <option value="">Select your industry...</option>
-        <option value="consulting">Consulting / Freelance</option>
-        <option value="agency">Marketing / Creative Agency</option>
-        <option value="legal">Legal / Law Firm</option>
-        <option value="realestate">Real Estate / Property</option>
-        <option value="ecommerce">E-Commerce / DTC</option>
-        <option value="saas">SaaS / Tech Startup</option>
-        <option value="healthcare">Healthcare / Wellness</option>
-        <option value="finance">Finance / Accounting</option>
-        <option value="construction">Construction / Trades</option>
-        <option value="education">Education / Coaching</option>
-        <option value="other">Other (Tell Us)</option>
-      </select>
-
-      <div class="industry-result" id="industryResult"></div>
-
-      <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn-primary" style="display:block;text-align:center;margin-top:1.5rem;">Book a Custom Build Call</a>
     </div>
   </div>
 </section>
 
 <!-- Final CTA -->
 <div class="final-cta">
-  <h2>Your business should run<br><span style="background:linear-gradient(135deg,var(--green-glow),var(--amber-glow));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">even when you don't.</span></h2>
-  <p>Deploy MojoBrain and let 7 autonomous agents handle security, finance, legal, and lead generation while you focus on building.</p>
-  <a href="#pricing" class="btn-primary">Get MojoBrain</a>
+  <div class="urgency">Currently onboarding 3 clients per month</div>
+  <h2>Ready to stop being the bottleneck?</h2>
+  <p>Book a free discovery call and find out which tier fits your business.</p>
+  <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn btn-gold">Book Discovery Call</a>
+  <div class="builder-note">
+    Built by Eysha Penrod&ensp;|&ensp;6 years at Google via MarketStar&ensp;|&ensp;Running MojoBrain in production daily
+  </div>
 </div>
 
 <!-- Footer -->
 <footer>
-  <div>
-    <a href="https://eyshtech.vip">EyshTech Consulting</a> &middot; MojoBrain
-  </div>
-  <div>
+  <span>&copy; 2026 EyshTech. Atlanta, GA.</span>
+  <div class="footer-links">
+    <a href="https://eyshtech.vip">Home</a>
+    <a href="https://eyshtech.vip/workspace">Workspace</a>
+    <a href="https://eyshtech.vip/privacy">Privacy</a>
+    <a href="https://eyshtech.vip/terms">Terms</a>
     <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
   </div>
 </footer>
 
+<!-- Lead Magnet Form Handler -->
 <script>
-  // FAQ accordion
-  document.querySelectorAll('.faq-question').forEach(function(q) {
-    q.addEventListener('click', function() {
-      var item = q.parentElement;
-      var wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(function(i) {
-        i.classList.remove('open');
-      });
-      if (!wasOpen) item.classList.add('open');
-    });
-  });
+document.getElementById('lead-magnet-form').addEventListener('submit', function() {
+  var btn = this.querySelector('button');
+  btn.textContent = 'Downloading...';
+  setTimeout(function() {
+    window.open('mojobrain-architecture-guide.pdf', '_blank');
+    btn.textContent = 'Sent! Check your inbox too';
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+  }, 800);
+});
+</script>
 
-  // Scroll reveal animations
-  var revealObserver = new IntersectionObserver(function(entries) {
+<!-- Scroll Reveal -->
+<script>
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.agent-card, .step, .include-item, .pricing-card, .faq-item, .retainer-box, .proof-stat').forEach(function(el) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    revealObserver.observe(el);
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
   });
-
-  // Stagger animation for grid items
-  document.querySelectorAll('.agents-grid, .includes-grid, .pricing-container').forEach(function(grid) {
-    var children = grid.children;
-    for (var i = 0; i < children.length; i++) {
-      children[i].style.transitionDelay = (i * 0.08) + 's';
-    }
-  });
-
-  // Industry selector
-  function showIndustryResult() {
-    var select = document.getElementById('industrySelect');
-    var result = document.getElementById('industryResult');
-    var val = select.value;
-
-    var industries = {
-      consulting: {
-        title: 'Consulting & Freelance',
-        desc: 'Your CC Jarvis build would include: Lead Engine configured for your niche (B2B outreach sequences, domain validation, confidence scoring), CFO agent tracking project invoices and contractor payments, CSO monitoring client data security, and a Client Onboarding agent that automates intake forms and welcome sequences.',
-        agents: 'Lead Engine, CFO, CSO, CTO, Law, Client Onboarding, Proposal Generator'
-      },
-      agency: {
-        title: 'Marketing & Creative Agency',
-        desc: 'Your build would include: Content Calendar agent managing deliverables and deadlines, Lead Engine targeting brands needing agency services, CFO tracking retainer revenue and project profitability, and a Client Reporting agent that auto-generates performance summaries.',
-        agents: 'Content Calendar, Lead Engine, CFO, CSO, CTO, Client Reporter, Social Monitor'
-      },
-      legal: {
-        title: 'Legal & Law Firms',
-        desc: 'Your build would include: Case Tracker agent monitoring deadlines and filing dates, Compliance agent scanning for regulatory changes, CFO tracking billable hours and trust accounting, and a Client Intake agent that pre-qualifies leads and schedules consultations.',
-        agents: 'Case Tracker, Compliance, CFO, CSO, Client Intake, Document Monitor, Billing'
-      },
-      realestate: {
-        title: 'Real Estate & Property',
-        desc: 'Your build would include: Listing Monitor tracking MLS changes and price drops, Lead Engine qualifying buyer/seller leads with market data, CFO tracking commissions and closing costs, and a Transaction Coordinator agent managing the closing pipeline.',
-        agents: 'Listing Monitor, Lead Engine, CFO, CSO, Transaction Coordinator, Market Intel'
-      },
-      ecommerce: {
-        title: 'E-Commerce & DTC',
-        desc: 'Your build would include: Inventory Monitor tracking stock levels and reorder points, CFO tracking COGS and profit margins per SKU, Lead Engine running email/SMS acquisition campaigns, and a Review Monitor agent flagging negative reviews for immediate response.',
-        agents: 'Inventory Monitor, CFO, Lead Engine, CSO, Review Monitor, Fulfillment Tracker'
-      },
-      saas: {
-        title: 'SaaS & Tech Startups',
-        desc: 'Your build would include: Churn Predictor agent monitoring usage patterns, CFO tracking MRR/ARR and burn rate, CTO monitoring infrastructure health and deployment status, and a Lead Engine configured for product-led growth outreach.',
-        agents: 'Churn Predictor, CFO, CTO, CSO, Lead Engine, Deployment Monitor, Usage Analytics'
-      },
-      healthcare: {
-        title: 'Healthcare & Wellness',
-        desc: 'Your build would include: HIPAA Compliance agent monitoring data handling, Appointment Manager agent reducing no-shows, CFO tracking insurance claims and reimbursements, and a Patient Communication agent handling follow-ups and reminders.',
-        agents: 'HIPAA Compliance, Appointment Manager, CFO, CSO, Patient Comms, Billing'
-      },
-      finance: {
-        title: 'Finance & Accounting',
-        desc: 'Your build would include: Regulatory Monitor tracking SEC/IRS changes, CFO with enhanced tax deadline and quarterly filing automation, Client Portfolio agent monitoring client financial health, and a Compliance agent ensuring audit readiness.',
-        agents: 'Regulatory Monitor, CFO, Compliance, CSO, Client Portfolio, Audit Prep, Tax Calendar'
-      },
-      construction: {
-        title: 'Construction & Trades',
-        desc: 'Your build would include: Project Tracker monitoring job site progress and milestones, CFO tracking job costing and change orders, Lead Engine qualifying commercial and residential leads, and a Safety Compliance agent tracking certifications and inspections.',
-        agents: 'Project Tracker, CFO, Lead Engine, Safety Compliance, CSO, Permit Monitor'
-      },
-      education: {
-        title: 'Education & Coaching',
-        desc: 'Your build would include: Student/Client Pipeline agent managing enrollment funnel, Content Calendar for course launches and webinars, CFO tracking course revenue and refund rates, and a Community Manager agent monitoring engagement signals.',
-        agents: 'Student Pipeline, Content Calendar, CFO, CSO, Community Manager, Launch Planner'
-      },
-      other: {
-        title: 'Custom Industry Build',
-        desc: 'We build CC Jarvis for any industry. On the discovery call, we\'ll map your specific workflows to autonomous agents — identifying what can be automated, what needs monitoring, and where AI oversight saves you the most time.',
-        agents: 'Fully custom agent roster based on your workflow analysis'
-      }
-    };
-
-    if (val && industries[val]) {
-      var ind = industries[val];
-      result.innerHTML = '<h4>' + ind.title + '</h4>' +
-        '<p>' + ind.desc + '</p>' +
-        '<div style="font-family:\'Fira Code\',monospace;font-size:0.7rem;color:var(--amber-glow);letter-spacing:0.1em;">' +
-        'SUGGESTED AGENTS: ' + ind.agents + '</div>';
-      result.style.display = 'block';
-    } else {
-      result.style.display = 'none';
-    }
-  }
+})();
 </script>
 
 </body>
