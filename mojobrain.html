@@ -58,27 +58,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Share+Tech+Mono&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080f06;
-    --bg-raised: #0e1a0f;
-    --bg-card: #111c10;
-    --bg-card-hover: #162414;
+    --bg: #0a1208;
+    --bg-raised: #0f1c0d;
+    --bg-card: rgba(16, 36, 18, 0.85);
+    --bg-card-hover: rgba(22, 48, 24, 0.9);
     --gold: #fbbf24;
-    --gold-dim: rgba(251, 191, 36, 0.1);
-    --gold-glow: rgba(251, 191, 36, 0.06);
+    --gold-dim: rgba(251, 191, 36, 0.15);
+    --gold-glow: rgba(251, 191, 36, 0.1);
     --green: #4ade80;
     --green-soft: #22c55e;
     --green-dark: #166534;
-    --green-dim: rgba(74, 222, 128, 0.1);
-    --green-glow: rgba(74, 222, 128, 0.06);
-    --white: #e8f0e4;
-    --gray-100: #c8d8c2;
-    --gray-300: #9cb897;
-    --gray-500: #5a7a55;
-    --gray-700: #2a4a25;
-    --gray-900: #1a3215;
-    --border: rgba(74, 222, 128, 0.15);
-    --border-gold: rgba(251, 191, 36, 0.2);
-    --border-green: rgba(74, 222, 128, 0.25);
+    --green-bright: #6ee7a0;
+    --green-dim: rgba(74, 222, 128, 0.15);
+    --green-glow: rgba(74, 222, 128, 0.12);
+    --white: #eaf5ea;
+    --gray-100: #d0e0cc;
+    --gray-300: #a8c8a2;
+    --gray-500: #6a9a62;
+    --gray-700: #3a6a34;
+    --gray-900: #1e4a18;
+    --border: rgba(74, 222, 128, 0.2);
+    --border-gold: rgba(251, 191, 36, 0.25);
+    --border-green: rgba(74, 222, 128, 0.35);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -105,34 +106,41 @@
   }
   @keyframes drift {
     0% { opacity: 0; transform: translateY(-20px) scale(0); }
-    15% { opacity: 0.3; }
-    85% { opacity: 0.2; }
+    15% { opacity: 0.5; }
+    85% { opacity: 0.35; }
     100% { opacity: 0; transform: translateY(100vh) scale(1); }
   }
 
-  /* === HUD BACKGROUND — matches Mission Control === */
+  /* === SOLARPUNK ATMOSPHERE — lush, alive, organic === */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse 600px 500px at 15% 15%, rgba(74, 222, 128, 0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 500px 400px at 85% 70%, rgba(251, 191, 36, 0.04) 0%, transparent 55%);
+      radial-gradient(ellipse 800px 600px at 10% 10%, rgba(74, 222, 128, 0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 600px 500px at 90% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 700px 500px at 50% 80%, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 500px 400px at 80% 60%, rgba(74, 222, 128, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
+    animation: atmosphereDrift 25s ease-in-out infinite alternate;
   }
-  /* Subtle grid overlay like Mission Control panels */
+  @keyframes atmosphereDrift {
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.03) translate(15px, -10px); }
+    100% { transform: scale(0.98) translate(-10px, 8px); }
+  }
+  /* HUD grid overlay */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(74, 222, 128, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(74, 222, 128, 0.03) 1px, transparent 1px);
+      linear-gradient(rgba(74, 222, 128, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(74, 222, 128, 0.04) 1px, transparent 1px);
     background-size: 60px 60px;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.5;
   }
 
   /* === UTILITY === */
@@ -235,8 +243,8 @@
     position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
     width: 800px; height: 800px;
     background:
-      radial-gradient(circle at 45% 45%, rgba(74, 222, 128, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 55% 55%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+      radial-gradient(circle at 45% 45%, rgba(74, 222, 128, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 60% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
     pointer-events: none;
     animation: heroGlow 6s ease-in-out infinite alternate;
   }
@@ -445,8 +453,11 @@
     border-radius: 4px;
     padding: 2rem;
     transition: all 0.3s;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 0 15px rgba(74,222,128,0.04);
   }
-  .pain-card:hover { border-color: var(--border-green); background: var(--bg-card-hover); box-shadow: 0 0 20px rgba(74,222,128,0.06); }
+  .pain-card:hover { border-color: var(--border-green); background: var(--bg-card-hover); box-shadow: 0 0 30px rgba(74,222,128,0.1); }
   .pain-icon {
     font-size: 1.8rem;
     margin-bottom: 1rem;
@@ -509,6 +520,9 @@
     padding: 1.5rem;
     transition: all 0.3s;
     position: relative;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 0 12px rgba(74,222,128,0.04);
   }
   .agent-card::after {
     content: '';
@@ -599,6 +613,8 @@
     border-top: 2px solid var(--green);
     border-radius: 4px;
     padding: 2.5rem 2rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     text-align: center;
     position: relative;
     transition: all 0.3s;
@@ -606,7 +622,7 @@
   .pricing-card:hover { border-color: var(--gray-700); }
   .pricing-card.featured {
     border-color: var(--green);
-    box-shadow: 0 0 40px rgba(57, 211, 83, 0.08);
+    box-shadow: 0 0 40px rgba(74, 222, 128, 0.15), inset 0 0 30px rgba(74, 222, 128, 0.03);
   }
   .pricing-card.featured::after {
     content: 'MOST POPULAR';
