@@ -1021,7 +1021,7 @@
   <div class="hero-badge">AI Operations System</div>
   <h1>Your business runs itself.<br>You just approve.</h1>
   <p class="hero-sub">
-    I got tired of being the bottleneck in my own business. So I built 13 autonomous AI agents to handle lead gen, outreach, compliance, content, and finances — 24/7. Now I sell the system. For founders, lean teams, and growing businesses.
+    13 agents. One machine. Your business runs itself.
   </p>
   <div class="hero-ctas">
     <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn btn-primary">Book Discovery Call</a>
@@ -1039,12 +1039,24 @@
     <div class="proof-label">Autonomous Operation</div>
   </div>
   <div class="proof-item">
-    <div class="proof-val">~$20</div>
-    <div class="proof-label">Monthly API Cost</div>
+    <div class="proof-val">~$110</div>
+    <div class="proof-label">Total Monthly Stack</div>
   </div>
   <div class="proof-item">
     <div class="proof-val" data-count="15" data-final="15 min">15 min</div>
     <div class="proof-label">Scan Cycle</div>
+  </div>
+</div>
+
+<!-- Built With — social proof -->
+<div style="text-align:center;padding:2rem 1rem 0;">
+  <p style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gray-500);margin-bottom:1rem;">Built with</p>
+  <div style="display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;align-items:center;opacity:0.6;">
+    <span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--gray-300);padding:0.4rem 1rem;border:1px solid var(--border);border-radius:4px;">Claude Opus</span>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--gray-300);padding:0.4rem 1rem;border:1px solid var(--border);border-radius:4px;">Stripe</span>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--gray-300);padding:0.4rem 1rem;border:1px solid var(--border);border-radius:4px;">Brevo</span>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--gray-300);padding:0.4rem 1rem;border:1px solid var(--border);border-radius:4px;">Discord</span>
+    <span style="font-family:'Share Tech Mono',monospace;font-size:0.8rem;color:var(--gray-300);padding:0.4rem 1rem;border:1px solid var(--border);border-radius:4px;">Apple Silicon</span>
   </div>
 </div>
 
@@ -1239,6 +1251,18 @@
       <img src="dashboard-preview.png" alt="MojoBrain Mission Control Dashboard" style="width:100%;display:block;" loading="lazy">
     </div>
     <p style="font-family:'Share Tech Mono',monospace;font-size:0.65rem;color:var(--gray-500);margin-top:1rem;">Your Mission Control. Built in days. Included with every MojoBrain tier.</p>
+  </div>
+</section>
+
+<!-- Video Walkthrough Placeholder -->
+<section style="text-align:center;padding:3rem 0;">
+  <div class="container">
+    <div class="reveal" style="max-width:640px;margin:0 auto;background:var(--bg-card);border:1px solid var(--border);border-top:2px solid var(--green);border-radius:4px;padding:3rem 2rem;">
+      <div style="font-size:2rem;margin-bottom:1rem;">&#x25B6;&#xFE0F;</div>
+      <h3 style="font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;">See it running live</h3>
+      <p style="color:var(--gray-300);font-size:0.9rem;margin-bottom:1.5rem;">Walkthrough video coming soon. Want to see the dashboard and agents in action right now?</p>
+      <a href="https://calendar.app.google/35PXh7ZMU7BthPPV9" target="_blank" class="btn btn-primary btn-sm">Book a Live Demo Call</a>
+    </div>
   </div>
 </section>
 
@@ -1522,6 +1546,7 @@
     <a href="https://eyshtech.vip/privacy">Privacy</a>
     <a href="https://eyshtech.vip/terms">Terms</a>
     <a href="mailto:admin@eyshtech.vip">admin@eyshtech.vip</a>
+    <a href="https://www.linkedin.com/in/eysha-penrod" target="_blank">Follow the build →</a>
   </div>
 </footer>
 
@@ -1554,7 +1579,7 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
     observer.observe(el);
   });
 
-  // Counter animation for proof bar
+  // Counter animation for proof bar — runs once when visible
   var counted = false;
   function runCounters() {
     if (counted) return;
@@ -1562,8 +1587,7 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
     document.querySelectorAll('.proof-val[data-count]').forEach(function(el) {
       var target = parseInt(el.dataset.count);
       var finalText = el.dataset.final || String(target);
-      el.textContent = '0';
-      var duration = 1200;
+      var duration = 1500;
       var start = performance.now();
       function step(now) {
         var progress = Math.min((now - start) / duration, 1);
@@ -1572,14 +1596,20 @@ document.getElementById('lead-magnet-form').addEventListener('submit', function(
         if (progress < 1) requestAnimationFrame(step);
         else el.textContent = finalText;
       }
+      el.textContent = '0';
       requestAnimationFrame(step);
     });
   }
   var proofBar = document.querySelector('.proof-bar');
   if (proofBar) {
+    // Use threshold 0 so it fires as soon as any part is visible
     var proofObserver = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting) runCounters();
-    }, { threshold: 0.3 });
+      if (entries[0].isIntersecting) {
+        // Small delay so user sees the 0 → number animation
+        setTimeout(runCounters, 300);
+        proofObserver.unobserve(proofBar);
+      }
+    }, { threshold: 0 });
     proofObserver.observe(proofBar);
   }
 })();
