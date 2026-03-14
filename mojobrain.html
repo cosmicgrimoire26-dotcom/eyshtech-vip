@@ -62,9 +62,9 @@
     --bg-raised: #0e1a0f;
     --bg-card: #131f14;
     --bg-card-hover: #182616;
-    --gold: #fbbf24;
-    --gold-dim: rgba(251, 191, 36, 0.15);
-    --gold-glow: rgba(251, 191, 36, 0.1);
+    --gold: #f8f0e3;
+    --gold-dim: rgba(248, 240, 227, 0.15);
+    --gold-glow: rgba(248, 240, 227, 0.1);
     --green: #4ade80;
     --green-soft: #22c55e;
     --green-dark: #166534;
@@ -78,7 +78,7 @@
     --gray-700: #3a5a35;
     --gray-900: #1e3a1a;
     --border: rgba(74, 222, 128, 0.25);
-    --border-gold: rgba(251, 191, 36, 0.3);
+    --border-gold: rgba(248, 240, 227, 0.3);
     --border-green: rgba(74, 222, 128, 0.4);
   }
 
@@ -119,7 +119,7 @@
     background:
       radial-gradient(ellipse 800px 600px at 10% 10%, rgba(74, 222, 128, 0.15) 0%, transparent 60%),
       radial-gradient(ellipse 600px 500px at 90% 20%, rgba(34, 197, 94, 0.08) 0%, transparent 55%),
-      radial-gradient(ellipse 700px 500px at 50% 80%, rgba(251, 191, 36, 0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 700px 500px at 50% 80%, rgba(248, 240, 227, 0.06) 0%, transparent 55%),
       radial-gradient(ellipse 500px 400px at 80% 60%, rgba(74, 222, 128, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
@@ -166,7 +166,7 @@
     .pain-card:hover, .agent-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
     .pricing-card:hover, .jarvis-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
     .pricing-card.featured:hover { box-shadow: 0 12px 40px rgba(74,222,128,0.1); }
-    .jarvis-card.featured:hover { box-shadow: 0 12px 40px rgba(212,168,67,0.1); }
+    .jarvis-card.featured:hover { box-shadow: 0 12px 40px rgba(248,240,227,0.1); }
 
     /* CTA shimmer */
     .btn-primary, .btn-gold { position: relative; overflow: hidden; }
@@ -244,7 +244,7 @@
     width: 800px; height: 800px;
     background:
       radial-gradient(circle at 45% 45%, rgba(74, 222, 128, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 60% 50%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
+      radial-gradient(circle at 60% 50%, rgba(248, 240, 227, 0.08) 0%, transparent 50%);
     pointer-events: none;
     animation: heroGlow 6s ease-in-out infinite alternate;
   }
@@ -309,7 +309,7 @@
     background: var(--gold);
     color: var(--bg);
   }
-  .btn-gold:hover { background: #e0b84e; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,168,67,0.2); }
+  .btn-gold:hover { background: #f8f0e3; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(248,240,227,0.2); }
   .btn-sm { padding: 0.65rem 1.5rem; font-size: 0.85rem; }
 
   /* === PROOF BAR === */
@@ -386,7 +386,7 @@
   .product-card.gold-product {
     border-top: 2px solid var(--gold);
   }
-  .product-card.gold-product:hover { border-color: var(--border-gold); box-shadow: 0 0 30px rgba(251,191,36,0.1); }
+  .product-card.gold-product:hover { border-color: var(--border-gold); box-shadow: 0 0 30px rgba(248,240,227,0.1); }
   .product-badge {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.6rem; letter-spacing: 0.15em;
@@ -394,7 +394,7 @@
     display: inline-block; margin-bottom: 1rem;
   }
   .product-badge.template { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
-  .product-badge.full-service { background: rgba(251,191,36,0.1); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+  .product-badge.full-service { background: rgba(248,240,227,0.1); color: var(--gold); border: 1px solid rgba(248,240,227,0.2); }
   .product-card h3 {
     font-family: 'Orbitron', sans-serif;
     font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;
@@ -499,7 +499,7 @@
     transition: all 0.2s;
     white-space: nowrap;
   }
-  .lm-form button:hover { background: #e0b84e; transform: translateY(-1px); }
+  .lm-form button:hover { background: #f8f0e3; transform: translateY(-1px); }
   .lm-fine {
     font-size: 0.7rem;
     color: var(--gray-500);
@@ -983,22 +983,22 @@
 <!-- Particles — falling green/gold flurries -->
 <div class="particle" style="left:3%;animation-duration:12s;background:#4ade80;"></div>
 <div class="particle" style="left:8%;animation-duration:14s;animation-delay:1s;background:#4ade80;"></div>
-<div class="particle" style="left:15%;animation-duration:18s;animation-delay:3s;background:#fbbf24;"></div>
+<div class="particle" style="left:15%;animation-duration:18s;animation-delay:3s;background:#f8f0e3;"></div>
 <div class="particle" style="left:22%;animation-duration:20s;animation-delay:5s;background:#4ade80;width:4px;height:4px;"></div>
 <div class="particle" style="left:28%;animation-duration:15s;animation-delay:8s;background:#4ade80;"></div>
 <div class="particle" style="left:35%;animation-duration:25s;animation-delay:2s;background:#22c55e;"></div>
 <div class="particle" style="left:42%;animation-duration:16s;animation-delay:7s;background:#4ade80;"></div>
-<div class="particle" style="left:48%;animation-duration:22s;animation-delay:4s;background:#fbbf24;width:4px;height:4px;"></div>
+<div class="particle" style="left:48%;animation-duration:22s;animation-delay:4s;background:#f8f0e3;width:4px;height:4px;"></div>
 <div class="particle" style="left:55%;animation-duration:19s;animation-delay:10s;background:#4ade80;"></div>
 <div class="particle" style="left:62%;animation-duration:13s;animation-delay:6s;background:#22c55e;"></div>
 <div class="particle" style="left:68%;animation-duration:21s;animation-delay:1s;background:#4ade80;"></div>
-<div class="particle" style="left:75%;animation-duration:17s;animation-delay:9s;background:#fbbf24;"></div>
+<div class="particle" style="left:75%;animation-duration:17s;animation-delay:9s;background:#f8f0e3;"></div>
 <div class="particle" style="left:82%;animation-duration:14s;animation-delay:3s;background:#4ade80;width:4px;height:4px;"></div>
 <div class="particle" style="left:88%;animation-duration:20s;animation-delay:7s;background:#4ade80;"></div>
 <div class="particle" style="left:93%;animation-duration:16s;animation-delay:5s;background:#22c55e;"></div>
 <div class="particle" style="left:97%;animation-duration:23s;animation-delay:2s;background:#4ade80;"></div>
 <div class="particle" style="left:5%;animation-duration:26s;animation-delay:12s;background:#4ade80;width:2px;height:2px;"></div>
-<div class="particle" style="left:50%;animation-duration:30s;animation-delay:0s;background:#fbbf24;width:2px;height:2px;"></div>
+<div class="particle" style="left:50%;animation-duration:30s;animation-delay:0s;background:#f8f0e3;width:2px;height:2px;"></div>
 <div class="particle" style="left:30%;animation-duration:18s;animation-delay:14s;background:#4ade80;"></div>
 <div class="particle" style="left:70%;animation-duration:15s;animation-delay:11s;background:#22c55e;width:4px;height:4px;"></div>
 
