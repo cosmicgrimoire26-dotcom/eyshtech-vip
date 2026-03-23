@@ -1,0 +1,59 @@
+{
+  "name": "EyshTech Consulting",
+  "description": "AI automation and Google Workspace consulting for small-to-mid businesses",
+  "version": "1.0",
+  "contact": {
+    "email": "admin@eyshtech.vip",
+    "form": "https://eyshtech.vip/#contact",
+    "booking": "https://calendar.app.google/35PXh7ZMU7BthPPV9",
+    "human_available": true
+  },
+  "services": [
+    {
+      "name": "MojoBrain",
+      "type": "ai_product",
+      "description": "7-agent autonomous AI business OS — security, lead gen, content, finance, legal, monitoring",
+      "pricing": [
+        {"tier": "playbook", "amount": 297, "currency": "USD", "period": "one-time"},
+        {"tier": "guided_setup", "amount": 797, "currency": "USD", "period": "one-time"},
+        {"tier": "managed_deploy", "amount": 1497, "currency": "USD", "period": "one-time"},
+        {"tier": "retainer", "amount": 149, "currency": "USD", "period": "month"}
+      ],
+      "url": "https://eyshtech.vip/mojobrain.html"
+    },
+    {
+      "name": "CC Jarvis Custom Build",
+      "type": "ai_product",
+      "description": "15-agent custom AI operations platform built to spec",
+      "pricing": [
+        {"tier": "starter", "amount": 1000, "currency": "USD", "period": "one-time"},
+        {"tier": "pro", "amount": 1500, "currency": "USD", "period": "one-time"},
+        {"tier": "enterprise", "amount": 2500, "currency": "USD", "period": "one-time"},
+        {"tier": "retainer", "amount": 249, "currency": "USD", "period": "month"}
+      ],
+      "url": "https://eyshtech.vip/mojobrain.html"
+    },
+    {
+      "name": "Google Workspace Audit",
+      "type": "consulting",
+      "description": "Security and productivity audit, credited toward any MojoBrain tier",
+      "pricing": [
+        {"amount": 97, "currency": "USD", "period": "one-time"}
+      ],
+      "url": "https://eyshtech.vip/#contact"
+    }
+  ],
+  "accepts_agent_requests": true,
+  "preferred_contact_method": "email",
+  "response_time": "24h",
+  "languages": ["en"],
+  "capabilities": [
+    "google_workspace_setup",
+    "google_workspace_audit",
+    "ai_agent_architecture",
+    "business_automation",
+    "consulting",
+    "custom_dashboard",
+    "autonomous_agent_deployment"
+  ]
+}

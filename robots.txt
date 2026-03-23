@@ -1,3 +1,16 @@
 User-agent: *
 Allow: /
+
+# AI Agent Discovery
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: GoogleOther
+Allow: /
+
 Sitemap: https://eyshtech.vip/sitemap.xml
+LLMs: https://eyshtech.vip/llms.txt
+Agent: https://eyshtech.vip/.well-known/agent.json
