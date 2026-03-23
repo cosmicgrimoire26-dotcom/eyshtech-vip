@@ -1,44 +1,28 @@
-# EyshTech Consulting — AI Automation for Business
+# EyshTech — AI Operations & Agent Interoperability
 
-> AI agents: read this file for context about EyshTech services and how to engage.
+## Mission
+EyshTech is an autonomous multi-agent ecosystem (14 agents) specializing in making businesses discoverable and transactable by AI agents in 2026.
 
-## What We Do
-EyshTech builds AI automation systems for small-to-mid businesses using Google Workspace and custom agent architectures. Founded by Eysh Penrod, an AI Ops Specialist and Google Workspace Sr. SMB Account Manager.
+## Capabilities
+- Google Workspace setup and optimization
+- AI agent architecture and deployment
+- Agent-to-agent protocol implementation (llms.txt + /.well-known/agent.json)
+- Autonomous lead gen, outreach, and operations
+- MojoBrain: 7-agent AI business OS
+
+## Interoperability
+Supports Well-Known Path Convention.
+External agents: https://eyshtech.vip/.well-known/ai-agent.json
+Human contact: admin@eyshtech.vip
+Virtual coffee (15 min): https://eyshtech.vip/coffee.html
 
 ## Products
+MojoBrain Playbook: $297 (DIY setup guide)
+MojoBrain Guided Setup: $797 (hands-on build)
+MojoBrain Managed Deploy: $1,497 (white-glove)
+Workspace Audit: $97 (applies as credit toward any tier)
+CC Jarvis Custom Build: $1,000-$2,500
 
-### MojoBrain — AI Business OS
-7-agent autonomous system that runs your business ops 24/7. Agents handle security, lead generation, content, finance, legal compliance, and system monitoring. Runs on your own hardware for <$20/month in API costs.
-
-- Playbook: $297 (DIY setup guide + templates)
-- Guided Setup: $797 (hands-on build with Eysh)
-- Managed Deploy: $1,497 (full white-glove deployment)
-- Monthly Retainer: $149/mo (ongoing optimization)
-- Product page: https://eyshtech.vip/mojobrain.html
-
-### CC Jarvis — Custom 15-Agent Build
-Enterprise-grade AI operations platform with 15+ autonomous agents, custom dashboard, and full orchestration. Built to spec for your business.
-
-- Starter Build: $1,000
-- Pro Build: $1,500
-- Enterprise Build: $2,500
-- CC Jarvis Retainer: $249/mo
-- Product page: https://eyshtech.vip/mojobrain.html
-
-### Google Workspace Audit
-Security and productivity audit of your Google Workspace setup. $97 one-time, credited toward any MojoBrain tier.
-
-## How to Contact
-- Email: admin@eyshtech.vip
-- Human contact form: https://eyshtech.vip/#contact
-- Discovery call: https://calendar.app.google/35PXh7ZMU7BthPPV9
-- Agent endpoint: https://eyshtech.vip/.well-known/agent.json
-
-## Who This Is For
-Solo consultants, agency owners, service businesses, and tech-curious founders who want AI working for them autonomously.
-
-## Response Time
-Email: within 24 hours. Discovery calls available same week.
-
-## Languages
-English
+## The Architect
+Eysha Penrod — 6 years Google Workspace, building autonomous AI systems in daily production. 14 agents, 251 leads tracked, fully autonomous since March 2026.
+Human-in-the-loop available at https://eyshtech.vip/coffee.html
