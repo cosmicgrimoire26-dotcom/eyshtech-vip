@@ -570,25 +570,48 @@ function updateAgent(a,t){
       }
 
     } else if(realMood==='working' || realMood==='focused'){
-      // REAL: working at desk — stay seated, occasional look around
+      // REAL: working at desk — mostly seated, but gets up occasionally
       if(a.behavior==='walking' && a.goHome){
-        a.bTimer=30; // finishing walk home
-      } else {
-        a.behavior=r<0.15?'idle':'working';
-        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
-        a.bTimer=200+Math.random()*300;
-      }
-
-    } else if(realMood==='chill'){
-      // REAL: idle/monitoring — wander to break spots occasionally
-      if(r<0.3){
+        a.bTimer=30;
+      } else if(r<0.15){
+        // 15% chance to get up for a stretch/coffee/water
         a.behavior='walking';
         var spot=WANDER_SPOTS[Math.floor(Math.random()*WANDER_SPOTS.length)];
         a.targetX=spot.x+(Math.random()-0.5)*1;
         a.targetY=spot.y+(Math.random()-0.5)*1;
-        a.goHome=false; a.bTimer=100+Math.random()*150;
+        a.goHome=false; a.bTimer=60+Math.random()*80;
+      } else if(r<0.25){
+        // 10% chance to walk to a nearby agent's desk
+        var nearbyIdx=Math.floor(Math.random()*DESKS.length);
+        if(DESKS[nearbyIdx]){
+          a.behavior='walking';
+          a.targetX=DESKS[nearbyIdx].gx+0.4; a.targetY=DESKS[nearbyIdx].gy+0.5;
+          a.goHome=false; a.bTimer=50+Math.random()*60;
+        }
       } else {
-        a.behavior='sitting'; a.bTimer=200+Math.random()*200;
+        a.behavior=r<0.3?'idle':'working';
+        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
+        a.bTimer=150+Math.random()*250;
+      }
+
+    } else if(realMood==='chill'){
+      // REAL: idle/monitoring — wanders frequently
+      if(r<0.45){
+        a.behavior='walking';
+        var spot=WANDER_SPOTS[Math.floor(Math.random()*WANDER_SPOTS.length)];
+        a.targetX=spot.x+(Math.random()-0.5)*1.5;
+        a.targetY=spot.y+(Math.random()-0.5)*1.5;
+        a.goHome=false; a.bTimer=80+Math.random()*120;
+      } else if(r<0.6){
+        // Visit another agent
+        var visitIdx=Math.floor(Math.random()*DESKS.length);
+        if(DESKS[visitIdx]){
+          a.behavior='walking';
+          a.targetX=DESKS[visitIdx].gx+(Math.random()-0.5); a.targetY=DESKS[visitIdx].gy+0.5;
+          a.goHome=false; a.bTimer=60+Math.random()*80;
+        }
+      } else {
+        a.behavior='sitting'; a.bTimer=120+Math.random()*150;
         a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
       }
 
@@ -777,9 +800,19 @@ window.addEventListener('mousemove',e=>{
     if(Math.abs(mx-ax)<22&&Math.abs(my-ay)<35)hit=a;
   });
   if(hit){
-    const bLabel={sitting:'at desk',working:'typing',walking:'wandering',idle:'looking around',socializing:'socializing'};
-    const sd=AGENT_DATA[hit.id];
-    tip.innerHTML=`<span style="color:${hit.hat||'#39d353'}">▮</span> <b>Agent ${hit.id} — ${hit.name}</b><br>Role: ${hit.role}<br>Status: <span style="color:${hit.status==='active'?'#39d353':hit.status==='degraded'?'#f0c040':'#888'}">${hit.status.toUpperCase()}</span> | Score: ${hit.score}/100<br>Activity: ${bLabel[hit.behavior]||hit.behavior}<br>Last: <span style="color:rgba(57,211,83,0.7)">${(sd.lastAction||'').substring(0,45)}</span><br><span style="color:rgba(57,211,83,0.4)">double-click to customize</span>`;
+    var bLabel={sitting:'at desk',working:'actively working',walking:'moving',idle:'monitoring',socializing:'talking'};
+    var sd=AGENT_DATA[hit.id]||{};
+    var charData=(_liveData.characters||{})[hit.id]||{};
+    var realAction=charData.lastAction||sd.lastAction||'standing by';
+    var realMood=charData.mood||sd.mood||'working';
+    var perfRate=(_liveData.performance||{})[Object.keys(CORE_TO_HQ).find(function(k){return CORE_TO_HQ[k]===hit.id;})||'']||100;
+    var statusColor=hit.status==='active'||hit.status==='healthy'?'#39d353':hit.status==='degraded'?'#f0c040':hit.status==='paused'?'#888':'#ff4a4a';
+    tip.innerHTML='<span style="color:'+(hit.hat||'#39d353')+'">▮</span> <b>'+hit.name+'</b><br>'+
+      'Role: '+hit.role+'<br>'+
+      'Status: <span style="color:'+statusColor+'">'+hit.status.toUpperCase()+'</span> | Performance: '+Math.round(perfRate)+'%<br>'+
+      'Mood: '+realMood+' | Activity: '+(bLabel[hit.behavior]||hit.behavior)+'<br>'+
+      'Last: <span style="color:rgba(57,211,83,0.7)">'+realAction.substring(0,50)+'</span><br>'+
+      '<span style="color:rgba(57,211,83,0.4)">double-click to customize</span>';
     tip.style.display='block';
     tip.style.left=(e.clientX-rect.left+16)+'px';
     tip.style.top=(e.clientY-rect.top-70)+'px';
@@ -788,18 +821,28 @@ window.addEventListener('mousemove',e=>{
 wrap.addEventListener('wheel',e=>{camY-=e.deltaY*0.25;e.preventDefault();},{passive:false});
 
 // ─── ACTIVITY LOG ─────────────────────────────────────────────────
-const LOGS=['cbo: athens tech solutions 8/10 — top lead','jobs: 36 applications pending your approval',
-  'nerve: aggregating 12 sources — 100/100','cso: perimeter scan complete — all clear',
-  'cfo: credit 679 — $1,576 paydown to 680','sailing: ali kat $88k — 23 boats monitored',
-  'mojo: autonomous $20k revenue mission active','velocity: linkedin warming complete',
-  'freelance: 67 gigs found — top rate $150/hr','coo: 3 accounts triaged — 3 important',
-  'law: 38 compliance checks passed','academic: 19 assignments — eoc in 36 days'];
-let logI=0;
+let _logLines=[];
 function logLine(custom){
-  document.getElementById('log-strip').textContent='> '+(custom||LOGS[logI%LOGS.length]);
-  if(!custom)logI++;
+  if(custom){
+    document.getElementById('log-strip').textContent='> '+custom;
+  } else if(_logLines.length>0){
+    var line=_logLines.shift();
+    document.getElementById('log-strip').textContent='> '+line.agent+': '+line.msg;
+  }
 }
-setInterval(()=>logLine(),3500);
+// Feed log strip from real API data
+async function refreshLogStrip(){
+  try{
+    var resp=await fetch(API+'/api/hq/feed');
+    if(resp.ok){
+      var entries=await resp.json();
+      _logLines=entries.slice(0,12).map(function(e){return{agent:e.agent||'system',msg:(e.msg||'').substring(0,60)};});
+    }
+  }catch(e){}
+}
+refreshLogStrip();
+setInterval(refreshLogStrip,20000);
+setInterval(function(){logLine();},3500);
 setInterval(()=>{document.getElementById('cl').textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});},1000);
 
 // ─── SIMULATED LIVE DATA ──────────────────────────────────────────
