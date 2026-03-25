@@ -471,6 +471,31 @@ const WANDER_SPOTS=[
   {x:8,y:8.5,label:'sofa'},
 ];
 
+// ─── REAL ACTIVITY STATE (fetched from API) ──────────────────────
+let _liveData = {characters:{}, active_convos:[], performance:{}};
+let _liveDataAge = 0;
+
+// Agent ID → desk index mapping for "walk to agent X's desk"
+const AGENT_DESK_MAP = {};
+agents.forEach(function(ag, idx) { AGENT_DESK_MAP[ag.id] = idx; });
+
+// Map agent-core IDs to HQ IDs
+const CORE_TO_HQ = {
+  'agent1_cso':'01','agent2_content':'02','agent3_cbo':'03',
+  'agent4_sysadmin':'04','agent5_cfo':'05','agent6_sailing':'06',
+  'agent7_law':'07','agent8_academic':'08','agent9_cto':'09',
+  'agent10_nerve':'10','agent11_jobs':'11','agent12_freelance':'12',
+  'agent13_coo':'13','agent14_velocity':'14','cc_jarvis':'15'
+};
+
+function getAgentDesk(coreId) {
+  var hqId = CORE_TO_HQ[coreId];
+  if (!hqId) return null;
+  var idx = AGENT_DESK_MAP[hqId];
+  if (idx === undefined || !DESKS[idx]) return null;
+  return DESKS[idx];
+}
+
 function updateAgent(a,t){
   a.bTimer--;
 
@@ -478,59 +503,115 @@ function updateAgent(a,t){
   if(a.bub_t>0)a.bub_t--;
 
   if(a.bTimer<=0){
-    const r=Math.random();
-    const sp=a._speed||(a.speed==='fast'?0.025:a.speed==='slow'?0.01:0.016);
+    var r=Math.random();
+    var sp=a._speed||(a.speed==='fast'?0.025:a.speed==='slow'?0.01:0.016);
     a._speed=sp;
 
+    // ─── READ REAL DATA to drive behavior ───
+    var charData = _liveData.characters[a.id] || {};
+    var realMood = charData.mood || a.mood || 'working';
+    var realAction = charData.lastAction || '';
+
+    // Check if this agent is in an active conversation
+    var talkingTo = null;
+    _liveData.active_convos.forEach(function(c) {
+      var fromHQ = CORE_TO_HQ[c.from];
+      var toHQ = CORE_TO_HQ[c.to];
+      if (fromHQ === a.id) talkingTo = toHQ;
+    });
+
+    // Update bubbles from real action
+    if (realAction && Math.random() < 0.4) {
+      a.bubble = realAction.substring(0, 35);
+      a.bub_t = 150;
+    }
+
+    // ─── BEHAVIOR DRIVEN BY REAL STATE ───
+
     if(a.status==='paused'){
-      a.behavior='sitting';a.bTimer=500+Math.random()*400;
-      a.gx=a.deskX+0.4;a.gy=a.deskY+0.5;
-    } else if(a.behavior==='sitting'||a.behavior==='working'){
-      const mood=a.mood||'working';
-      const wanderChance=mood==='hype'?0.45:mood==='chill'?0.6:0.35;
-      if(r<wanderChance){
-        // get up!
+      // Paused: sit at desk, don't move
+      a.behavior='sitting'; a.bTimer=500+Math.random()*400;
+      a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
+
+    } else if(talkingTo){
+      // REAL: walking to another agent's desk (active conversation)
+      var targetDesk = getAgentDesk(
+        Object.keys(CORE_TO_HQ).find(function(k){return CORE_TO_HQ[k]===talkingTo;})
+      );
+      if(targetDesk){
         a.behavior='walking';
-        const spot=r<0.15?WANDER_SPOTS[Math.floor(Math.random()*WANDER_SPOTS.length)]:null;
-        if(spot){
-          a.targetX=spot.x+(Math.random()-0.5)*1;
-          a.targetY=spot.y+(Math.random()-0.5)*1;
-        } else {
-          const d=1.5+Math.random()*2.5;
-          const angle=Math.random()*Math.PI*2;
+        a.targetX=targetDesk.gx+0.4; a.targetY=targetDesk.gy+0.5;
+        a.goHome=false;
+        a.bTimer=80+Math.random()*60;
+        // Show conversation bubble
+        var convo = _liveData.active_convos.find(function(c){return CORE_TO_HQ[c.from]===a.id;});
+        if(convo){
+          a.bubble='-> ' + (AGENT_DATA[talkingTo]||{}).name + ': ' + convo.msg.substring(0,25);
+          a.bub_t=120;
+        }
+      } else {
+        a.behavior='working'; a.bTimer=100;
+      }
+
+    } else if(realMood==='hype'){
+      // REAL: alerting — jump up and down (handled in draw with bounce)
+      if(a.behavior!=='walking'){
+        a.behavior='working'; a.bTimer=40+Math.random()*30;
+        // Small random jumps near desk
+        if(r<0.3){
+          a.behavior='walking';
+          a.targetX=a.deskX+(Math.random()-0.5)*1.5;
+          a.targetY=a.deskY+(Math.random()-0.5)*1.5;
+          a.goHome=false; a.bTimer=30;
+        }
+      } else {
+        a.targetX=a.deskX+0.4; a.targetY=a.deskY+0.5;
+        a.goHome=true; a.bTimer=40;
+      }
+
+    } else if(realMood==='working' || realMood==='focused'){
+      // REAL: working at desk — stay seated, occasional look around
+      if(a.behavior==='walking' && a.goHome){
+        a.bTimer=30; // finishing walk home
+      } else {
+        a.behavior=r<0.15?'idle':'working';
+        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
+        a.bTimer=200+Math.random()*300;
+      }
+
+    } else if(realMood==='chill'){
+      // REAL: idle/monitoring — wander to break spots occasionally
+      if(r<0.3){
+        a.behavior='walking';
+        var spot=WANDER_SPOTS[Math.floor(Math.random()*WANDER_SPOTS.length)];
+        a.targetX=spot.x+(Math.random()-0.5)*1;
+        a.targetY=spot.y+(Math.random()-0.5)*1;
+        a.goHome=false; a.bTimer=100+Math.random()*150;
+      } else {
+        a.behavior='sitting'; a.bTimer=200+Math.random()*200;
+        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
+      }
+
+    } else {
+      // Fallback: standard behavior
+      if(a.behavior==='sitting'||a.behavior==='working'){
+        if(r<0.35){
+          a.behavior='walking';
+          var d=1.5+Math.random()*2.5;
+          var angle=Math.random()*Math.PI*2;
           a.targetX=Math.max(0.5,Math.min(12.5,a.deskX+Math.cos(angle)*d));
           a.targetY=Math.max(0.5,Math.min(12.5,a.deskY+Math.sin(angle)*d));
+          a.goHome=false; a.bTimer=60+Math.random()*140;
+        } else {
+          a.behavior=r<0.2?'idle':'working';
+          a.bTimer=150+Math.random()*350;
         }
-        a.goHome=false;
-        a.bTimer=60+Math.random()*140;
+      } else if(a.behavior==='walking'){
+        a.targetX=a.deskX+0.4; a.targetY=a.deskY+0.5;
+        a.goHome=true; a.bTimer=60+Math.random()*100;
       } else {
-        // keep working with occasional idle look
-        a.behavior=r<0.2?'idle':'working';
-        a.bTimer=150+Math.random()*350;
-        if(Math.random()<0.35){
-          a.bubble=a.bubbles[Math.floor(Math.random()*a.bubbles.length)];
-          a.bub_t=130;
-        }
+        a.behavior='working'; a.bTimer=100+Math.random()*200;
       }
-    } else if(a.behavior==='walking'){
-      if(r<0.55||a.goHome){
-        // go back to desk
-        a.targetX=a.deskX+0.4;a.targetY=a.deskY+0.5;a.goHome=true;
-        a.bTimer=60+Math.random()*100;
-      } else {
-        // keep wandering
-        const d=1+Math.random()*3;
-        const angle=Math.random()*Math.PI*2;
-        a.targetX=Math.max(0.5,Math.min(12.5,a.gx+Math.cos(angle)*d));
-        a.targetY=Math.max(0.5,Math.min(12.5,a.gy+Math.sin(angle)*d));
-        a.bTimer=80+Math.random()*160;
-      }
-    } else if(a.behavior==='idle'){
-      a.behavior=r<0.5?'sitting':'working';
-      a.bTimer=100+Math.random()*200;
-    } else if(a.behavior==='socializing'){
-      a.behavior='walking';a.targetX=a.deskX+0.4;a.targetY=a.deskY+0.5;a.goHome=true;
-      a.bTimer=80+Math.random()*120;
     }
   }
 
@@ -956,15 +1037,39 @@ async function fetchAndSync() {
   } catch(e) {}
 }
 
+// Fetch live agent behavior data (drives sprite movement)
+async function fetchLiveData() {
+  try {
+    var resp = await fetch(API + '/api/hq/live');
+    if (resp.ok) {
+      _liveData = await resp.json();
+      _liveDataAge = 0;
+      // Sync character appearance from real data
+      Object.entries(_liveData.characters || {}).forEach(function(entry) {
+        var hqId = entry[0];
+        var data = entry[1];
+        if (AGENT_DATA[hqId]) {
+          if (data.mood) AGENT_DATA[hqId].mood = data.mood;
+          if (data.body) AGENT_DATA[hqId].body = data.body;
+          if (data.hatStyle) AGENT_DATA[hqId].hatStyle = data.hatStyle;
+          if (data.lastAction) AGENT_DATA[hqId].lastAction = data.lastAction;
+        }
+      });
+    }
+  } catch(e) {}
+}
+
 // Initial fetch
 fetchAndSync();
 fetchRevenue();
+fetchLiveData();
 setTimeout(fetchFeed, 3000);
 
 // Ongoing polling
 setInterval(fetchAndSync, 15000);
 setInterval(fetchFeed, 10000);
 setInterval(fetchRevenue, 120000);
+setInterval(fetchLiveData, 8000); // Drive sprite behavior every 8s
 
 // Agent-to-agent chatter (based on real relationships)
 const AGENT_CHATTER = [
