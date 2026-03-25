@@ -5,7 +5,7 @@
 <title>CC Jarvis HQ</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#06060f;font-family:'Courier New',monospace;overflow:hidden}
+body{background:#0a0a14;font-family:'Courier New',monospace;overflow:hidden}
 #wrap{position:relative;width:100vw;height:100vh;overflow:hidden}
 canvas{display:block;image-rendering:pixelated;width:calc(100% - 280px);height:100%}
 #hud{position:absolute;top:12px;left:14px;color:#39d353;font-size:10px;line-height:2;pointer-events:none;text-shadow:0 0 8px rgba(57,211,83,0.6)}
@@ -816,13 +816,24 @@ let t=0;
 function loop(){
   requestAnimationFrame(loop);
   t++;
-  ctx.fillStyle='#06060f';ctx.fillRect(0,0,CW,CH);
+  ctx.fillStyle='#0a0a14';ctx.fillRect(0,0,CW,CH);
+  // Star field particles
+  if(!window._stars){
+    window._stars=[];
+    for(var si=0;si<80;si++) window._stars.push({x:Math.random()*CW,y:Math.random()*CH,s:Math.random()*1.5+0.3,b:Math.random()});
+  }
+  window._stars.forEach(function(st){
+    st.b+=0.01+Math.random()*0.01;
+    var alpha=0.15+Math.abs(Math.sin(st.b))*0.35;
+    ctx.fillStyle='rgba(180,200,255,'+alpha+')';
+    ctx.fillRect(st.x,st.y,st.s,st.s);
+  });
 
   // floor tiles
   for(let gy=0;gy<GRID;gy++){
     for(let gx=0;gx<GRID;gx++){
       const carpet=gx>=4&&gx<=10&&gy>=3&&gy<=9;
-      const c=carpet?((gx+gy)%2===0?'#1a0a30':'#140826'):((gx+gy)%2===0?'#16162c':'#101022');
+      const c=carpet?((gx+gy)%2===0?'#2a1a45':'#221440'):((gx+gy)%2===0?'#1e2040':'#181a35');
       tile(gx,gy,c);
     }
   }
