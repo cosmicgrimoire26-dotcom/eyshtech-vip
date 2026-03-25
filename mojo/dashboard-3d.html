@@ -589,9 +589,9 @@ function updateAgent(a,t){
           a.goHome=false; a.bTimer=50+Math.random()*60;
         }
       } else {
-        a.behavior=r<0.3?'idle':'working';
-        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
-        a.bTimer=150+Math.random()*250;
+        var atDesk1=Math.abs(a.gx-(a.deskX+0.4))<0.5&&Math.abs(a.gy-(a.deskY+0.5))<0.5;
+        if(atDesk1){a.behavior=r<0.3?'idle':'working';a.bTimer=150+Math.random()*250;}
+        else{a.behavior='walking';a.targetX=a.deskX+0.4;a.targetY=a.deskY+0.5;a.goHome=true;a.bTimer=40;}
       }
 
     } else if(realMood==='chill'){
@@ -611,8 +611,9 @@ function updateAgent(a,t){
           a.goHome=false; a.bTimer=60+Math.random()*80;
         }
       } else {
-        a.behavior='sitting'; a.bTimer=120+Math.random()*150;
-        a.gx=a.deskX+0.4; a.gy=a.deskY+0.5;
+        var atDesk2=Math.abs(a.gx-(a.deskX+0.4))<0.5&&Math.abs(a.gy-(a.deskY+0.5))<0.5;
+        if(atDesk2){a.behavior='sitting';a.bTimer=120+Math.random()*150;}
+        else{a.behavior='walking';a.targetX=a.deskX+0.4;a.targetY=a.deskY+0.5;a.goHome=true;a.bTimer=40;}
       }
 
     } else {
@@ -876,7 +877,7 @@ function loop(){
   for(let gy=0;gy<GRID;gy++){
     for(let gx=0;gx<GRID;gx++){
       const carpet=gx>=4&&gx<=10&&gy>=3&&gy<=9;
-      const c=carpet?((gx+gy)%2===0?'#2a1a45':'#221440'):((gx+gy)%2===0?'#1e2040':'#181a35');
+      const c=carpet?((gx+gy)%2===0?'#3a3a42':'#333340'):((gx+gy)%2===0?'#2a2a35':'#252530');
       tile(gx,gy,c);
     }
   }
