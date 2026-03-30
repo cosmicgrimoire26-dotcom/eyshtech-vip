@@ -13,4 +13,4 @@ Allow: /
 
 Sitemap: https://eyshtech.vip/sitemap.xml
 LLMs: https://eyshtech.vip/llms.txt
-Agent: https://eyshtech.vip/.well-known/agent.json
+Agent: https://eyshtech.vip/.well-known/ai-agent.json
