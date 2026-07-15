@@ -260,17 +260,19 @@ function pickTarget(ag){
 function updateAgent(ag){
   ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
+  // Timer expired — always pick new target and start moving
+  if(ag.timer<=0){
+    pickTarget(ag);ag.timer=180+Math.random()*280;ag.sitting=false;return;
+  }
+  // Just arrived at target for the first time
   var at=Math.abs(ag.gx-ag.tx)<0.18&&Math.abs(ag.gy-ag.ty)<0.18;
-  if(ag.timer<=0||at){
-    if(at){
-      ag.sitting=ag.beh==="working"||ag.beh==="chilling"||ag.beh==="meeting";
-      if(ag.beh==="caffeinating")totalBrews++;
-      if(ag.beh==="working")totalTasks++;
-      if(ag.beh==="meeting")totalMeets++;
-      ag.timer=ag.sitting?220+Math.random()*300:50+Math.random()*80;
-      if(ag.sitting)return;
-    }
-    pickTarget(ag);ag.timer=250+Math.random()*350;ag.sitting=false;
+  if(at&&!ag.sitting){
+    ag.sitting=ag.beh==="working"||ag.beh==="chilling"||ag.beh==="meeting";
+    if(ag.beh==="caffeinating")totalBrews++;
+    if(ag.beh==="working")totalTasks++;
+    if(ag.beh==="meeting")totalMeets++;
+    // Sit for a while, then timer expiry above kicks them out
+    ag.timer=ag.sitting?180+Math.random()*240:30+Math.random()*60;
   }
   if(!ag.sitting){var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);if(d>0.06){ag.gx+=(dx/d)*ag.spd;ag.gy+=(dy/d)*ag.spd;}}
 }
