@@ -272,13 +272,13 @@ var agents=DEFS.map(function(d,i){
 
 function pickTarget(ag){
   var r=Math.random();
-  // 50% → back to own desk
-  if(r<0.50){ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;return;}
+  // 30% → own desk (brief sit)
+  if(r<0.30){ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;return;}
   // 13% → coffee
-  if(r<0.63){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}}
-  // 9% → water
-  if(r<0.72){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
-  // 28% → walk to a colleague's desk
+  if(r<0.43){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}}
+  // 10% → water
+  if(r<0.53){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
+  // 47% → walk to a colleague's desk
   var deskIdx=Math.floor(Math.random()*DESKS.length);
   if(deskIdx===ag.deskIdx)deskIdx=(deskIdx+1)%DESKS.length;
   var d=DESKS[deskIdx];
@@ -286,7 +286,6 @@ function pickTarget(ag){
   for(var i=0;i<c.length;i++){
     if(walkable(c[i].x,c[i].y)){ag.tx=c[i].x;ag.ty=c[i].y;ag.beh="visiting";ag.visitDeskIdx=deskIdx;return;}
   }
-  // fallback
   ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";
 }
 
@@ -335,11 +334,11 @@ function updateAgent(ag){
   if(at&&!ag.arrived&&ag.chatPause<=0){
     ag.arrived=true;
     ag.sitting=(ag.beh==="working");
-    if(ag.beh==="working"){totalTasks++;ag.timer=160+Math.random()*160;}
-    else if(ag.beh==="caffeinating"){totalBrews++;ag.timer=55+Math.random()*55;}
-    else if(ag.beh==="hydrating"){ag.timer=45+Math.random()*45;}
+    if(ag.beh==="working"){totalTasks++;ag.timer=80+Math.random()*80;}
+    else if(ag.beh==="caffeinating"){totalBrews++;ag.timer=50+Math.random()*40;}
+    else if(ag.beh==="hydrating"){ag.timer=40+Math.random()*35;}
     else if(ag.beh==="visiting"){
-      ag.timer=80+Math.random()*90;
+      ag.timer=70+Math.random()*70;
       var owner=agents[ag.visitDeskIdx];
       if(owner&&owner.sitting&&!owner.chatPause&&!ag.chatPause){
         var vpause=90+Math.random()*70;
