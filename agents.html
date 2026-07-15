@@ -240,21 +240,44 @@ for(var si=0;si<80;si++)STARS.push({x:Math.random(),y:Math.random()*0.2,r:Math.r
 
 // ─── Agents ─────────────────────────────────────────────────────
 var agents=DEFS.map(function(d,i){
-  var p=rw();
+  // Each agent owns a desk
+  var desk=DESKS[i%DESKS.length];
+  var homeSpots=[{x:desk.x,y:desk.y+1},{x:desk.x+1,y:desk.y},{x:desk.x-1,y:desk.y}];
+  var home=homeSpots.find(function(s){return walkable(s.x,s.y);})||rw();
   return{name:d.name,role:d.role,color:d.color,hat:d.hat,spd:d.spd,
-    gx:p.x+Math.random()*0.5,gy:p.y+Math.random()*0.5,tx:p.x,ty:p.y,
-    beh:"idle",timer:Math.random()*200+50*i,sitting:false,
+    gx:home.x+Math.random()*0.3,gy:home.y+Math.random()*0.3,
+    tx:home.x,ty:home.y,
+    home:home,deskIdx:i%DESKS.length,
+    beh:"working",timer:20+i*8,sitting:false,
+    onZoom:Math.random()<0.4,
     px:0,py:0,pulse:0,trail:[]};
 });
 
 function pickTarget(ag){
   var r=Math.random();
-  if(r<0.13){var spots=[{x:MEETING.x-2,y:MEETING.y+1},{x:MEETING.x,y:MEETING.y+2},{x:MEETING.x-1,y:MEETING.y-1},{x:MEETING.x+1,y:MEETING.y+2}];var s=spots[Math.floor(Math.random()*spots.length)];if(walkable(s.x,s.y)){ag.tx=s.x;ag.ty=s.y;ag.beh="meeting";return;}}
-  if(r<0.38){var d=DESKS[Math.floor(Math.random()*DESKS.length)];var c=[{x:d.x,y:d.y+1},{x:d.x+1,y:d.y},{x:d.x-1,y:d.y}];for(var i=0;i<c.length;i++){if(walkable(c[i].x,c[i].y)){ag.tx=c[i].x;ag.ty=c[i].y;ag.beh="working";return;}}}
-  if(r<0.51){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
-  if(r<0.63){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}}
-  if(r<0.74){var sf=SOFAS[Math.floor(Math.random()*SOFAS.length)];var sa=[{x:sf.x-1,y:sf.y},{x:sf.x,y:sf.y+1}];for(var l=0;l<sa.length;l++){if(walkable(sa[l].x,sa[l].y)){ag.tx=sa[l].x;ag.ty=sa[l].y;ag.beh="chilling";return;}}}
-  var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";
+  // 2020 worker — mostly at their desk
+  if(r<0.65){
+    // Go back to home desk
+    ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";
+    ag.onZoom=Math.random()<0.45;return;
+  }
+  if(r<0.78){
+    // Coffee run
+    var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];
+    for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";ag.onZoom=false;return;}}
+  }
+  if(r<0.88){
+    // Water
+    var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];
+    for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";ag.onZoom=false;return;}}
+  }
+  if(r<0.94){
+    // Pace near their desk (stretch break)
+    var px=ag.home.x+(Math.random()<0.5?1:-1),py=ag.home.y+(Math.random()<0.5?1:-1);
+    if(walkable(px,py)){ag.tx=px;ag.ty=py;ag.beh="pacing";ag.onZoom=false;return;}
+  }
+  // Rare: check in with a coworker (brief wander)
+  var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";ag.onZoom=false;
 }
 
 function updateAgent(ag){
@@ -262,13 +285,17 @@ function updateAgent(ag){
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
   var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
   if(at||ag.timer<=0){
-    // Touch destination counters but never actually sit — always keep moving
     if(at){
       if(ag.beh==="caffeinating")totalBrews++;
       if(ag.beh==="working")totalTasks++;
       if(ag.beh==="meeting")totalMeets++;
+      ag.sitting=ag.beh==="working";
+      // Desk workers sit long; breaks are short
+      var sitTime=ag.sitting?400+Math.random()*600:60+Math.random()*100;
+      ag.timer=sitTime;
+      if(ag.sitting)return;
     }
-    pickTarget(ag);ag.timer=40+Math.random()*60;ag.sitting=false;
+    pickTarget(ag);ag.timer=80+Math.random()*120;ag.sitting=false;
   }
   var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
   if(d>0.05){
@@ -430,14 +457,31 @@ function drawScene(){
     box(d.x,d.y,0.65,'#26180a','#382408');
     var dp=toS(d.x,d.y),dsx=dp.sx,dsy=dp.sy-TZ*0.65;
     ctx.fillStyle='#04101e';ctx.fillRect(dsx-9,dsy-28,18,14);
-    // Animated screen
-    var hue=frame*0.6+i*25;
-    var scg=ctx.createLinearGradient(dsx-7,dsy-26,dsx+7,dsy-16);
-    scg.addColorStop(0,'hsla('+hue+',75%,55%,0.85)');scg.addColorStop(1,'hsla('+(hue+50)+',65%,38%,0.55)');
-    ctx.fillStyle=scg;ctx.fillRect(dsx-7,dsy-26,14,12);
-    for(var sl=0;sl<6;sl++){ctx.fillStyle='rgba(0,0,0,0.18)';ctx.fillRect(dsx-7,dsy-26+sl*2,14,1);}
-    // Screen glow
-    var mg=ctx.createRadialGradient(dsx,dsy-20,0,dsx,dsy-20,22);mg.addColorStop(0,'rgba(100,120,255,0.09)');mg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=mg;ctx.fillRect(dsx-22,dsy-35,44,30);
+    // Find agent at this desk
+    var deskAg=null;for(var ai=0;ai<agents.length;ai++){if(agents[ai].deskIdx===i&&agents[ai].sitting)deskAg=agents[ai];}
+    if(deskAg&&deskAg.onZoom){
+      // Zoom grid — 4 faces
+      ctx.fillStyle='#1a1a2a';ctx.fillRect(dsx-7,dsy-26,14,12);
+      var zColors=['#3b2a5a','#1a3a2a','#3a2a1a','#2a1a3a'];
+      [[0,0],[1,0],[0,1],[1,1]].forEach(function(cell,ci){
+        ctx.fillStyle=zColors[ci];ctx.fillRect(dsx-7+cell[0]*7,dsy-26+cell[1]*6,6,5);
+        // Tiny face dots
+        ctx.fillStyle='rgba(255,220,180,0.7)';ctx.beginPath();ctx.arc(dsx-4+cell[0]*7,dsy-24+cell[1]*6,1.2,0,Math.PI*2);ctx.fill();
+      });
+      // Zoom bar
+      ctx.fillStyle='#18181f';ctx.fillRect(dsx-7,dsy-14,14,2);
+      ctx.fillStyle='#2563eb';ctx.fillRect(dsx-7,dsy-14,4,2);
+      // Mic icon
+      ctx.fillStyle='rgba(255,255,255,0.4)';ctx.fillRect(dsx+4,dsy-14,1,2);
+    } else {
+      // Regular work screen
+      var hue=frame*0.4+i*25;
+      var scg=ctx.createLinearGradient(dsx-7,dsy-26,dsx+7,dsy-16);
+      scg.addColorStop(0,'hsla('+hue+',65%,45%,0.8)');scg.addColorStop(1,'hsla('+(hue+40)+',55%,30%,0.5)');
+      ctx.fillStyle=scg;ctx.fillRect(dsx-7,dsy-26,14,12);
+      for(var sl=0;sl<6;sl++){ctx.fillStyle='rgba(0,0,0,0.15)';ctx.fillRect(dsx-7,dsy-26+sl*2,14,1);}
+    }
+    var mg=ctx.createRadialGradient(dsx,dsy-20,0,dsx,dsy-20,20);mg.addColorStop(0,'rgba(100,120,255,0.07)');mg.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=mg;ctx.fillRect(dsx-20,dsy-33,40,28);
   });
 
   // ── Server rack ──
@@ -565,22 +609,34 @@ function drawAgent(ag){
   // ── Legs ──
   var legColor=ag.color+'cc';
   ctx.strokeStyle=legColor;ctx.lineWidth=3;ctx.lineCap='round';
-  // Left leg
-  ctx.beginPath();ctx.moveTo(-3,-4);ctx.lineTo(-4+legSwing*0.5,8);ctx.stroke();
-  // Right leg
-  ctx.beginPath();ctx.moveTo(3,-4);ctx.lineTo(4-legSwing*0.5,8);ctx.stroke();
-  // Feet
-  ctx.strokeStyle='rgba(0,0,0,0.5)';ctx.lineWidth=2;
-  ctx.beginPath();ctx.moveTo(-4+legSwing*0.5,8);ctx.lineTo(-7+legSwing*0.4,10);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(4-legSwing*0.5,8);ctx.lineTo(7-legSwing*0.4,10);ctx.stroke();
+  if(ag.sitting){
+    // Seated legs bent forward
+    ctx.beginPath();ctx.moveTo(-3,-4);ctx.lineTo(-5,4);ctx.lineTo(-3,6);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(3,-4);ctx.lineTo(5,4);ctx.lineTo(3,6);ctx.stroke();
+  } else {
+    ctx.beginPath();ctx.moveTo(-3,-4);ctx.lineTo(-4+legSwing*0.5,8);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(3,-4);ctx.lineTo(4-legSwing*0.5,8);ctx.stroke();
+    ctx.strokeStyle='rgba(0,0,0,0.5)';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(-4+legSwing*0.5,8);ctx.lineTo(-7+legSwing*0.4,10);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(4-legSwing*0.5,8);ctx.lineTo(7-legSwing*0.4,10);ctx.stroke();
+  }
 
-  // ── Body ──
+  // ── Body — slight slouch when sitting ──
+  var bodyTilt=ag.sitting?0.15:0;
+  ctx.save();ctx.rotate(bodyTilt);
   ctx.beginPath();ctx.ellipse(0,-14,7,10,0,0,Math.PI*2);ctx.fillStyle=ag.color;ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.4)';ctx.lineWidth=1;ctx.stroke();
+  ctx.restore();
 
-  // ── Arms swinging ──
+  // ── Arms — typing when sitting, swinging when walking ──
   ctx.strokeStyle=ag.color;ctx.lineWidth=2.5;ctx.lineCap='round';
-  ctx.beginPath();ctx.moveTo(-6,-18);ctx.lineTo(-9-legSwing*0.4,-10+legSwing*0.2);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(6,-18);ctx.lineTo(9+legSwing*0.4,-10-legSwing*0.2);ctx.stroke();
+  if(ag.sitting){
+    // Arms forward on desk
+    ctx.beginPath();ctx.moveTo(-6,-18);ctx.lineTo(-10,-12);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(6,-18);ctx.lineTo(10,-12);ctx.stroke();
+  } else {
+    ctx.beginPath();ctx.moveTo(-6,-18);ctx.lineTo(-9-legSwing*0.4,-10+legSwing*0.2);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(6,-18);ctx.lineTo(9+legSwing*0.4,-10-legSwing*0.2);ctx.stroke();
+  }
 
   // ── Head ──
   ctx.beginPath();ctx.arc(0,-26,7,0,Math.PI*2);
