@@ -124,21 +124,21 @@ canvas{display:block;}
 <script>
 // ─── Data ───────────────────────────────────────────────────────
 var DEFS=[
-  {name:"Jarvis",       role:"Orchestrator",   color:"#c4b5fd",hat:"crown",  spd:0.012},
-  {name:"Nerve Center", role:"Infrastructure", color:"#60a5fa",hat:"hard",   spd:0.017},
-  {name:"Navigator",    role:"Content Lead",   color:"#34d399",hat:"cap",    spd:0.018},
-  {name:"Gemini",       role:"LLM Router",     color:"#fde047",hat:"none",   spd:0.021},
-  {name:"Outreach",     role:"Email Pipeline", color:"#f87171",hat:"fedora", spd:0.015},
-  {name:"CFO",          role:"Finance",        color:"#4ade80",hat:"bowler", spd:0.013},
-  {name:"Sysadmin",     role:"Sys Health",     color:"#38bdf8",hat:"hard",   spd:0.019},
-  {name:"Lawbringer",   role:"Compliance",     color:"#e879f9",hat:"top",    spd:0.011},
-  {name:"Lookout",      role:"Watchdog",       color:"#facc15",hat:"cap",    spd:0.023},
-  {name:"Quartermaster",role:"Resources",      color:"#fb923c",hat:"none",   spd:0.014},
-  {name:"Job Scout",    role:"Job Search",     color:"#818cf8",hat:"fedora", spd:0.017},
-  {name:"Freelancer",   role:"Proposals",      color:"#2dd4bf",hat:"cap",    spd:0.016},
-  {name:"Archivist",    role:"Memory",         color:"#c084fc",hat:"bowler", spd:0.010},
-  {name:"Velocity",     role:"Lead Scoring",   color:"#f472b6",hat:"none",   spd:0.020},
-  {name:"Sentinel",     role:"Security Ops",   color:"#94a3b8",hat:"hard",   spd:0.013},
+  {name:"Jarvis",       role:"Orchestrator",   color:"#c4b5fd",hat:"crown",  spd:0.030},
+  {name:"Nerve Center", role:"Infrastructure", color:"#60a5fa",hat:"hard",   spd:0.038},
+  {name:"Navigator",    role:"Content Lead",   color:"#34d399",hat:"cap",    spd:0.042},
+  {name:"Gemini",       role:"LLM Router",     color:"#fde047",hat:"none",   spd:0.048},
+  {name:"Outreach",     role:"Email Pipeline", color:"#f87171",hat:"fedora", spd:0.035},
+  {name:"CFO",          role:"Finance",        color:"#4ade80",hat:"bowler", spd:0.028},
+  {name:"Sysadmin",     role:"Sys Health",     color:"#38bdf8",hat:"hard",   spd:0.044},
+  {name:"Lawbringer",   role:"Compliance",     color:"#e879f9",hat:"top",    spd:0.026},
+  {name:"Lookout",      role:"Watchdog",       color:"#facc15",hat:"cap",    spd:0.052},
+  {name:"Quartermaster",role:"Resources",      color:"#fb923c",hat:"none",   spd:0.032},
+  {name:"Job Scout",    role:"Job Search",     color:"#818cf8",hat:"fedora", spd:0.040},
+  {name:"Freelancer",   role:"Proposals",      color:"#2dd4bf",hat:"cap",    spd:0.036},
+  {name:"Archivist",    role:"Memory",         color:"#c084fc",hat:"bowler", spd:0.024},
+  {name:"Velocity",     role:"Lead Scoring",   color:"#f472b6",hat:"none",   spd:0.046},
+  {name:"Sentinel",     role:"Security Ops",   color:"#94a3b8",hat:"hard",   spd:0.030},
 ];
 var MSGS=[
   ["Outreach","Jarvis","3 leads queued — warm tier"],
@@ -262,7 +262,7 @@ function updateAgent(ag){
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
   // Timer expired — always pick new target and start moving
   if(ag.timer<=0){
-    pickTarget(ag);ag.timer=180+Math.random()*280;ag.sitting=false;return;
+    pickTarget(ag);ag.timer=80+Math.random()*120;ag.sitting=false;return;
   }
   // Just arrived at target for the first time
   var at=Math.abs(ag.gx-ag.tx)<0.18&&Math.abs(ag.gy-ag.ty)<0.18;
@@ -272,7 +272,7 @@ function updateAgent(ag){
     if(ag.beh==="working")totalTasks++;
     if(ag.beh==="meeting")totalMeets++;
     // Sit for a while, then timer expiry above kicks them out
-    ag.timer=ag.sitting?180+Math.random()*240:30+Math.random()*60;
+    ag.timer=ag.sitting?40+Math.random()*60:20+Math.random()*30;
   }
   if(!ag.sitting){var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);if(d>0.06){ag.gx+=(dx/d)*ag.spd;ag.gy+=(dy/d)*ag.spd;}}
 }
