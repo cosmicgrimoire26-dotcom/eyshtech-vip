@@ -141,30 +141,46 @@ var DEFS=[
   {name:"Sentinel",     role:"Security Ops",   color:"#94a3b8",hat:"hard",   spd:0.004},
 ];
 var MSGS=[
-  ["Outreach","Jarvis","3 leads queued — warm tier"],
-  ["CFO","Jarvis","Burn rate $130 — on track"],
-  ["Nerve Center","Lookout","All heartbeats nominal"],
-  ["Job Scout","Jarvis","2 remote matches found"],
-  ["Archivist","Gemini","Context snapshot saved"],
-  ["Velocity","Outreach","HIGH score — trigger sequence"],
-  ["Sentinel","Nerve Center","Tokens valid, no anomalies"],
-  ["Lawbringer","Jarvis","Compliance gate: PASS"],
-  ["Quartermaster","CFO","Resource ceiling stable"],
-  ["Freelancer","Job Scout","Proposal ready for review"],
-  ["Navigator","Gemini","Content queue: 4 items"],
-  ["Lookout","Sentinel","Port scan clear"],
-  ["Outreach","Velocity","Reply detected — pausing"],
-  ["Sysadmin","Nerve Center","Disk 48% — healthy"],
-  ["Gemini","Archivist","Decision logged"],
-  ["Sentinel","Lawbringer","OAuth headers verified"],
-  ["Jarvis","CFO","Request weekly burn report"],
-  ["Archivist","Sentinel","Memory hash validated"],
-  ["Velocity","Jarvis","Pipeline at 87% capacity"],
-  ["Nerve Center","Jarvis","Morning triage: 0 issues"],
-  ["Navigator","Outreach","New hook drafted"],
-  ["CFO","Quartermaster","Budget ceiling holding"],
-  ["Sysadmin","Jarvis","All crons healthy — 0 failures"],
-  ["Lookout","Jarvis","No anomalies last 4 hrs"],
+  ["","","Got a sec?"],
+  ["","","Almost done with this"],
+  ["","","Can you review this?"],
+  ["","","Quick sync?"],
+  ["","","Meeting in 5"],
+  ["","","On a call, one sec"],
+  ["","","Coffee run?"],
+  ["","","This looks off to me"],
+  ["","","You free?"],
+  ["","","Check the queue"],
+  ["","","Just pushed that fix"],
+  ["","","Need your eyes on this"],
+  ["","","Done ✓"],
+  ["","","Running a bit behind"],
+  ["","","Blocked on this one"],
+  ["","","Who owns this?"],
+  ["","","Ping me when done"],
+  ["","","On it"],
+  ["","","Looks good to me"],
+  ["","","One sec..."],
+  ["","","Anything urgent?"],
+  ["","","Queue's clear"],
+  ["","","Just deployed"],
+  ["","","Need that EOD"],
+  ["","","Heads up"],
+  ["","","BRB"],
+  ["","","Back in 5"],
+  ["","","Can we push this?"],
+  ["","","Taking my lunch"],
+  ["","","Did you see the new report?"],
+  ["","","That's on me, sorry"],
+  ["","","Slack me the link"],
+  ["","","Approved ✓"],
+  ["","","Have a minute?"],
+  ["","","Just checking in"],
+  ["","","Let me know when you're free"],
+  ["","","Can you hop on a call?"],
+  ["","","Two secs"],
+  ["","","Running the numbers now"],
+  ["","","Flag it if it breaks"],
 ];
 
 // ─── Layout ─────────────────────────────────────────────────────
@@ -256,11 +272,22 @@ var agents=DEFS.map(function(d,i){
 
 function pickTarget(ag){
   var r=Math.random();
-  if(r<0.22){ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;return;}
-  if(r<0.34){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}  }
-  if(r<0.44){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
-  if(r<0.58){var d=DESKS[Math.floor(Math.random()*DESKS.length)];var c=[{x:d.x,y:d.y+1},{x:d.x+1,y:d.y},{x:d.x-1,y:d.y}];for(var i=0;i<c.length;i++){if(walkable(c[i].x,c[i].y)){ag.tx=c[i].x;ag.ty=c[i].y;ag.beh="wandering";return;}}}
-  var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";
+  // 50% → back to own desk
+  if(r<0.50){ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;return;}
+  // 13% → coffee
+  if(r<0.63){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}}
+  // 9% → water
+  if(r<0.72){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
+  // 28% → walk to a colleague's desk
+  var deskIdx=Math.floor(Math.random()*DESKS.length);
+  if(deskIdx===ag.deskIdx)deskIdx=(deskIdx+1)%DESKS.length;
+  var d=DESKS[deskIdx];
+  var c=[{x:d.x,y:d.y+1},{x:d.x+1,y:d.y},{x:d.x-1,y:d.y}];
+  for(var i=0;i<c.length;i++){
+    if(walkable(c[i].x,c[i].y)){ag.tx=c[i].x;ag.ty=c[i].y;ag.beh="visiting";ag.visitDeskIdx=deskIdx;return;}
+  }
+  // fallback
+  ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";
 }
 
 function updateAgent(ag){
@@ -307,19 +334,32 @@ function updateAgent(ag){
   // Arrival fires exactly once per destination (arrived flag gates re-fire)
   if(at&&!ag.arrived&&ag.chatPause<=0){
     ag.arrived=true;
-    if(ag.beh==="caffeinating")totalBrews++;
-    if(ag.beh==="working")totalTasks++;
-    ag.sitting=ag.beh==="working";
-    ag.timer=ag.sitting?300+Math.random()*400:80+Math.random()*100;
+    if(ag.beh==="caffeinating"){totalBrews++;ag.timer=60+Math.random()*60;}
+    else if(ag.beh==="hydrating"){ag.timer=50+Math.random()*50;}
+    else if(ag.beh==="working"){
+      totalTasks++;ag.sitting=true;ag.timer=400+Math.random()*500;
+    } else if(ag.beh==="visiting"){
+      ag.timer=100+Math.random()*120;
+      // If the desk owner is sitting there, start a conversation
+      var owner=agents[ag.visitDeskIdx];
+      if(owner&&owner.sitting&&!owner.chatPause&&!ag.chatPause){
+        var vpause=110+Math.random()*80;
+        ag.chatPause=vpause;ag.chatBubbleTimer=15;ag.chatPartner=owner;
+        owner.chatPause=vpause+20;owner.chatBubbleTimer=45;owner.chatPartner=ag;
+        ag.pulse=1;owner.pulse=1;totalMessages++;
+      }
+    } else {
+      ag.timer=80+Math.random()*80;
+    }
   }
 
   if(ag.timer<=0&&ag.chatPause<=0){
     ag.sitting=false;ag.arrived=false;
     var atHome=Math.abs(ag.gx-ag.home.x)<0.4&&Math.abs(ag.gy-ag.home.y)<0.4;
-    if(atHome&&Math.random()<0.55){
-      pickTarget(ag);ag.timer=60+Math.random()*80;
+    if(atHome){
+      pickTarget(ag);ag.timer=40+Math.random()*40;
     } else {
-      ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;ag.timer=60+Math.random()*80;
+      ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;ag.timer=40+Math.random()*40;
     }
   }
 
@@ -843,7 +883,7 @@ function updateHUD(){
   // Rotate alert messages
   if(Math.random()<0.03){var ri=Math.floor(Math.random()*4);statusIdx[ri]=(statusIdx[ri]+1)%statusMsgs[ri].length;alEls[ri].textContent=statusMsgs[ri][statusIdx[ri]];}
   // Agent list
-  var behColor={working:'#60a5fa',caffeinating:'#fb923c',hydrating:'#38bdf8',chilling:'#c084fc',meeting:'#f472b6',wandering:'#3b1280',idle:'#1a0840',chatting:'#f472b6'};
+  var behColor={working:'#60a5fa',caffeinating:'#fb923c',hydrating:'#38bdf8',visiting:'#a78bfa',wandering:'#3b1280',idle:'#1a0840',chatting:'#f472b6'};
   aRowEls.forEach(function(r){var b=r.ag.chatPause>0?'chatting':r.ag.beh;r.st.textContent=b;r.st.style.color=behColor[b]||'#3b1280';});
 }
 
