@@ -250,76 +250,69 @@ var agents=DEFS.map(function(d,i){
     home:home,deskIdx:i%DESKS.length,
     beh:"working",timer:20+i*8,sitting:false,
     onZoom:Math.random()<0.4,
-    px:0,py:0,pulse:0,trail:[]};
+    px:0,py:0,pulse:0,trail:[],
+    chatPause:0,chatBubbleTimer:0,chatPartner:null};
 });
 
 function pickTarget(ag){
   var r=Math.random();
-  // Go chat with a coworker
-  if(r<0.28){
-    var other=agents[Math.floor(Math.random()*agents.length)];
-    if(other!==ag){
-      var cx=other.home.x+(Math.random()<0.5?1:-1),cy=other.home.y+(Math.random()<0.5?1:-1);
-      if(walkable(cx,cy)){ag.tx=cx;ag.ty=cy;ag.beh="chatting";ag.chatTarget=other;ag.onZoom=false;return;}
-    }
-  }
-  // Coffee run
-  if(r<0.42){
-    var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];
-    for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";ag.onZoom=false;return;}}
-  }
-  // Water
-  if(r<0.54){
-    var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];
-    for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";ag.onZoom=false;return;}}
-  }
-  // Stretch/wander around office briefly
-  if(r<0.64){
-    var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";ag.onZoom=false;return;
-  }
-  // Return to own desk
-  ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;
+  if(r<0.22){ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;return;}
+  if(r<0.34){var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";return;}}  }
+  if(r<0.44){var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";return;}}}
+  if(r<0.58){var d=DESKS[Math.floor(Math.random()*DESKS.length)];var c=[{x:d.x,y:d.y+1},{x:d.x+1,y:d.y},{x:d.x-1,y:d.y}];for(var i=0;i<c.length;i++){if(walkable(c[i].x,c[i].y)){ag.tx=c[i].x;ag.ty=c[i].y;ag.beh="wandering";return;}}}
+  var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";
 }
 
 function updateAgent(ag){
   ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
-  var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
-  // Chatting: track the other agent live and stop when close enough
-  if(ag.beh==="chatting"&&ag.chatTarget){
-    var ct=ag.chatTarget;
-    var distToTarget=Math.sqrt(Math.pow(ag.gx-ct.gx,2)+Math.pow(ag.gy-ct.gy,2));
-    if(distToTarget<1.8){
-      // Close enough — stop and talk
-      if(!ag.chatting){
-        ag.chatting=true;
-        ag.timer=200+Math.random()*200;
-        ag.chatBubbleTimer=0;
-      }
-      ag.tx=ag.gx;ag.ty=ag.gy; // stop moving
-    } else {
-      // Walk toward them
-      ag.tx=ct.gx;ag.ty=ct.gy;
-    }
-    // Fire chat bubbles periodically
-    ag.chatBubbleTimer=(ag.chatBubbleTimer||0)-1;
-    if(ag.chatting&&ag.chatBubbleTimer<=0){
+
+  // ── Proximity-triggered spontaneous chat ──────────────────────
+  if(!ag.chatPause){ag.chatPause=0;}
+  if(!ag.chatBubbleTimer){ag.chatBubbleTimer=0;}
+
+  if(ag.chatPause>0){
+    ag.chatPause--;
+    ag.chatBubbleTimer--;
+    if(ag.chatBubbleTimer<=0&&ag.chatPartner){
       var chatMsg=MSGS[Math.floor(Math.random()*MSGS.length)];
       spawnBubble(ag,chatMsg[2]);
-      setTimeout(function(){spawnBubble(ct,MSGS[Math.floor(Math.random()*MSGS.length)][2]);},800+Math.random()*600);
-      ag.chatBubbleTimer=100+Math.random()*80;
+      ag.chatBubbleTimer=60+Math.random()*60;
+    }
+    // Stay put while chatting
+    ag.tx=ag.gx;ag.ty=ag.gy;
+  } else {
+    ag.chatPartner=null;
+    // Scan for nearby agents to spontaneously greet (low probability per frame)
+    if(Math.random()<0.004&&ag.beh!=="working"){
+      for(var pi=0;pi<agents.length;pi++){
+        var peer=agents[pi];
+        if(peer===ag||peer.chatPause>0)continue;
+        var pdx=ag.gx-peer.gx,pdy=ag.gy-peer.gy,pd=Math.sqrt(pdx*pdx+pdy*pdy);
+        if(pd<2.0){
+          // Spontaneous conversation — both agents pause
+          var pause=100+Math.random()*120;
+          ag.chatPause=pause;ag.chatBubbleTimer=10;ag.chatPartner=peer;
+          peer.chatPause=pause+30;peer.chatBubbleTimer=40;peer.chatPartner=ag;
+          totalMessages++;
+          ag.pulse=1;peer.pulse=1;
+          break;
+        }
+      }
     }
   }
 
-  if(at&&!ag.sitting&&ag.beh!=="chatting"){
+  var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
+
+  if(at&&!ag.sitting&&ag.chatPause<=0){
     if(ag.beh==="caffeinating")totalBrews++;
     if(ag.beh==="working")totalTasks++;
     ag.sitting=ag.beh==="working";
     ag.timer=ag.sitting?300+Math.random()*400:80+Math.random()*100;
   }
 
-  if(ag.timer<=0){
-    ag.sitting=false;ag.chatting=false;ag.chatTarget=null;
+  if(ag.timer<=0&&ag.chatPause<=0){
+    ag.sitting=false;
     var atHome=Math.abs(ag.gx-ag.home.x)<0.4&&Math.abs(ag.gy-ag.home.y)<0.4;
     if(atHome&&Math.random()<0.55){
       pickTarget(ag);ag.timer=60+Math.random()*80;
@@ -327,18 +320,19 @@ function updateAgent(ag){
       ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;ag.timer=60+Math.random()*80;
     }
   }
-  var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
-  if(d>0.05){
-    // Decelerate on approach
-    var spd=ag.spd*(d<1.5?d/1.5:1);
-    // Soft collision avoidance — nudge away from nearby agents
-    var nx=0,ny=0;
-    for(var ci=0;ci<agents.length;ci++){
-      var other=agents[ci];if(other===ag)continue;
-      var odx=ag.gx-other.gx,ody=ag.gy-other.gy,od=Math.sqrt(odx*odx+ody*ody);
-      if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.15;ny+=ody/od*(1.2-od)*0.15;}
+
+  if(ag.chatPause<=0){
+    var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
+    if(d>0.05){
+      var spd=ag.spd*(d<1.5?d/1.5:1);
+      var nx=0,ny=0;
+      for(var ci=0;ci<agents.length;ci++){
+        var other=agents[ci];if(other===ag)continue;
+        var odx=ag.gx-other.gx,ody=ag.gy-other.gy,od=Math.sqrt(odx*odx+ody*ody);
+        if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.15;ny+=ody/od*(1.2-od)*0.15;}
+      }
+      ag.gx+=(dx/d)*spd+nx*0.008;ag.gy+=(dy/d)*spd+ny*0.008;
     }
-    ag.gx+=(dx/d)*spd+nx*0.008;ag.gy+=(dy/d)*spd+ny*0.008;
   }
 }
 
@@ -822,7 +816,7 @@ var tooltip=document.getElementById('tooltip');
 canvas.addEventListener('mousemove',function(e){
   var rect=canvas.getBoundingClientRect(),mx=e.clientX-rect.left,my=e.clientY-rect.top,found=null;
   for(var i=0;i<agents.length;i++){var dx=mx-agents[i].px,dy=my-agents[i].py;if(Math.sqrt(dx*dx+dy*dy)<22){found=agents[i];break;}}
-  if(found){document.getElementById('tt-n').textContent=found.name;document.getElementById('tt-r').textContent=found.role;document.getElementById('tt-b').textContent=found.beh+(found.sitting?' — stationary':' — moving');tooltip.style.left=(e.clientX-rect.left+16)+'px';tooltip.style.top=(e.clientY-rect.top-14)+'px';tooltip.style.display='block';}
+  if(found){document.getElementById('tt-n').textContent=found.name;document.getElementById('tt-r').textContent=found.role;var ttBeh=found.chatPause>0?'chatting':found.beh;document.getElementById('tt-b').textContent=ttBeh+(found.sitting||found.chatPause>0?' — stationary':' — moving');tooltip.style.left=(e.clientX-rect.left+16)+'px';tooltip.style.top=(e.clientY-rect.top-14)+'px';tooltip.style.display='block';}
   else tooltip.style.display='none';
 });
 canvas.addEventListener('mouseleave',function(){tooltip.style.display='none';});
@@ -847,8 +841,8 @@ function updateHUD(){
   // Rotate alert messages
   if(Math.random()<0.03){var ri=Math.floor(Math.random()*4);statusIdx[ri]=(statusIdx[ri]+1)%statusMsgs[ri].length;alEls[ri].textContent=statusMsgs[ri][statusIdx[ri]];}
   // Agent list
-  var behColor={working:'#60a5fa',caffeinating:'#fb923c',hydrating:'#38bdf8',chilling:'#c084fc',meeting:'#f472b6',wandering:'#3b1280',idle:'#1a0840'};
-  aRowEls.forEach(function(r){r.st.textContent=r.ag.beh;r.st.style.color=behColor[r.ag.beh]||'#3b1280';});
+  var behColor={working:'#60a5fa',caffeinating:'#fb923c',hydrating:'#38bdf8',chilling:'#c084fc',meeting:'#f472b6',wandering:'#3b1280',idle:'#1a0840',chatting:'#f472b6'};
+  aRowEls.forEach(function(r){var b=r.ag.chatPause>0?'chatting':r.ag.beh;r.st.textContent=b;r.st.style.color=behColor[b]||'#3b1280';});
 }
 
 // ─── Init + loop ────────────────────────────────────────────────
