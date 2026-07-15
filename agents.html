@@ -255,24 +255,30 @@ var agents=DEFS.map(function(d,i){
 
 function pickTarget(ag){
   var r=Math.random();
-  // 2020 worker — mostly at their desk
-  if(r<0.65){
-    // Go back to home desk
-    ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";
-    ag.onZoom=Math.random()<0.45;return;
+  // Go chat with a coworker
+  if(r<0.28){
+    var other=agents[Math.floor(Math.random()*agents.length)];
+    if(other!==ag){
+      var cx=other.home.x+(Math.random()<0.5?1:-1),cy=other.home.y+(Math.random()<0.5?1:-1);
+      if(walkable(cx,cy)){ag.tx=cx;ag.ty=cy;ag.beh="chatting";ag.chatTarget=other;ag.onZoom=false;return;}
+    }
   }
-  if(r<0.78){
-    // Coffee run
+  // Coffee run
+  if(r<0.42){
     var ca=[{x:COFFEE.x-1,y:COFFEE.y},{x:COFFEE.x,y:COFFEE.y+1}];
     for(var k=0;k<ca.length;k++){if(walkable(ca[k].x,ca[k].y)){ag.tx=ca[k].x;ag.ty=ca[k].y;ag.beh="caffeinating";ag.onZoom=false;return;}}
   }
-  if(r<0.88){
-    // Water
+  // Water
+  if(r<0.54){
     var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];
     for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";ag.onZoom=false;return;}}
   }
-  // Otherwise: go back to desk
-  ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.45;
+  // Stretch/wander around office briefly
+  if(r<0.64){
+    var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";ag.onZoom=false;return;
+  }
+  // Return to own desk
+  ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;
 }
 
 function updateAgent(ag){
@@ -280,22 +286,30 @@ function updateAgent(ag){
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
   var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
   if(at&&!ag.sitting){
-    // Just arrived somewhere
     if(ag.beh==="caffeinating")totalBrews++;
     if(ag.beh==="working")totalTasks++;
     ag.sitting=ag.beh==="working";
-    ag.timer=ag.sitting?500+Math.random()*700:80+Math.random()*120;
+    if(ag.sitting){
+      // Sit at desk for a good stretch, then eventually get up
+      ag.timer=300+Math.random()*400;
+    } else if(ag.beh==="chatting"){
+      // Stand and chat briefly, trigger bubble exchange
+      ag.timer=120+Math.random()*160;
+      if(ag.chatTarget){spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);spawnBubble(ag.chatTarget,MSGS[Math.floor(Math.random()*MSGS.length)][2]);}
+    } else {
+      ag.timer=80+Math.random()*100;
+    }
   }
   if(ag.timer<=0){
-    // At home desk — 80% chance just stay, 20% take a break
-    var atHome=Math.abs(ag.gx-ag.home.x)<0.3&&Math.abs(ag.gy-ag.home.y)<0.3;
-    if(atHome&&Math.random()<0.80){
-      // Stay at desk, reset timer
-      ag.sitting=true;ag.beh="working";
-      ag.onZoom=Math.random()<0.45;
-      ag.timer=400+Math.random()*600;
+    ag.sitting=false;
+    // After a long desk sit, go do something — otherwise return to desk
+    var atHome=Math.abs(ag.gx-ag.home.x)<0.4&&Math.abs(ag.gy-ag.home.y)<0.4;
+    if(atHome&&Math.random()<0.55){
+      // Get up and go do something social
+      pickTarget(ag);ag.timer=60+Math.random()*80;
     } else {
-      pickTarget(ag);ag.timer=60+Math.random()*80;ag.sitting=false;
+      // Head back to desk
+      ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;ag.timer=60+Math.random()*80;
     }
   }
   var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
