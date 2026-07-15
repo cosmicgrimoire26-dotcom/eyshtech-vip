@@ -248,7 +248,7 @@ var agents=DEFS.map(function(d,i){
     gx:home.x+Math.random()*0.3,gy:home.y+Math.random()*0.3,
     tx:home.x,ty:home.y,
     home:home,deskIdx:i%DESKS.length,
-    beh:"working",timer:20+i*8,sitting:false,
+    beh:"working",timer:20+i*8,sitting:false,arrived:false,
     onZoom:Math.random()<0.4,
     px:0,py:0,pulse:0,trail:[],
     chatPause:0,chatBubbleTimer:0,chatPartner:null};
@@ -304,7 +304,9 @@ function updateAgent(ag){
 
   var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
 
-  if(at&&!ag.sitting&&ag.chatPause<=0){
+  // Arrival fires exactly once per destination (arrived flag gates re-fire)
+  if(at&&!ag.arrived&&ag.chatPause<=0){
+    ag.arrived=true;
     if(ag.beh==="caffeinating")totalBrews++;
     if(ag.beh==="working")totalTasks++;
     ag.sitting=ag.beh==="working";
@@ -312,7 +314,7 @@ function updateAgent(ag){
   }
 
   if(ag.timer<=0&&ag.chatPause<=0){
-    ag.sitting=false;
+    ag.sitting=false;ag.arrived=false;
     var atHome=Math.abs(ag.gx-ag.home.x)<0.4&&Math.abs(ag.gy-ag.home.y)<0.4;
     if(atHome&&Math.random()<0.55){
       pickTarget(ag);ag.timer=60+Math.random()*80;
