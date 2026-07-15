@@ -285,30 +285,45 @@ function updateAgent(ag){
   ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
   var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
-  if(at&&!ag.sitting){
+  // Chatting: track the other agent live and stop when close enough
+  if(ag.beh==="chatting"&&ag.chatTarget){
+    var ct=ag.chatTarget;
+    var distToTarget=Math.sqrt(Math.pow(ag.gx-ct.gx,2)+Math.pow(ag.gy-ct.gy,2));
+    if(distToTarget<1.8){
+      // Close enough — stop and talk
+      if(!ag.chatting){
+        ag.chatting=true;
+        ag.timer=200+Math.random()*200;
+        ag.chatBubbleTimer=0;
+      }
+      ag.tx=ag.gx;ag.ty=ag.gy; // stop moving
+    } else {
+      // Walk toward them
+      ag.tx=ct.gx;ag.ty=ct.gy;
+    }
+    // Fire chat bubbles periodically
+    ag.chatBubbleTimer=(ag.chatBubbleTimer||0)-1;
+    if(ag.chatting&&ag.chatBubbleTimer<=0){
+      var chatMsg=MSGS[Math.floor(Math.random()*MSGS.length)];
+      spawnBubble(ag,chatMsg[2]);
+      setTimeout(function(){spawnBubble(ct,MSGS[Math.floor(Math.random()*MSGS.length)][2]);},800+Math.random()*600);
+      ag.chatBubbleTimer=100+Math.random()*80;
+    }
+  }
+
+  if(at&&!ag.sitting&&ag.beh!=="chatting"){
     if(ag.beh==="caffeinating")totalBrews++;
     if(ag.beh==="working")totalTasks++;
     ag.sitting=ag.beh==="working";
-    if(ag.sitting){
-      // Sit at desk for a good stretch, then eventually get up
-      ag.timer=300+Math.random()*400;
-    } else if(ag.beh==="chatting"){
-      // Stand and chat briefly, trigger bubble exchange
-      ag.timer=120+Math.random()*160;
-      if(ag.chatTarget){spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);spawnBubble(ag.chatTarget,MSGS[Math.floor(Math.random()*MSGS.length)][2]);}
-    } else {
-      ag.timer=80+Math.random()*100;
-    }
+    ag.timer=ag.sitting?300+Math.random()*400:80+Math.random()*100;
   }
+
   if(ag.timer<=0){
-    ag.sitting=false;
-    // After a long desk sit, go do something — otherwise return to desk
+    ag.sitting=false;ag.chatting=false;ag.chatTarget=null;
     var atHome=Math.abs(ag.gx-ag.home.x)<0.4&&Math.abs(ag.gy-ag.home.y)<0.4;
     if(atHome&&Math.random()<0.55){
-      // Get up and go do something social
       pickTarget(ag);ag.timer=60+Math.random()*80;
     } else {
-      // Head back to desk
       ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.4;ag.timer=60+Math.random()*80;
     }
   }
@@ -691,7 +706,7 @@ function drawBubble(b){
   var ag=b.ag,p=toS(ag.gx,ag.gy),sx=p.sx,sy=p.sy-68;
   var alpha=Math.min(1,b.life/25)*Math.min(1,(b.maxLife-b.life+25)/25);
   ctx.save();ctx.globalAlpha=alpha;ctx.font='8px Courier New';ctx.textAlign='center';
-  var text=b.text.length>26?b.text.slice(0,26)+'…':b.text;
+  var text=b.text.length>30?b.text.slice(0,30)+'…':b.text;
   var tw=ctx.measureText(text).width,bw=tw+16,bh=18;
   ctx.fillStyle='rgba(6,3,18,0.96)';rr(ctx,sx-bw/2,sy-bh,bw,bh,4);ctx.fill();
   ctx.strokeStyle=ag.color+'88';ctx.lineWidth=0.7;rr(ctx,sx-bw/2,sy-bh,bw,bh,4);ctx.stroke();
@@ -788,7 +803,7 @@ function pushFeed(){
   }
 }
 
-function spawnBubble(ag,text){bubbles.push({ag:ag,text:text,life:150,maxLife:150});}
+function spawnBubble(ag,text){bubbles.push({ag:ag,text:text,life:220,maxLife:220});}
 
 // ─── Agent list sidebar ──────────────────────────────────────────
 var alist=document.getElementById('agent-list'),aRowEls=[];
