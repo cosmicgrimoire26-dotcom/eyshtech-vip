@@ -308,7 +308,7 @@ function updateAgent(ag){
   }
 
   // Arrived → immediately pick next destination, never wait
-  var at=Math.abs(ag.gx-ag.tx)<0.15&&Math.abs(ag.gy-ag.ty)<0.15;
+  var at=Math.abs(ag.gx-ag.tx)<0.35&&Math.abs(ag.gy-ag.ty)<0.35;
   if(at&&!ag.arrived){
     ag.arrived=true;
     if(ag.beh==="caffeinating")totalBrews++;
@@ -331,7 +331,7 @@ function updateAgent(ag){
   // Always move toward target
   var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
   if(d>0.05){
-    var spd=ag.spd*(d<1.5?d/1.5:1);
+    var spd=ag.spd;
     var nx=0,ny=0;
     for(var ci=0;ci<agents.length;ci++){
       var other=agents[ci];if(other===ag)continue;
@@ -857,13 +857,15 @@ agents.forEach(function(ag,i){ag.timer=20+i*14;});
 
 var lastFeed=0,lastHUD=0,lastMM=0,lastGraph=0;
 function loop(ts){
-  frame++;
-  agents.forEach(updateAgent);
-  drawScene();
-  if(ts-lastFeed>900){pushFeed();lastFeed=ts;}
-  if(ts-lastHUD>400){updateHUD();lastHUD=ts;}
-  if(ts-lastMM>80){drawMinimap();lastMM=ts;}
-  if(ts-lastGraph>200){drawGraph();lastGraph=ts;}
+  try{
+    frame++;
+    agents.forEach(updateAgent);
+    drawScene();
+    if(ts-lastFeed>900){try{pushFeed();}catch(e){}lastFeed=ts;}
+    if(ts-lastHUD>400){try{updateHUD();}catch(e){}lastHUD=ts;}
+    if(ts-lastMM>80){try{drawMinimap();}catch(e){}lastMM=ts;}
+    if(ts-lastGraph>200){try{drawGraph();}catch(e){}lastGraph=ts;}
+  }catch(e){}
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
