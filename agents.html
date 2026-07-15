@@ -267,7 +267,7 @@ var agents=DEFS.map(function(d,i){
     beh:"working",timer:20+i*8,sitting:false,arrived:false,
     onZoom:Math.random()<0.4,
     px:0,py:0,pulse:0,trail:[],
-    chatPause:0,chatBubbleTimer:0,chatPartner:null};
+    chatPause:0,chatBubbleTimer:0,chatPartner:null,chatCooldown:0};
 });
 
 function pickTarget(ag){
@@ -293,35 +293,33 @@ function updateAgent(ag){
   ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
 
-  // ── Proximity-triggered spontaneous chat ──────────────────────
-  if(!ag.chatPause){ag.chatPause=0;}
-  if(!ag.chatBubbleTimer){ag.chatBubbleTimer=0;}
+  // ── Chat ─────────────────────────────────────────────────────
+  if(!ag.chatPause)ag.chatPause=0;
+  if(!ag.chatBubbleTimer)ag.chatBubbleTimer=0;
+  if(!ag.chatCooldown)ag.chatCooldown=0;
+  ag.chatCooldown=Math.max(0,ag.chatCooldown-1);
 
   if(ag.chatPause>0){
     ag.chatPause--;
     ag.chatBubbleTimer--;
     if(ag.chatBubbleTimer<=0&&ag.chatPartner){
-      var chatMsg=MSGS[Math.floor(Math.random()*MSGS.length)];
-      spawnBubble(ag,chatMsg[2]);
-      ag.chatBubbleTimer=60+Math.random()*60;
+      spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);
+      ag.chatBubbleTimer=30+Math.random()*20;
     }
-    // Stay put while chatting
     ag.tx=ag.gx;ag.ty=ag.gy;
   } else {
     ag.chatPartner=null;
-    // Scan for nearby agents to spontaneously greet (low probability per frame)
-    if(Math.random()<0.002&&ag.beh!=="working"&&!ag.arrived){
+    // Quick hallway nod — only while actively walking, not arrived/sitting, with cooldown
+    if(!ag.chatCooldown&&!ag.arrived&&ag.beh!=="working"&&Math.random()<0.003){
       for(var pi=0;pi<agents.length;pi++){
         var peer=agents[pi];
-        if(peer===ag||peer.chatPause>0||peer.sitting)continue;
-        var pdx=ag.gx-peer.gx,pdy=ag.gy-peer.gy,pd=Math.sqrt(pdx*pdx+pdy*pdy);
-        if(pd<1.4){
-          // Spontaneous conversation — both agents pause
-          var pause=100+Math.random()*120;
-          ag.chatPause=pause;ag.chatBubbleTimer=10;ag.chatPartner=peer;
-          peer.chatPause=pause+30;peer.chatBubbleTimer=40;peer.chatPartner=ag;
-          totalMessages++;
-          ag.pulse=1;peer.pulse=1;
+        if(peer===ag||peer.chatPause>0||peer.chatCooldown||peer.sitting)continue;
+        var pdx=ag.gx-peer.gx,pdy=ag.gy-peer.gy;
+        if(pdx*pdx+pdy*pdy<1.4*1.4){
+          var pause=30+Math.random()*25;
+          ag.chatPause=pause;ag.chatBubbleTimer=8;ag.chatPartner=peer;ag.chatCooldown=180;
+          peer.chatPause=pause+12;peer.chatBubbleTimer=18;peer.chatPartner=ag;peer.chatCooldown=180;
+          totalMessages++;ag.pulse=1;peer.pulse=1;
           break;
         }
       }
@@ -340,10 +338,10 @@ function updateAgent(ag){
     else if(ag.beh==="visiting"){
       ag.timer=70+Math.random()*70;
       var owner=agents[ag.visitDeskIdx];
-      if(owner&&owner.sitting&&!owner.chatPause&&!ag.chatPause){
-        var vpause=90+Math.random()*70;
-        ag.chatPause=vpause;ag.chatBubbleTimer=15;ag.chatPartner=owner;
-        owner.chatPause=vpause+20;owner.chatBubbleTimer=45;owner.chatPartner=ag;
+      if(owner&&owner.sitting&&!owner.chatPause&&!ag.chatPause&&!ag.chatCooldown){
+        var vpause=35+Math.random()*25;
+        ag.chatPause=vpause;ag.chatBubbleTimer=8;ag.chatPartner=owner;ag.chatCooldown=180;
+        owner.chatPause=vpause+12;owner.chatBubbleTimer=18;owner.chatPartner=ag;owner.chatCooldown=180;
         ag.pulse=1;owner.pulse=1;totalMessages++;
       }
     } else {ag.timer=60+Math.random()*60;}
