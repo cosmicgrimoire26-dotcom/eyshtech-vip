@@ -271,31 +271,32 @@ function pickTarget(ag){
     var wa=[{x:WATER.x-1,y:WATER.y},{x:WATER.x,y:WATER.y+1}];
     for(var j=0;j<wa.length;j++){if(walkable(wa[j].x,wa[j].y)){ag.tx=wa[j].x;ag.ty=wa[j].y;ag.beh="hydrating";ag.onZoom=false;return;}}
   }
-  if(r<0.94){
-    // Pace near their desk (stretch break)
-    var px=ag.home.x+(Math.random()<0.5?1:-1),py=ag.home.y+(Math.random()<0.5?1:-1);
-    if(walkable(px,py)){ag.tx=px;ag.ty=py;ag.beh="pacing";ag.onZoom=false;return;}
-  }
-  // Rare: check in with a coworker (brief wander)
-  var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";ag.onZoom=false;
+  // Otherwise: go back to desk
+  ag.tx=ag.home.x;ag.ty=ag.home.y;ag.beh="working";ag.onZoom=Math.random()<0.45;
 }
 
 function updateAgent(ag){
   ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
   var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
-  if(at||ag.timer<=0){
-    if(at){
-      if(ag.beh==="caffeinating")totalBrews++;
-      if(ag.beh==="working")totalTasks++;
-      if(ag.beh==="meeting")totalMeets++;
-      ag.sitting=ag.beh==="working";
-      // Desk workers sit long; breaks are short
-      var sitTime=ag.sitting?400+Math.random()*600:60+Math.random()*100;
-      ag.timer=sitTime;
-      if(ag.sitting)return;
+  if(at&&!ag.sitting){
+    // Just arrived somewhere
+    if(ag.beh==="caffeinating")totalBrews++;
+    if(ag.beh==="working")totalTasks++;
+    ag.sitting=ag.beh==="working";
+    ag.timer=ag.sitting?500+Math.random()*700:80+Math.random()*120;
+  }
+  if(ag.timer<=0){
+    // At home desk — 80% chance just stay, 20% take a break
+    var atHome=Math.abs(ag.gx-ag.home.x)<0.3&&Math.abs(ag.gy-ag.home.y)<0.3;
+    if(atHome&&Math.random()<0.80){
+      // Stay at desk, reset timer
+      ag.sitting=true;ag.beh="working";
+      ag.onZoom=Math.random()<0.45;
+      ag.timer=400+Math.random()*600;
+    } else {
+      pickTarget(ag);ag.timer=60+Math.random()*80;ag.sitting=false;
     }
-    pickTarget(ag);ag.timer=80+Math.random()*120;ag.sitting=false;
   }
   var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
   if(d>0.05){
