@@ -279,9 +279,9 @@ function updateAgent(ag){
     for(var ci=0;ci<agents.length;ci++){
       var other=agents[ci];if(other===ag)continue;
       var odx=ag.gx-other.gx,ody=ag.gy-other.gy,od=Math.sqrt(odx*odx+ody*ody);
-      if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.4;ny+=ody/od*(1.2-od)*0.4;}
+      if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.15;ny+=ody/od*(1.2-od)*0.15;}
     }
-    ag.gx+=(dx/d)*spd+nx*0.02;ag.gy+=(dy/d)*spd+ny*0.02;
+    ag.gx+=(dx/d)*spd+nx*0.008;ag.gy+=(dy/d)*spd+ny*0.008;
   }
 }
 
@@ -542,7 +542,7 @@ function drawAgent(ag){
 
   // Walking bob — vertical bounce tied to movement speed
   var moving=!ag.sitting;
-  var bob=moving?Math.sin(frame*0.35+ag.gx*3+ag.gy*2)*2.2*sc:0;
+  var bob=moving?Math.sin(frame*0.35+ag.gx*3+ag.gy*2)*0.8*sc:0;
 
   // Leg swing angle
   var legSwing=moving?Math.sin(frame*0.35+ag.gx*3+ag.gy*2)*5:0;
