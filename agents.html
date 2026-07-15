@@ -290,80 +290,55 @@ function pickTarget(ag){
 }
 
 function updateAgent(ag){
-  ag.timer--;ag.pulse=Math.max(0,ag.pulse-0.035);
+  ag.pulse=Math.max(0,ag.pulse-0.035);
   ag.trail.push({x:ag.gx,y:ag.gy});if(ag.trail.length>14)ag.trail.shift();
-
-  // ── Chat ─────────────────────────────────────────────────────
-  if(!ag.chatPause)ag.chatPause=0;
-  if(!ag.chatBubbleTimer)ag.chatBubbleTimer=0;
   if(!ag.chatCooldown)ag.chatCooldown=0;
   ag.chatCooldown=Math.max(0,ag.chatCooldown-1);
 
-  if(ag.chatPause>0){
-    ag.chatPause--;
-    ag.chatBubbleTimer--;
-    if(ag.chatBubbleTimer<=0&&ag.chatPartner){
-      spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);
-      ag.chatBubbleTimer=30+Math.random()*20;
-    }
-    ag.tx=ag.gx;ag.ty=ag.gy;
-  } else {
-    ag.chatPartner=null;
-    // Quick hallway nod — only while actively walking, not arrived/sitting, with cooldown
-    if(!ag.chatCooldown&&!ag.arrived&&ag.beh!=="working"&&Math.random()<0.003){
-      for(var pi=0;pi<agents.length;pi++){
-        var peer=agents[pi];
-        if(peer===ag||peer.chatPause>0||peer.chatCooldown||peer.sitting)continue;
-        var pdx=ag.gx-peer.gx,pdy=ag.gy-peer.gy;
-        if(pdx*pdx+pdy*pdy<1.4*1.4){
-          var pause=30+Math.random()*25;
-          ag.chatPause=pause;ag.chatBubbleTimer=8;ag.chatPartner=peer;ag.chatCooldown=180;
-          peer.chatPause=pause+12;peer.chatBubbleTimer=18;peer.chatPartner=ag;peer.chatCooldown=180;
-          totalMessages++;ag.pulse=1;peer.pulse=1;
-          break;
-        }
+  // Bubble on proximity — no freeze ever
+  if(!ag.chatCooldown&&Math.random()<0.004){
+    for(var pi=0;pi<agents.length;pi++){
+      var peer=agents[pi];if(peer===ag||peer.chatCooldown)continue;
+      var pdx=ag.gx-peer.gx,pdy=ag.gy-peer.gy;
+      if(pdx*pdx+pdy*pdy<2.25){
+        spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);
+        ag.chatCooldown=140;peer.chatCooldown=80;totalMessages++;ag.pulse=1;break;
       }
     }
   }
 
-  var at=Math.abs(ag.gx-ag.tx)<0.12&&Math.abs(ag.gy-ag.ty)<0.12;
-
-  // Arrival fires exactly once per destination (arrived flag gates re-fire)
-  if(at&&!ag.arrived&&ag.chatPause<=0){
+  // Arrived → immediately pick next destination, never wait
+  var at=Math.abs(ag.gx-ag.tx)<0.15&&Math.abs(ag.gy-ag.ty)<0.15;
+  if(at&&!ag.arrived){
     ag.arrived=true;
-    ag.sitting=(ag.beh==="working");
-    if(ag.beh==="working"){totalTasks++;ag.timer=80+Math.random()*80;}
-    else if(ag.beh==="caffeinating"){totalBrews++;ag.timer=50+Math.random()*40;}
-    else if(ag.beh==="hydrating"){ag.timer=40+Math.random()*35;}
-    else if(ag.beh==="visiting"){
-      ag.timer=70+Math.random()*70;
+    if(ag.beh==="caffeinating")totalBrews++;
+    if(ag.beh==="working")totalTasks++;
+    if(ag.beh==="visiting"){
       var owner=agents[ag.visitDeskIdx];
-      if(owner&&owner.sitting&&!owner.chatPause&&!ag.chatPause&&!ag.chatCooldown){
-        var vpause=35+Math.random()*25;
-        ag.chatPause=vpause;ag.chatBubbleTimer=8;ag.chatPartner=owner;ag.chatCooldown=180;
-        owner.chatPause=vpause+12;owner.chatBubbleTimer=18;owner.chatPartner=ag;owner.chatCooldown=180;
-        ag.pulse=1;owner.pulse=1;totalMessages++;
+      if(owner&&!ag.chatCooldown){
+        spawnBubble(ag,MSGS[Math.floor(Math.random()*MSGS.length)][2]);
+        spawnBubble(owner,MSGS[Math.floor(Math.random()*MSGS.length)][2]);
+        ag.chatCooldown=140;owner.chatCooldown=80;totalMessages++;ag.pulse=1;owner.pulse=1;
       }
-    } else {ag.timer=60+Math.random()*60;}
-  }
-
-  if(ag.timer<=0&&ag.chatPause<=0){
-    ag.sitting=false;ag.arrived=false;
-    pickTarget(ag);ag.timer=999;
-  }
-
-  if(ag.chatPause<=0){
-    var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
-    if(d>0.05){
-      var spd=ag.spd*(d<1.5?d/1.5:1);
-      var nx=0,ny=0;
-      for(var ci=0;ci<agents.length;ci++){
-        var other=agents[ci];if(other===ag)continue;
-        var odx=ag.gx-other.gx,ody=ag.gy-other.gy,od=Math.sqrt(odx*odx+ody*ody);
-        if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.15;ny+=ody/od*(1.2-od)*0.15;}
-      }
-      ag.gx+=(dx/d)*spd+nx*0.008;ag.gy+=(dy/d)*spd+ny*0.008;
     }
+    pickTarget(ag);
+    // If new target is same spot, force a random one
+    var ndx=ag.tx-ag.gx,ndy=ag.ty-ag.gy;
+    if(ndx*ndx+ndy*ndy<0.3){var rp=rw();ag.tx=rp.x;ag.ty=rp.y;ag.beh="wandering";}
+  }
+  if(!at)ag.arrived=false;
+
+  // Always move toward target
+  var dx=ag.tx-ag.gx,dy=ag.ty-ag.gy,d=Math.sqrt(dx*dx+dy*dy);
+  if(d>0.05){
+    var spd=ag.spd*(d<1.5?d/1.5:1);
+    var nx=0,ny=0;
+    for(var ci=0;ci<agents.length;ci++){
+      var other=agents[ci];if(other===ag)continue;
+      var odx=ag.gx-other.gx,ody=ag.gy-other.gy,od=Math.sqrt(odx*odx+ody*ody);
+      if(od<1.2&&od>0.01){nx+=odx/od*(1.2-od)*0.15;ny+=ody/od*(1.2-od)*0.15;}
+    }
+    ag.gx+=(dx/d)*spd+nx*0.008;ag.gy+=(dy/d)*spd+ny*0.008;
   }
 }
 
