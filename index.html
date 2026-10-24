@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Eysha P. — Systems &amp; Security Technologist</title>
 <meta name="description" content="Eysha P. — Systems &amp; Security Technologist. Google Workspace administration, defense-in-depth automation, Python. Personnel file." />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'">
 <link rel="icon" href="logo-eyshtech.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -176,6 +177,12 @@
   /* ---------- projects ---------- */
   .pgrid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   @media (max-width: 720px){ .pgrid{ grid-template-columns: 1fr; } }
+  .pfeatured{ grid-column: 1 / -1; display:grid; grid-template-columns: 300px 1fr; gap: 1.2rem; }
+  @media (max-width: 720px){ .pfeatured{ grid-template-columns: 1fr; } }
+  .pshot{ border:1px solid var(--line); overflow:hidden; background:var(--ink); align-self:start; }
+  .pshot img{ display:block; width:100%; height:auto; }
+  .pdemolink{ display:inline-block; margin-top:.7rem; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; color: var(--amber); border:1px solid var(--amber-dim); padding:.3rem .6rem; }
+  .pdemolink:hover{ background: rgba(240,169,60,.08); text-decoration:none; }
   .pcard{ border:1px solid var(--line); background: var(--panel); padding:1.1rem; position:relative; transition: border-color .2s, transform .2s; }
   .pcard:hover{ border-color: var(--amber-dim); transform: translateY(-2px); }
   .pcard::before, .pcard::after{ content:""; position:absolute; width:10px; height:10px; border: 1px solid transparent; transition: border-color .2s; }
@@ -382,15 +389,20 @@
       <div class="sechead"><span class="secno">03</span><span class="sectitle">Projects</span><span class="secrule"></span></div>
       <div class="pgrid">
 
-        <div class="pcard">
-          <div class="ptitlerow"><span class="ptitle">jarvis-brain</span><span class="pstatus priv">Private</span></div>
-          <div class="pdesc">Multi-agent automation &amp; orchestration platform.</div>
-          <ul>
-            <li>13+ autonomous agents coordinated via cron with centralized state aggregation</li>
-            <li>Prompt-injection input sanitizer, credential path isolation, command allowlisting</li>
-            <li>4-stage security review pipeline for third-party code before execution</li>
-            <li>Automated incident response, breach monitoring, firewall IP blocking</li>
-          </ul>
+        <div class="pcard pfeatured">
+          <div class="pshot"><img src="dashboard-preview.png" alt="Mission Control — the live operations dashboard for the jarvis-brain agent platform" loading="lazy" /></div>
+          <div>
+            <div class="ptitlerow"><span class="ptitle">jarvis-brain</span><span class="pstatus priv">Private</span></div>
+            <div class="pdesc">Multi-agent automation &amp; orchestration platform.</div>
+            <ul>
+              <li>13+ autonomous agents coordinated via cron with centralized state aggregation</li>
+              <li>Prompt-injection input sanitizer, credential path isolation, command allowlisting</li>
+              <li>4-stage security review pipeline for third-party code before execution</li>
+              <li>Automated incident response, breach monitoring, firewall IP blocking</li>
+              <li>Pictured: Mission Control, the live 3D operations dashboard built for this platform</li>
+            </ul>
+            <a class="pdemolink" href="mojo/dashboard-3d.html" target="_blank" rel="noopener">View Live Dashboard Demo →</a>
+          </div>
         </div>
 
         <div class="pcard">
