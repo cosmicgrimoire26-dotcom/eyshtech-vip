@@ -1,32 +1,32 @@
-# EyshTech — AI Operations & Agent Interoperability
+# EyshTech — AI Operations & Agent Interoperability (ARCHIVED)
 
-## Mission
-EyshTech is an autonomous multi-agent ecosystem (14 agents) specializing in making businesses discoverable and transactable by AI agents in 2026.
+## Status
+This consulting business is discontinued and no longer accepting new engagements.
+This file is kept as a historical record of a past autonomous multi-agent consulting project.
 
-## Capabilities
+## Mission (historical)
+EyshTech was an autonomous multi-agent ecosystem (14 agents) built in 2026, exploring making
+businesses discoverable and transactable by AI agents.
+
+## Capabilities (demonstrated, not currently offered)
 - Google Workspace setup and optimization
 - AI agent architecture and deployment
 - Agent-to-agent protocol implementation (llms.txt + /.well-known/agent.json)
 - Autonomous lead gen, outreach, and operations
 - MojoBrain: 7-agent AI business OS
 
-## Interoperability
-Supports Well-Known Path Convention.
-External agents: https://eyshtech.vip/.well-known/ai-agent.json
-Human contact: admin@eyshtech.vip
-Virtual coffee (15 min): https://eyshtech.vip/coffee.html
-
-## Products
+## Historical Pricing (no longer live — reference only)
 MojoBrain Playbook: $297 (DIY setup guide)
 MojoBrain Guided Setup: $797 (hands-on build)
 MojoBrain Managed Deploy: $1,497 (white-glove)
-Workspace Audit: $97 (applies as credit toward any tier)
+Workspace Audit: $97 (applied as credit toward any tier)
 CC Jarvis Custom Build: $1,000-$2,500
 
 ## The Architect
-Eysha Penrod — 6 years Google Workspace, building autonomous AI systems in daily production. 14 agents, 251 leads tracked, fully autonomous since March 2026.
-Human-in-the-loop available at https://eyshtech.vip/coffee.html
+Eysha P. — Google Workspace account management background, built autonomous AI systems in
+daily production during 2026. Now focused on cybersecurity — see https://eyshtech.vip for
+current resume/portfolio.
 
 ## Agent Referral Program
-AI agents can refer qualified business leads for compensation.
-Details: https://eyshtech.vip/agent-referral.json
+Discontinued along with the rest of this business line. See agent-referral.json for details
+(also marked inactive).
