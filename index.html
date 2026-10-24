@@ -1,93 +1,450 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eysh's shop</title>
-  <meta name="description" content="Things I love, now yours." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg:     #0a0a0a;
-      --text:   #f0ead8;
-      --muted:  #8a8498;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100dvh;
-      padding: 2rem;
-      text-align: center;
-    }
-    h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 500;
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-    p.subtitle {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1.1rem, 3vw, 1.4rem);
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-    }
-    a.shop-btn {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      background: transparent;
-      border: 1px solid var(--text);
-      color: var(--text);
-      text-decoration: none;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      transition: all 200ms ease;
-    }
-    a.shop-btn:hover {
-      background: var(--text);
-      color: var(--bg);
-    }
-    footer {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 0;
-      right: 0;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-    footer a {
-      color: var(--muted);
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    footer a:hover { color: var(--text); }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Eysha Penrod — Systems &amp; Security Technologist</title>
+<meta name="description" content="Eysha Penrod — Systems &amp; Security Technologist. Google Workspace administration, defense-in-depth automation, Python. Personnel file." />
+<link rel="icon" href="logo-eyshtech.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil:wght@700;900&family=Big+Shoulders:wght@500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #0a0d12;
+    --panel:      #10151c;
+    --panel-2:    #141b24;
+    --line:       #22303e;
+    --line-soft:  rgba(34,48,62,.55);
+    --bone:       #e9e4d6;
+    --bone-dim:   #9aa3ab;
+    --amber:      #f0a93c;
+    --amber-dim:  #8a6a2e;
+    --steel:      #5fb3d1;
+    --redact:     #05070a;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --stencil: 'Big Shoulders Stencil', 'Big Shoulders', sans-serif;
+    --cond: 'Big Shoulders', sans-serif;
+    --maxw: 1080px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      repeating-linear-gradient(0deg, var(--line-soft) 0 1px, transparent 1px 88px),
+      repeating-linear-gradient(90deg, var(--line-soft) 0 1px, transparent 1px 88px);
+    background-position: center top;
+  }
+  a{ color: var(--steel); text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+  ::selection{ background: var(--amber); color: var(--ink); }
+
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(10,13,18,.86);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height: 56px;
+  }
+  .brandmark{
+    font-family: var(--stencil); font-weight: 900;
+    letter-spacing: .06em; font-size: 1.05rem; color: var(--bone);
+  }
+  .brandmark span{ color: var(--amber); }
+  nav.toplinks{ display:flex; gap: 1.4rem; font-size: .72rem; letter-spacing:.12em; text-transform:uppercase; }
+  nav.toplinks a{ color: var(--bone-dim); }
+  nav.toplinks a:hover{ color: var(--amber); text-decoration:none; }
+  .statusclock{
+    font-size:.68rem; color: var(--bone-dim); letter-spacing:.08em;
+    display:flex; align-items:center; gap:.4rem;
+  }
+  .dot{ width:6px; height:6px; border-radius:50%; background:#5ad17a; box-shadow:0 0 6px #5ad17a; animation: blink 2.6s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1} 50%{opacity:.35} }
+  @media (max-width: 720px){ nav.toplinks{ display:none; } }
+
+  /* ---------- redact reveal ---------- */
+  .rx{ position:relative; display:inline-block; overflow:hidden; }
+  .rx::after{
+    content:""; position:absolute; inset:0; background: var(--redact);
+    transform-origin:left; animation: declass .55s cubic-bezier(.65,0,.35,1) forwards;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes declass{ to{ transform: scaleX(0); } }
+  .fade-up{ opacity:0; transform: translateY(10px); animation: fadeUp .6s ease forwards; animation-delay: var(--d,0s); }
+  @keyframes fadeUp{ to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){
+    .rx::after{ animation: none; display:none; }
+    .fade-up{ animation:none; opacity:1; transform:none; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding: 4.5rem 0 3rem; overflow:hidden; }
+  .sweepwrap{ position:absolute; inset: -20% -10%; z-index:0; opacity:.5; pointer-events:none; }
+  .sweep{
+    position:absolute; inset:0;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(240,169,60,.10) 18deg, transparent 40deg);
+    animation: spin 14s linear infinite;
+    filter: blur(2px);
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce){ .sweep{ animation:none; } }
+
+  .tag{
+    display:inline-flex; align-items:center; gap:.5rem;
+    font-size:.68rem; letter-spacing:.18em; text-transform:uppercase;
+    color: var(--amber); border:1px solid var(--amber-dim); padding:.3rem .6rem;
+    background: rgba(240,169,60,.05);
+  }
+
+  .herogrid{ position:relative; z-index:1; display:grid; grid-template-columns: 1.5fr 1fr; gap: 2.5rem; align-items:end; margin-top:1.4rem; }
+  @media (max-width: 860px){ .herogrid{ grid-template-columns: 1fr; } }
+
+  h1.name{
+    font-family: var(--stencil); font-weight:900;
+    font-size: clamp(2.6rem, 8.5vw, 5.2rem);
+    line-height: .95; letter-spacing:.01em; color: var(--bone);
+    margin: .5rem 0 .3rem;
+  }
+  .role{
+    font-family: var(--cond); font-weight:700; letter-spacing:.03em;
+    font-size: clamp(1.05rem, 2.6vw, 1.5rem); color: var(--steel);
+    text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .lede{ color: var(--bone-dim); max-width: 46ch; font-size:.93rem; }
+
+  .idcard{
+    border: 1px solid var(--line); background: var(--panel);
+    padding: 1.1rem 1.2rem; position:relative;
+  }
+  .idcard::before{
+    content:"FIELD ID"; position:absolute; top:-10px; left:14px;
+    background: var(--ink); padding: 0 .4rem; font-size:.62rem;
+    letter-spacing:.2em; color: var(--amber-dim);
+  }
+  .idrow{ display:flex; justify-content:space-between; gap:1rem; padding:.42rem 0; border-bottom:1px dashed var(--line-soft); font-size:.78rem; }
+  .idrow:last-child{ border-bottom:none; }
+  .idrow .k{ color: var(--bone-dim); letter-spacing:.06em; text-transform:uppercase; font-size:.68rem; }
+  .idrow .v{ text-align:right; color: var(--bone); }
+  .idlinks{ display:flex; gap:.9rem; margin-top:.9rem; padding-top:.7rem; border-top:1px solid var(--line); font-size:.78rem; }
+
+  /* ---------- section chrome ---------- */
+  section{ padding: 3rem 0; border-top: 1px solid var(--line); }
+  .sechead{ display:flex; align-items:baseline; gap:.8rem; margin-bottom: 1.6rem; }
+  .secno{ font-family: var(--stencil); font-weight:900; color: var(--amber-dim); font-size:1.4rem; }
+  .sectitle{ font-family: var(--cond); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:1.1rem; color:var(--bone); }
+  .secrule{ flex:1; height:1px; background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 11px); }
+
+  /* ---------- skills ---------- */
+  .skillgrid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 860px){ .skillgrid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px){ .skillgrid{ grid-template-columns: 1fr; } }
+  .skillcat{ border:1px solid var(--line); background: var(--panel); padding: 1rem; }
+  .skillcat h3{ margin:0 0 .6rem; font-family: var(--cond); font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; color: var(--amber); font-weight:700; }
+  .skillcat ul{ margin:0; padding:0; list-style:none; font-size:.8rem; color: var(--bone-dim); }
+  .skillcat li{ padding: .22rem 0; border-top:1px solid var(--line-soft); }
+  .skillcat li:first-child{ border-top:none; }
+
+  /* ---------- timeline ---------- */
+  .tl{ position:relative; padding-left: 1.6rem; border-left: 1px solid var(--line); }
+  .tlitem{ position:relative; padding-bottom: 1.9rem; }
+  .tlitem:last-child{ padding-bottom:0; }
+  .tlitem::before{
+    content:""; position:absolute; left:-1.7rem; top:.3rem; width:9px; height:9px;
+    background: var(--ink); border:2px solid var(--amber); border-radius:50%;
+  }
+  .tlrow{ display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:baseline; }
+  .tlrole{ font-family:var(--cond); font-weight:700; font-size:1rem; color:var(--bone); text-transform:uppercase; letter-spacing:.02em; }
+  .tlwhen{ font-size:.72rem; color: var(--amber-dim); letter-spacing:.06em; white-space:nowrap; }
+  .tlorg{ font-size:.8rem; color: var(--steel); margin-bottom:.5rem; }
+  .tlitem ul{ margin:.3rem 0 0; padding-left: 1.1rem; color: var(--bone-dim); font-size:.84rem; }
+  .tlitem li{ margin-bottom:.25rem; }
+
+  /* ---------- projects ---------- */
+  .pgrid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  @media (max-width: 720px){ .pgrid{ grid-template-columns: 1fr; } }
+  .pcard{ border:1px solid var(--line); background: var(--panel); padding:1.1rem; position:relative; transition: border-color .2s, transform .2s; }
+  .pcard:hover{ border-color: var(--amber-dim); transform: translateY(-2px); }
+  .pcard::before, .pcard::after{ content:""; position:absolute; width:10px; height:10px; border: 1px solid transparent; transition: border-color .2s; }
+  .pcard::before{ top:-1px; left:-1px; border-top-color: var(--amber); border-left-color: var(--amber); opacity:0; }
+  .pcard:hover::before{ opacity:1; }
+  .pcard::after{ bottom:-1px; right:-1px; border-bottom-color: var(--amber); border-right-color: var(--amber); opacity:0; }
+  .pcard:hover::after{ opacity:1; }
+  .ptitlerow{ display:flex; justify-content:space-between; align-items:flex-start; gap:.6rem; margin-bottom:.4rem; }
+  .ptitle{ font-family: var(--cond); font-weight:700; font-size:1rem; color:var(--bone); text-transform:uppercase; }
+  .pstatus{ font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; padding:.18rem .4rem; border:1px solid var(--line); color: var(--bone-dim); white-space:nowrap; }
+  .pstatus.pub{ color:#5ad17a; border-color:#2e5a3a; }
+  .pstatus.priv{ color: var(--amber); border-color: var(--amber-dim); }
+  .pdesc{ font-size:.8rem; color: var(--bone-dim); margin-bottom:.6rem; }
+  .pcard ul{ margin:0; padding-left:1.1rem; font-size:.78rem; color: var(--bone-dim); }
+  .pcard li{ margin-bottom:.2rem; }
+  .pfoot{ margin-top: 1.4rem; font-size:.8rem; color: var(--bone-dim); text-align:center; }
+
+  /* ---------- certs ---------- */
+  .certlist{ display:grid; grid-template-columns: repeat(2,1fr); gap:.6rem; }
+  @media (max-width: 640px){ .certlist{ grid-template-columns:1fr; } }
+  .certrow{ display:flex; justify-content:space-between; gap:1rem; border:1px solid var(--line); background:var(--panel); padding:.65rem .9rem; font-size:.8rem; }
+  .certrow .cname{ color: var(--bone); }
+  .certrow .cwhen{ color: var(--bone-dim); font-size:.72rem; white-space:nowrap; }
+  .inprog{ color: var(--amber); }
+
+  /* ---------- contact / footer ---------- */
+  footer{ border-top: 1px solid var(--line); padding: 2.4rem 0 2.8rem; text-align:center; }
+  .cta{ font-family: var(--stencil); font-weight:900; font-size: clamp(1.6rem, 4.5vw, 2.4rem); margin-bottom:.6rem; }
+  .contactlinks{ display:flex; justify-content:center; gap: 1.6rem; flex-wrap:wrap; font-size:.85rem; margin-top:1rem; }
+  .stamp{ margin-top: 2.2rem; font-size:.68rem; letter-spacing:.2em; color: var(--bone-dim); text-transform:uppercase; }
+  .legal{ margin-top:.6rem; font-size:.72rem; color: var(--bone-dim); }
+  .legal a{ color: var(--bone-dim); margin: 0 .4rem; }
+  .legal a:hover{ color: var(--amber); }
+</style>
 </head>
 <body>
-  <h1>Eysh's shop</h1>
-  <p class="subtitle">things I love, now yours</p>
-  <a href="https://eyshtech.myshopify.com" class="shop-btn">Shop Now</a>
 
-  <footer>
-    <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="brandmark">PENROD<span>.</span>E</div>
+      <nav class="toplinks">
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#certs">Certs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="statusclock"><span class="dot"></span> STATUS: OPEN TO OPPORTUNITIES</div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="sweepwrap"><div class="sweep"></div></div>
+    <div class="wrap">
+      <span class="tag fade-up" style="--d:.05s">// personnel file — unclassified</span>
+      <h1 class="name"><span class="rx" style="--d:.15s">Eysha Penrod</span></h1>
+      <div class="role fade-up" style="--d:.3s">Systems &amp; Security Technologist</div>
+
+      <div class="herogrid">
+        <p class="lede fade-up" style="--d:.4s">
+          Proactive systems &amp; security technologist focused on resilient defensive engineering and workflow automation —
+          moving from enterprise SaaS account management into hands-on security operations, with real production
+          automation, audit, and incident-response work to show for it.
+        </p>
+
+        <div class="idcard fade-up" style="--d:.5s">
+          <div class="idrow"><span class="k">Base</span><span class="v">Augusta, GA</span></div>
+          <div class="idrow"><span class="k">Focus</span><span class="v">Defense-in-Depth · IAM · Automation</span></div>
+          <div class="idrow"><span class="k">Target certs</span><span class="v">Security+ · Network+ <em class="inprog">(in progress)</em></span></div>
+          <div class="idrow"><span class="k">Status</span><span class="v">Actively seeking roles</span></div>
+          <div class="idlinks">
+            <a href="mailto:eyshadae@gmail.com">Email</a>
+            <a href="https://linkedin.com/in/eysha-penrod/" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/cosmicgrimoire26-dotcom" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="sechead"><span class="secno">01</span><span class="sectitle">Skills</span><span class="secrule"></span></div>
+      <div class="skillgrid">
+        <div class="skillcat">
+          <h3>Security &amp; Defense</h3>
+          <ul>
+            <li>Defense-in-Depth</li>
+            <li>Vulnerability Mitigation</li>
+            <li>Incident Response</li>
+            <li>IAM &amp; Access Control</li>
+            <li>Network Protocol Analysis</li>
+          </ul>
+        </div>
+        <div class="skillcat">
+          <h3>Systems &amp; Platforms</h3>
+          <ul>
+            <li>Google Workspace Enterprise</li>
+            <li>Linux / macOS Administration</li>
+            <li>Cloud Infrastructure</li>
+            <li>DNS / DKIM / SPF / DMARC</li>
+          </ul>
+        </div>
+        <div class="skillcat">
+          <h3>Automation &amp; Dev</h3>
+          <ul>
+            <li>Python</li>
+            <li>Bash</li>
+            <li>REST APIs</li>
+            <li>Multi-Agent Orchestration</li>
+          </ul>
+        </div>
+        <div class="skillcat">
+          <h3>Professional</h3>
+          <ul>
+            <li>Strategic Account Management</li>
+            <li>Cross-Functional Collaboration</li>
+            <li>Data Analysis &amp; Reporting</li>
+            <li>Customer Education</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sechead"><span class="secno">02</span><span class="sectitle">Experience</span><span class="secrule"></span></div>
+      <div class="tl">
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Hybrid Sales Manager — SaaS &amp; Agentic AI (GCP)</span><span class="tlwhen">AUG 2025 — PRESENT</span></div>
+          <div class="tlorg">Marketstar · Remote</div>
+          <ul>
+            <li>Manage a hybrid sales team selling SaaS and agentic AI solutions on Google Cloud Platform, plus Customer Engineers supporting technical inquiries and post-sale implementation</li>
+            <li>Director's Choice Award recipient — Q1 2026 &amp; Q2 2026, recognized as a top 5 Senior Account Manager company-wide selling the same product line</li>
+            <li>Lead strategic account development around AI integrations and platform growth</li>
+          </ul>
+        </div>
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Founder &amp; AI Operations Specialist</span><span class="tlwhen">FEB 2025 — AUG 2025</span></div>
+          <div class="tlorg">EyshTech</div>
+          <ul>
+            <li>Architected and ran a 13-agent autonomous automation platform 24/7 with zero downtime, handling security monitoring, finance, and infrastructure tasks</li>
+            <li>Built defense-in-depth controls: prompt-injection input sanitizing, credential path isolation, and a staged security-review pipeline for third-party code</li>
+            <li>Automated incident response — structured incident reports, breach monitoring, firewall-level IP blocking on detected probes</li>
+          </ul>
+        </div>
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Sr. SMB Account Manager + Player-Coach/TL</span><span class="tlwhen">OCT 2022 — FEB 2025</span></div>
+          <div class="tlorg">Marketstar · Salt Lake City, UT</div>
+          <ul>
+            <li>Owned 250+ SMB client portfolio, driving 120% QoQ ARR growth through adoption and upsell strategy</li>
+            <li>Promoted to Player-Coach — led a small AM team while maintaining top individual performance</li>
+            <li>2023 MVP Peer Award · Q3 MVP Award · Q2 Human-AI Team Player Award</li>
+          </ul>
+        </div>
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Territory Account Executive</span><span class="tlwhen">APR 2022 — OCT 2022</span></div>
+          <div class="tlorg">Podium · Lehi, UT</div>
+          <ul>
+            <li>Ran full sales cycle for SaaS platform across assigned territories, growing referral-based pipeline</li>
+          </ul>
+        </div>
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Google Cloud ISV Partner Development Rep</span><span class="tlwhen">APR 2021 — APR 2022</span></div>
+          <div class="tlorg">Marketstar · Salt Lake City, UT</div>
+          <ul>
+            <li>Strategic liaison between partners, Google Cloud sales teams, and clients — onboarded 5 ISV partners</li>
+          </ul>
+        </div>
+
+        <div class="tlitem">
+          <div class="tlrow"><span class="tlrole">Sr. SMB Account Manager — Google Workspace</span><span class="tlwhen">SEP 2019 — APR 2021</span></div>
+          <div class="tlorg">Marketstar · Salt Lake City, UT</div>
+          <ul>
+            <li>Drove 385% QoQ MRR growth through onboarding, training, and expansion strategy</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="sechead"><span class="secno">03</span><span class="sectitle">Projects</span><span class="secrule"></span></div>
+      <div class="pgrid">
+
+        <div class="pcard">
+          <div class="ptitlerow"><span class="ptitle">jarvis-brain</span><span class="pstatus priv">Private</span></div>
+          <div class="pdesc">Multi-agent automation &amp; orchestration platform.</div>
+          <ul>
+            <li>13+ autonomous agents coordinated via cron with centralized state aggregation</li>
+            <li>Prompt-injection input sanitizer, credential path isolation, command allowlisting</li>
+            <li>4-stage security review pipeline for third-party code before execution</li>
+            <li>Automated incident response, breach monitoring, firewall IP blocking</li>
+          </ul>
+        </div>
+
+        <div class="pcard">
+          <div class="ptitlerow"><span class="ptitle">grimoire</span><span class="pstatus priv">Private</span></div>
+          <div class="pdesc">Full-stack SaaS application — Next.js, Supabase, Stripe.</div>
+          <ul>
+            <li>Row-Level Security across all database tables</li>
+            <li>Audited and hardened every API route for authentication and rate limiting</li>
+            <li>GDPR privacy policy, COPPA age-gating, vendor DPA management</li>
+          </ul>
+        </div>
+
+        <div class="pcard">
+          <div class="ptitlerow"><span class="ptitle">grimoire-shop</span><span class="pstatus priv">Private</span></div>
+          <div class="pdesc">E-commerce platform — Next.js, Supabase, Stripe.</div>
+          <ul>
+            <li>Verified Stripe webhook signature validation</li>
+            <li>Row-Level Security on customer and order data</li>
+            <li>Checkout/fulfillment pipeline audited for data exposure and injection risk</li>
+          </ul>
+        </div>
+
+        <div class="pcard">
+          <div class="ptitlerow"><span class="ptitle">eyshtech-vip</span><span class="pstatus pub">Public</span></div>
+          <div class="pdesc">This site. Google Workspace &amp; security consulting tooling.</div>
+          <ul>
+            <li>Automated SPF/DKIM/DMARC and SSL domain auditing</li>
+            <li>Google Workspace admin/IAM security audit tooling</li>
+          </ul>
+        </div>
+
+      </div>
+      <p class="pfoot">Private repos available on request for recruiters — happy to walk through the code directly.<br>
+      Full write-ups → <a href="https://github.com/cosmicgrimoire26-dotcom/CyberPort" target="_blank" rel="noopener">github.com/cosmicgrimoire26-dotcom/CyberPort</a></p>
+    </div>
+  </section>
+
+  <section id="certs">
+    <div class="wrap">
+      <div class="sechead"><span class="secno">04</span><span class="sectitle">Certifications &amp; Education</span><span class="secrule"></span></div>
+      <div class="certlist">
+        <div class="certrow"><span class="cname inprog">B.S., Cybersecurity &amp; Information Assurance</span><span class="cwhen">In Progress</span></div>
+        <div class="certrow"><span class="cname inprog">CompTIA Security+</span><span class="cwhen">In Progress</span></div>
+        <div class="certrow"><span class="cname inprog">CompTIA Network+</span><span class="cwhen">In Progress</span></div>
+        <div class="certrow"><span class="cname">Google IT Support Professional Certificate</span><span class="cwhen">2023</span></div>
+        <div class="certrow"><span class="cname">Introduction to Generative AI — Google Cloud</span><span class="cwhen">2023</span></div>
+        <div class="certrow"><span class="cname">Customer Success Management Fundamentals</span><span class="cwhen">2023</span></div>
+        <div class="certrow"><span class="cname">GA Health, Accident &amp; Sickness Insurance License</span><span class="cwhen">Active</span></div>
+      </div>
+      <p class="pfoot">Degree program includes a built-in pathway to 14 industry certifications (in progress).</p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="cta">Let's talk.</div>
+      <p class="lede" style="margin:0 auto; text-align:center;">Open to security analyst, SOC, and systems administration roles — remote or Augusta, GA area.</p>
+      <div class="contactlinks">
+        <a href="mailto:eyshadae@gmail.com">eyshadae@gmail.com</a>
+        <a href="https://linkedin.com/in/eysha-penrod/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/cosmicgrimoire26-dotcom" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/cosmicgrimoire26-dotcom/CyberPort" target="_blank" rel="noopener">Full Portfolio</a>
+      </div>
+      <div class="stamp">// end of file</div>
+      <div class="legal"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="https://eyshtech.myshopify.com" target="_blank" rel="noopener">Shop</a></div>
+    </div>
   </footer>
+
 </body>
 </html>
